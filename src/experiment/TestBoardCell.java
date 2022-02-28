@@ -6,7 +6,7 @@ public class TestBoardCell {
 	private int row;
 	private int col;
 	private Set<TestBoardCell> adjList;
-	private boolean inRoom;
+	private boolean isRoom;
 	private boolean isOccupied;
 	
 	
@@ -14,6 +14,7 @@ public class TestBoardCell {
 		super();
 		this.row = row;
 		this.col = column;
+		this.adjList = new HashSet<TestBoardCell>();
 	}
 
 	public void addAdjList(TestBoardCell cell) {
@@ -24,12 +25,12 @@ public class TestBoardCell {
 		return adjList;
 	}
 	
-	public void setRoom(boolean inRoom) {
-		this.inRoom = inRoom;
+	public void setIsRoom(boolean inRoom) {
+		this.isRoom = inRoom;
 	}
 	
-	public boolean isRoom() {
-		return this.inRoom;
+	public boolean getIsRoom() {
+		return this.isRoom;
 	}
 
 	public void setOccupied(boolean isOccupied) {

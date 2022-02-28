@@ -2,12 +2,9 @@ package experiment;
 import java.util.*;
 
 public class TestBoard {
-	
-	private Set<TestBoardCell> nullCells;
-	private TestBoardCell nullCell;
-	
-	public TestBoard() {
 		
+	public TestBoard() {
+
 	}
 	
 	public void calcTargets(TestBoardCell startCell, int pathlength) {
@@ -15,10 +12,10 @@ public class TestBoard {
 	}
 	
 	public Set<TestBoardCell> getTargets() {
-		return nullCells;
+		return new HashSet<TestBoardCell>();
 	}
 	
-	TestBoardCell getCell( int row, int col ) {
-		return nullCell;
+	public TestBoardCell getCell( int row, int col ) {
+		return new TestBoardCell(-1, -1);
 	}
 }
