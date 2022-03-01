@@ -13,7 +13,7 @@ public class TestBoardCell {
 	private boolean isOccupied;
 	
 	
-	public TestBoardCell(int row, int column) {
+	public TestBoardCell(int column, int row) {
 		super();
 		this.row = row;
 		this.col = column;
