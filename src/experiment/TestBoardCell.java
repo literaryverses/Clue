@@ -15,9 +15,7 @@ public class TestBoardCell {
 	final static int COLS = 4;
 	final static int ROWS = 4;
 	
-	
 	public TestBoardCell(int column, int row) {
-		super();
 		this.row = row;
 		this.col = column;
 		this.adjList = new HashSet<TestBoardCell>();

@@ -15,6 +15,11 @@ public class TestBoard {
 		visited = new HashSet<TestBoardCell>();
 		targets = new HashSet<TestBoardCell>();
 		grid = new TestBoardCell[COLS][ROWS];
+		for (int i =0; i < ROWS; i++) {
+			for (int j=0; j < COLS; j++) {
+				grid[i][j] = new TestBoardCell(i,j);
+			}
+		}
 	}
 	
 	public void calcTargets(TestBoardCell startCell, int pathLength) {
