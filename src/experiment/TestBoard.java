@@ -20,12 +20,15 @@ public class TestBoard {
 				grid[i][j] = new TestBoardCell(i,j);
 			}
 		}
+		makeAdjs();
 	}
 	
 	public void calcTargets(TestBoardCell startCell, int pathLength) {
 		this.visited.add(startCell);
 		if (pathLength == 1) {
-			
+			for (TestBoardCell adjCell : startCell.getAdjList()) {
+				
+			}
 		}
 		
 		for (TestBoardCell adjCell : startCell.getAdjList()) {
@@ -88,15 +91,18 @@ public class TestBoard {
 			newCell.addAdjList(grid[col+1][row]);
 		} 
 		 
-		
+	}
+	
+	public void makeAdjs() {
+		for (int i = 0; i < COLS; i++) {
+			for (int j = 0; j < ROWS; j++) {
+				setAdjList(i,j);
+			}
+		}
 	}
 	
 	public TestBoardCell getCell( int col, int row ) {
 		TestBoardCell cell = grid[col][row];
-		if (cell.getAdjList().isEmpty()) {
-			setAdjList(col, row);
-		}
-			
 		return cell;
 	}
 }
