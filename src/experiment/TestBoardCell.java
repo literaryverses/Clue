@@ -20,25 +20,27 @@ public class TestBoardCell {
 		this.row = row;
 		this.col = column;
 		this.adjList = new HashSet<TestBoardCell>();
-		/*
-		 * if (row-1 >= 0) {
-		 * addAdjList(testBoardCell(row -1 , column));
-		 * } 
-		 * if (row+1 < ROWS) {
-		 * addAdjList(testBoardCell(row +1 , column));
-		 * } 
-		 * if (column-1 >= 0) {
-		 * addAdjList(testBoardCell(row  , column -1));
-		 * } 
-		 * if (column+1 < COLS) {
-		 * addAdjList(testBoardCell(row , column +1));
-		 * } 
-		 */
 	}
 
 	public void addAdjList(TestBoardCell cell) {
 		this.adjList.add(cell);
 	}
+	
+	/*public void makeAdjList() {
+		if (this.row-1 >= 0) {
+			addAdjList(new TestBoardCell(this.row -1 , this.col));
+			} 
+		if (this.row+1 < ROWS) {
+			addAdjList(new TestBoardCell(this.row +1 , this.col));
+		 	} 
+		if (this.col-1 >= 0) {
+		    addAdjList(new TestBoardCell(this.row  , this.col -1));
+		} 
+		if (this.col+1 < COLS) {
+			addAdjList(new TestBoardCell(this.row , this.col +1));
+		}
+	}
+	*/
 	
 	public Set<TestBoardCell> getAdjList() {
 		return adjList;

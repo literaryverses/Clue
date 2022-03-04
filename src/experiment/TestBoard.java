@@ -38,6 +38,25 @@ public class TestBoard {
 	 * remove adjCell from visited List
 	 */
 	
+	public void makeAdjacencies() {
+		for (int i = 0; i < ROWS; i++) {
+			for (int j = 0; i < COLS; i++) {
+				if (i-1 >= 0) {
+					this.grid[i][j].addAdjList(grid[i-1][j]);
+					} 
+				if (i+1 < ROWS) {
+					this.grid[i][j].addAdjList(grid[i+1][j]);
+				 	} 
+				if (j-1 >= 0) {
+					this.grid[i][j].addAdjList(grid[i][j-1]);
+				} 
+				if (j+1 < COLS) {
+					this.grid[i][j].addAdjList(grid[i][j+1]);
+				}
+			}
+		}
+	}
+	
 	public Set<TestBoardCell> getTargets() {
 		return targets;
 	}
