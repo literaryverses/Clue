@@ -15,42 +15,19 @@ public class TestBoard {
 		visited = new HashSet<TestBoardCell>();
 		targets = new HashSet<TestBoardCell>();
 		grid = new TestBoardCell[COLS][ROWS];
-		for (int i =0; i < ROWS; i++) {
-			for (int j=0; j < COLS; j++) {
+		for (int i =0; i < COLS; i++) {
+			for (int j=0; j < ROWS; j++) {
 				grid[i][j] = new TestBoardCell(i,j);
 			}
 		}
 	}
 	
 	public void calcTargets(TestBoardCell startCell, int pathLength) {
+		this.visited.clear();
+		this.targets.clear();
 		this.visited.add(startCell);
-		if (pathLength == 1) {
-			
-		}
-		
-		for (TestBoardCell adjCell : startCell.getAdjList()) {
-			
-		}
-		
-		// visited list is used to avoid backtracking.  Set to empty list
-		// targets will ultimately contain the list of cells. Set to an empty list.
-		// Add the start location to the visited list (so no cycle through this cell)
-		// Call recursive function - name findAllTargets
-			// startCell and pathLength as parameters
+		findAllTargets(startCell, pathLength);
 	}
-	
-	/*
-	 * findALlTargets psuedo
-	 * param: thisCell, numSteps
-	 * 
-	 * for each adjCell in adjacentCells
-	 * if already visited, skip
-	 * 
-	 * add adjCell to visited list
-	 * if numSteps==1, add adjCell to Targets
-	 * else call findAllTargets with adjCell, numSteps-1
-	 * remove adjCell from visited List
-	 */
 	
 	public void findAllTargets(TestBoardCell thisCell, int numSteps) {
 		for (TestBoardCell adjCell: thisCell.getAdjList()) {
@@ -93,9 +70,6 @@ public class TestBoard {
 	
 	public TestBoardCell getCell( int col, int row ) {
 		TestBoardCell cell = grid[col][row];
-		if (cell.getAdjList().isEmpty()) {
-			setAdjList(col, row);
-		}
 			
 		return cell;
 	}
