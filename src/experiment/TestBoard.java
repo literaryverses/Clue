@@ -69,7 +69,7 @@ public class TestBoard {
 	
 	public void setAdjList( int col, int row ) {
 		TestBoardCell newCell = grid[col][row];
-		
+
 		if (row-1 >= 0) {
 			newCell.addAdjList(grid[col][row-1]);
 		} 
