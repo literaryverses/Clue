@@ -25,16 +25,20 @@ public class TestBoard {
 	
     public void calcTargets(TestBoardCell startCell, int pathLength) {
         this.visited.add(startCell);
+        
         for (TestBoardCell adjCell : startCell.getAdjList()) {
-            if (!(visited.contains(adjCell)) && !(adjCell.getOccupied())) {
+        	
+            if (!(visited.contains(adjCell)) && !(adjCell.getOccupied())) { 
+            	//doesn't look at this cell if its visited or occupied 
                 if (pathLength == 1 || adjCell.getIsRoom()) {
+                	//adds cell if it is a room entrance or last step of path
                     this.targets.add(adjCell);
-                    System.out.println(adjCell);
                 } else {
-                    calcTargets(adjCell,pathLength-1);
+                    calcTargets(adjCell,pathLength-1); 
                 }
             }
         }
+        //after doing all pathing from this cell, removes it from visited so other paths can still use cell
         this.visited.remove(startCell);
     }
 	public Set<TestBoardCell> getTargets() {
@@ -43,7 +47,8 @@ public class TestBoard {
 	
 	public void setAdjList( int col, int row ) {
 		TestBoardCell newCell = grid[col][row];
-
+		
+		//adds cells to the adjacent cell list if they are in the boundaries
 		if (row-1 >= 0) {
 			newCell.addAdjList(grid[col][row-1]);
 		} 
@@ -60,6 +65,8 @@ public class TestBoard {
 	}
 	
 	public void makeAdjs() {
+		//creates the adjacent cell list for all the cells in the grid
+		
 		for (int i = 0; i < COLS; i++) {
 			for (int j = 0; j < ROWS; j++) {
 				setAdjList(i,j);

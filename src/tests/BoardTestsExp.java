@@ -57,9 +57,12 @@ public class BoardTestsExp {
 	
 	@Test
 	public void testTargetCorner() {
+		//tests to see what if the corner cell gets the right targets
 		TestBoardCell cell = board.getCell(0, 0);
 		board.calcTargets(cell, 3);
 		Set<TestBoardCell> targets = board.getTargets();
+		
+		//makes sure answer is right
 		Assert.assertEquals(6, targets.size());
 		Assert.assertTrue(targets.contains(board.getCell(3, 0)));
 		Assert.assertTrue(targets.contains(board.getCell(2, 1)));
@@ -71,9 +74,12 @@ public class BoardTestsExp {
 	
 	@Test
 	public void testTargetCenter() {
+		//tests to see what if the center cell gets the right targets
 		TestBoardCell cell = board.getCell(1, 1);
 		board.calcTargets(cell, 2);
 		Set<TestBoardCell> targets = board.getTargets();
+		
+		//makes sure answer is right
 		Assert.assertEquals(6, targets.size());
 		Assert.assertTrue(targets.contains(board.getCell(0, 0)));
 		Assert.assertTrue(targets.contains(board.getCell(2, 0)));
@@ -85,26 +91,34 @@ public class BoardTestsExp {
 	
 	@Test
 	public void testWallSurround() {
-		// Set up occupied cells
+		// tests to see that surrounding walls doesn't allow the player to move
 		board.getCell(2, 1).setOccupied(true);
 		board.getCell(2, 3).setOccupied(true);
 		board.getCell(1, 2).setOccupied(true);
 		board.getCell(3, 2).setOccupied(true);
+		
 		TestBoardCell cell = board.getCell(2, 2);
 		board.calcTargets(cell, 2);
 		Set<TestBoardCell> targets = board.getTargets();
+		
+		//makes sure answer is right
+		Assert.assertEquals(0, targets.size());
 		}
+	
 	
 	@Test
 	public void testTargetWall() {
-		// Set up occupied cells
+		// tests to see that a wall doesn't allow player to pass
 		board.getCell(0, 1).setOccupied(true);
 		board.getCell(1, 1).setOccupied(true);
 		board.getCell(2, 1).setOccupied(true);
 		board.getCell(3, 1).setOccupied(true);
+		
 		TestBoardCell cell = board.getCell(3, 3);
 		board.calcTargets(cell, 4);
 		Set<TestBoardCell> targets = board.getTargets();
+		
+		//makes sure answer is right
 		Assert.assertEquals(3, targets.size());
 		Assert.assertTrue(targets.contains(board.getCell(0, 2)));
 		Assert.assertTrue(targets.contains(board.getCell(2, 2)));
@@ -113,15 +127,17 @@ public class BoardTestsExp {
 	
 	@Test
 	public void testTargetMixed() {
-		// Set up occupied cells
+		// tests targeting with both walls and rooms
 		board.getCell(0, 1).setIsRoom(true);
 		board.getCell(1, 1).setOccupied(true);
 		board.getCell(2, 1).setOccupied(true);
 		board.getCell(3, 1).setIsRoom(true);
+		
 		TestBoardCell cell = board.getCell(3, 3);
 		board.calcTargets(cell, 5);
 		Set<TestBoardCell> targets = board.getTargets();
-
+		
+		//makes sure answer is right
 		Assert.assertEquals(6, targets.size());
 		Assert.assertTrue(targets.contains(board.getCell(0, 1)));
 		Assert.assertTrue(targets.contains(board.getCell(3, 1)));
