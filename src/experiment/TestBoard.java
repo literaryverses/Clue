@@ -20,15 +20,32 @@ public class TestBoard {
 				grid[i][j] = new TestBoardCell(i,j);
 			}
 		}
+		makeAdjs();
 	}
 	
 	public void calcTargets(TestBoardCell startCell, int pathLength) {
 		this.visited.clear();
 		this.targets.clear();
 		this.visited.add(startCell);
-		findAllTargets(startCell, pathLength);
+//JL		findAllTargets(startCell, pathLength);
+
+		if (pathLength == 1) {
+			for (TestBoardCell adjCell : startCell.getAdjList()) {
+				
+			}
+		}
+		
+		for (TestBoardCell adjCell : startCell.getAdjList()) {
+			
+		}
+		
+		// visited list is used to avoid backtracking.  Set to empty list
+		// targets will ultimately contain the list of cells. Set to an empty list.
+		// Add the start location to the visited list (so no cycle through this cell)
+		// Call recursive function - name findAllTargets
+			// startCell and pathLength as parameters
 	}
-	
+/*JL	
 	public void findAllTargets(TestBoardCell thisCell, int numSteps) {
 		for (TestBoardCell adjCell: thisCell.getAdjList()) {
 			if (visited.contains(adjCell)) {
@@ -44,7 +61,7 @@ public class TestBoard {
 			visited.remove(adjCell);
 		}
 	}
-	
+*/	
 	public Set<TestBoardCell> getTargets() {
 		return targets;
 	}
@@ -65,12 +82,19 @@ public class TestBoard {
 			newCell.addAdjList(grid[col+1][row]);
 		} 
 		 
-		
+	}
+	
+	public void makeAdjs() {
+		for (int i = 0; i < COLS; i++) {
+			for (int j = 0; j < ROWS; j++) {
+				setAdjList(i,j);
+			}
+		}
 	}
 	
 	public TestBoardCell getCell( int col, int row ) {
 		TestBoardCell cell = grid[col][row];
-			
+
 		return cell;
 	}
 }
