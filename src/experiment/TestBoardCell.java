@@ -11,6 +11,8 @@ public class TestBoardCell {
 	private Set<TestBoardCell> adjList;
 	private boolean isRoom;
 	private boolean isOccupied;
+	final static int COLS = 4;
+	final static int ROWS = 4;
 	
 	
 	public TestBoardCell(int column, int row) {
@@ -18,6 +20,20 @@ public class TestBoardCell {
 		this.row = row;
 		this.col = column;
 		this.adjList = new HashSet<TestBoardCell>();
+		/*
+		 * if (row-1 >= 0) {
+		 * addAdjList(testBoardCell(row -1 , column));
+		 * } 
+		 * if (row+1 < ROWS) {
+		 * addAdjList(testBoardCell(row +1 , column));
+		 * } 
+		 * if (column-1 >= 0) {
+		 * addAdjList(testBoardCell(row  , column -1));
+		 * } 
+		 * if (column+1 < COLS) {
+		 * addAdjList(testBoardCell(row , column +1));
+		 * } 
+		 */
 	}
 
 	public void addAdjList(TestBoardCell cell) {
