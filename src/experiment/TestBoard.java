@@ -13,15 +13,24 @@ public class TestBoard {
 	
 	public TestBoard() {
 		visited = new HashSet<TestBoardCell>();
+		targets = new HashSet<TestBoardCell>();
 		grid = new TestBoardCell[COLS][ROWS];
 	}
 	
-	public void calcTargets(TestBoardCell startCell, int pathlength) {
-		// base case
+	public void calcTargets(TestBoardCell startCell, int pathLength) {
+		this.visited.add(startCell);
+		if (pathLength == 1) {
+			
+		}
+		
+		for (TestBoardCell adjCell : startCell.getAdjList()) {
+			
+		}
+		
 		// visited list is used to avoid backtracking.  Set to empty list
 		// targets will ultimately contain the list of cells. Set to an empty list.
 		// Add the start location to the visited list (so no cycle through this cell)
-		//Call recursive function - name findAllTargets
+		// Call recursive function - name findAllTargets
 			// startCell and pathLength as parameters
 	}
 	
@@ -38,22 +47,19 @@ public class TestBoard {
 	 * remove adjCell from visited List
 	 */
 	
-	public void makeAdjacencies() {
-		for (int i = 0; i < ROWS; i++) {
-			for (int j = 0; i < COLS; i++) {
-				if (i-1 >= 0) {
-					this.grid[i][j].addAdjList(grid[i-1][j]);
-					} 
-				if (i+1 < ROWS) {
-					this.grid[i][j].addAdjList(grid[i+1][j]);
-				 	} 
-				if (j-1 >= 0) {
-					this.grid[i][j].addAdjList(grid[i][j-1]);
-				} 
-				if (j+1 < COLS) {
-					this.grid[i][j].addAdjList(grid[i][j+1]);
-				}
+	public void findAllTargets(TestBoardCell thisCell, int numSteps) {
+		for (TestBoardCell adjCell: thisCell.getAdjList()) {
+			if (visited.contains(adjCell)) {
+				continue;
 			}
+			visited.add(adjCell);
+			if (numSteps == 1) {
+				targets.add(adjCell);
+			}
+			else {
+				findAllTargets(adjCell, numSteps-1);
+			}
+			visited.remove(adjCell);
 		}
 	}
 	
@@ -61,7 +67,31 @@ public class TestBoard {
 		return targets;
 	}
 	
+	public void setAdjList( int col, int row ) {
+		TestBoardCell newCell = grid[col][row];
+		
+		if (row-1 >= 0) {
+			newCell.addAdjList(grid[col][row-1]);
+		} 
+		if (row+1 < ROWS) {
+			newCell.addAdjList(grid[col][row+1]);
+		} 
+		if (col-1 >= 0) {
+			newCell.addAdjList(grid[col-1][row]);
+		} 
+		if (col+1 < COLS) {
+			newCell.addAdjList(grid[col+1][row]);
+		} 
+		 
+		
+	}
+	
 	public TestBoardCell getCell( int col, int row ) {
-		return grid[col][row];
+		TestBoardCell cell = grid[col][row];
+		if (cell.getAdjList().isEmpty()) {
+			setAdjList(col, row);
+		}
+			
+		return cell;
 	}
 }

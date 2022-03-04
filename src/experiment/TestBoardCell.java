@@ -3,6 +3,7 @@
 
 package experiment;
 import java.util.*;
+import experiment.TestBoard;
 
 
 public class TestBoardCell {
@@ -22,25 +23,9 @@ public class TestBoardCell {
 		this.adjList = new HashSet<TestBoardCell>();
 	}
 
-	public void addAdjList(TestBoardCell cell) {
+	public void addAdjList(TestBoardCell cell) {		
 		this.adjList.add(cell);
 	}
-	
-	/*public void makeAdjList() {
-		if (this.row-1 >= 0) {
-			addAdjList(new TestBoardCell(this.row -1 , this.col));
-			} 
-		if (this.row+1 < ROWS) {
-			addAdjList(new TestBoardCell(this.row +1 , this.col));
-		 	} 
-		if (this.col-1 >= 0) {
-		    addAdjList(new TestBoardCell(this.row  , this.col -1));
-		} 
-		if (this.col+1 < COLS) {
-			addAdjList(new TestBoardCell(this.row , this.col +1));
-		}
-	}
-	*/
 	
 	public Set<TestBoardCell> getAdjList() {
 		return adjList;
