@@ -30,6 +30,7 @@ public class TestBoardCell {
 	}
 	
 	public void setIsRoom(boolean inRoom) {
+		//System.out.println("here");
 		this.isRoom = inRoom;
 	}
 	

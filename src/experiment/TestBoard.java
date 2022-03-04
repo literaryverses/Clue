@@ -26,8 +26,8 @@ public class TestBoard {
     public void calcTargets(TestBoardCell startCell, int pathLength) {
         this.visited.add(startCell);
         for (TestBoardCell adjCell : startCell.getAdjList()) {
-            if (!(visited.contains(adjCell))) {
-                if (pathLength == 1) {
+            if (!(visited.contains(adjCell)) && !(adjCell.getOccupied())) {
+                if (pathLength == 1 || adjCell.getIsRoom()) {
                     this.targets.add(adjCell);
                     System.out.println(adjCell);
                 } else {
@@ -35,6 +35,7 @@ public class TestBoard {
                 }
             }
         }
+        this.visited.remove(startCell);
     }
 	public Set<TestBoardCell> getTargets() {
 		return targets;
