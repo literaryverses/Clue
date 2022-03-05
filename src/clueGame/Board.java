@@ -1,23 +1,23 @@
 // Jun Lee
 // Matthew Brause
 
-package experiment;
+package clueGame;
 import java.util.*;
 
 public class Board {
-	private TestBoardCell[][] grid;
+	private BoardCell[][] grid;
 	private Set<BoardCell> targets;
 	private Set<BoardCell> visited;
 	final static int COLS = 4;
 	final static int ROWS = 4;
 	
 	public Board() {
-		visited = new HashSet<TestBoardCell>();
-		targets = new HashSet<TestBoardCell>();
-		grid = new TestBoardCell[COLS][ROWS];
+		visited = new HashSet<BoardCell>();
+		targets = new HashSet<BoardCell>();
+		grid = new BoardCell[COLS][ROWS];
 		for (int i =0; i < COLS; i++) {
 			for (int j=0; j < ROWS; j++) {
-				grid[i][j] = new TestBoardCell(i,j);
+				grid[i][j] = new BoardCell(i,j);
 			}
 		}
 		makeAdjs();

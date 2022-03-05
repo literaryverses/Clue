@@ -1,7 +1,7 @@
 // Jun Lee
 // Matthew Brause
 
-package experiment;
+package clueGame;
 import java.util.*;
 import experiment.TestBoard;
 
@@ -30,7 +30,6 @@ public class BoardCell {
 	}
 	
 	public void setIsRoom(boolean inRoom) {
-		//System.out.println("here");
 		this.isDoor = inRoom;
 	}
 	
