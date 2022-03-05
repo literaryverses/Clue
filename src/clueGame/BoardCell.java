@@ -3,8 +3,6 @@
 
 package clueGame;
 import java.util.*;
-import experiment.TestBoard;
-
 
 public class BoardCell {
 	private boolean isDoor;
@@ -14,6 +12,7 @@ public class BoardCell {
 	private boolean isLabel;
 	private boolean isCenter;
 	private char secretPassage;
+	private Set<BoardCell> adjList;
 	
 	public BoardCell(int column, int row) {
 
@@ -70,5 +69,9 @@ public class BoardCell {
 
 	public void setSecretPassage(char secretPassage) {
 		this.secretPassage = secretPassage;
+	}
+	
+	public void addAdjList(BoardCell cell) {		
+		this.adjList.add(cell);
 	}
 }
