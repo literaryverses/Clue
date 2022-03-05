@@ -29,11 +29,11 @@ public class BoardCell {
 		return adjList;
 	}
 	
-	public void setIsRoom(boolean isDoor) {
+	public void setIsDoor(boolean isDoor) {
 		this.isDoor = isDoor;
 	}
 	
-	public boolean getIsRoom() {
+	public boolean getIsDoor() {
 		return this.isDoor;
 	}
 
