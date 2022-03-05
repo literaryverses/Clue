@@ -8,8 +8,8 @@ public class Board {
 	private BoardCell[][] grid;
 	private Set<BoardCell> targets;
 	private Set<BoardCell> visited;
-	static int COLS;
-	static int ROWS;
+	private static int COLS = 20;
+	private static int ROWS = 24;
 	private String layoutConfigFile;
 	private String setupConfigFileName;
 	private Map<Character,Room> roomMap = new HashMap<Character,Room>();
@@ -36,14 +36,22 @@ public class Board {
 		makeAdjs();
 	}
     
-	public static int getCOLS() {
+	public int getCOLS() {
 		return COLS;
 	}
-	public static int getROWS() {
+	public int getROWS() {
 		return ROWS;
 	}
     
-    public void setupConfigFiles(String layoutConfigFile, String setupConfigFileName) throws BadConfigFormatException {
+    public void setConfigFiles(String layoutConfigFile, String setupConfigFileName) throws BadConfigFormatException {
+
+    }
+    
+    public void loadSetupConfig() throws BadConfigFormatException {
+    	
+    }
+    
+    public void loadLayoutConfig() throws BadConfigFormatException {
     	
     }
 

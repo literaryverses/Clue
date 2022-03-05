@@ -12,7 +12,7 @@ public class BoardCell {
 	private boolean isLabel;
 	private boolean isCenter;
 	private char secretPassage;
-	private Set<BoardCell> adjList;
+	private Set<BoardCell> adjList = new HashSet<BoardCell>();
 	
 	public BoardCell(int column, int row) {
 

@@ -32,7 +32,7 @@ public class FileInitTests {
 		// Board is singleton, get the only instance
 		board = Board.getInstance();
 		// set the file names to use my config files
-		board.setupConfigFiles("ClueLayout.csv", "ClueSetup.txt");
+		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
 		// Initialize will load BOTH config files
 		board.initialize();
 	}
@@ -119,7 +119,7 @@ public class FileInitTests {
 		int numDoors = 0;
 		for (int row = 0; row < board.getROWS(); row++)
 			for (int col = 0; col < board.getCOLS(); col++) {
-				BoardCell cell = board.getCell(row, col);
+				BoardCell cell = board.getCell(col, row);
 				if (cell.getIsDoor())
 					numDoors++;
 			}
