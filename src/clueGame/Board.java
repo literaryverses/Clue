@@ -12,7 +12,10 @@ public class Board {
 	private Set<BoardCell> visited;
 	final static int COLS = 21;
 	final static int ROWS = 25;
-	String[][] cellTags;
+	private String layoutFileName;
+	private String setupFileName;
+	private Map<String,Room> roomMap;
+	private String[][] cellTags;
 	
 	private static Board theInstance = new Board();
     // constructor is private to ensure only one can be created
@@ -21,9 +24,13 @@ public class Board {
         cellTags = new String[ROWS][COLS];
         visited = new HashSet<BoardCell>();
    		targets = new HashSet<BoardCell>();
-   		grid = new BoardCell[ROWS][COLS];
+   		grid = new BoardCell[ROWS][COLS];   		
+   		
    		for (int i =0; i < ROWS; i++) {
    			for (int j=0; j < COLS; j++) {
+   				
+   				
+   				
    				grid[i][j] = new BoardCell(i,j);
    			}
    		}
@@ -47,7 +54,7 @@ public class Board {
         	
             if (!(visited.contains(adjCell)) && !(adjCell.getOccupied())) { 
             	//doesn't look at this cell if its visited or occupied 
-                if (pathLength == 1 || adjCell.getIsDoor()) {
+                if (pathLength == 1 || adjCell.isDoorway()) {
                 	//adds cell if it is a room entrance or last step of path
                     this.targets.add(adjCell);
                 } else {
