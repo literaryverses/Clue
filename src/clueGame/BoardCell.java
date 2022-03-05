@@ -29,8 +29,8 @@ public class BoardCell {
 		return adjList;
 	}
 	
-	public void setIsRoom(boolean inRoom) {
-		this.isDoor = inRoom;
+	public void setIsRoom(boolean isDoor) {
+		this.isDoor = isDoor;
 	}
 	
 	public boolean getIsRoom() {
