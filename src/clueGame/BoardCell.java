@@ -18,14 +18,14 @@ public class BoardCell {
 	private boolean roomCenter;
 	private char secretPassage;
 	
-	public BoardCell(int row, int column) {
+	public BoardCell(int column, int row) {
 		this.col = column;
 		this.row = row;
 		this.adjList = new HashSet<BoardCell>();
 	}
 	
-	public void getDoorDirection() {
-		
+	public DoorDirection getDoorDirection() {
+		return doorDirection;
 	}
 
 	public void addAdjList(BoardCell cell) {		
@@ -51,10 +51,5 @@ public class BoardCell {
 	public boolean getOccupied() {
 		return isOccupied;
 	}
-	
-    @Override
-    public String toString() {
-        return this.row + " + " + this.col;
-    }
 	
 }

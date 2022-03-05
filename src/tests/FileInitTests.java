@@ -17,10 +17,10 @@ import clueGame.BoardCell;
 import clueGame.DoorDirection;
 import clueGame.Room;
 
-public class FileInitTests306 {
+public class FileInitTests {
 	// Constants that I will use to test whether the file was loaded correctly
 	public static final int LEGEND_SIZE = 11;
-	public static final int NUM_ROWS = 25;
+	public static final int NUM_ROWS = 20;
 	public static final int NUM_COLUMNS = 24;
 
 	// NOTE: I made Board static because I only want to set it up one
@@ -32,7 +32,7 @@ public class FileInitTests306 {
 		// Board is singleton, get the only instance
 		board = Board.getInstance();
 		// set the file names to use my config files
-		board.setConfigFiles("ClueLayout306.csv", "ClueSetup306.txt");
+		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
 		// Initialize will load BOTH config files
 		board.initialize();
 	}
@@ -41,40 +41,66 @@ public class FileInitTests306 {
 	public void testRoomLabels() {
 		// To ensure data is correctly loaded, test retrieving a few rooms
 		// from the hash, including the first and last in the file and a few others
-		assertEquals("Conservatory", board.getRoom('C').getName() );
-		assertEquals("Ballroom", board.getRoom('B').getName() );
-		assertEquals("Billiard Room", board.getRoom('R').getName() );
 		assertEquals("Dining Room", board.getRoom('D').getName() );
+		assertEquals("Bedroom", board.getRoom('B').getName() );
+		assertEquals("Library", board.getRoom('L').getName() );
+		assertEquals("Music Room", board.getRoom('M').getName() );
 		assertEquals("Walkway", board.getRoom('W').getName() );
+		assertEquals("Kitchen", board.getRoom('K').getName() );
+		assertEquals("Bathroom", board.getRoom('P').getName() );
+		assertEquals("Gaming Room", board.getRoom('G').getName() );
+		assertEquals("Study", board.getRoom('S').getName() );
+		assertEquals("Hall", board.getRoom('H').getName() );
+		assertEquals("Unused", board.getRoom('X').getName() );
 	}
 
 	@Test
 	public void testBoardDimensions() {
 		// Ensure we have the proper number of rows and columns
-		assertEquals(NUM_ROWS, board.getNumRows());
-		assertEquals(NUM_COLUMNS, board.getNumColumns());
+		assertEquals(NUM_ROWS, board.getROWS());
+		assertEquals(NUM_COLUMNS, board.getCOLS());
 	}
 
 	// Test a doorway in each direction (RIGHT/LEFT/UP/DOWN), plus
 	// two cells that are not a doorway.
 	// These cells are white on the planning spreadsheet
 	@Test
-	public void FourDoorDirections() {
-		BoardCell cell = board.getCell(8, 7);
-		assertTrue(cell.isDoorway());
+	public void fourDoorDirections() {
+		BoardCell cell = board.getCell(11, 8);
+		assertTrue(cell.getIsDoor());
 		assertEquals(DoorDirection.LEFT, cell.getDoorDirection());
-		cell = board.getCell(7, 12);
-		assertTrue(cell.isDoorway());
+		cell = board.getCell(5, 8);
+		assertTrue(cell.getIsDoor());
 		assertEquals(DoorDirection.UP, cell.getDoorDirection());
-		cell = board.getCell(4, 8);
-		assertTrue(cell.isDoorway());
+		cell = board.getCell(6, 1);
+		assertTrue(cell.getIsDoor());
 		assertEquals(DoorDirection.RIGHT, cell.getDoorDirection());
-		cell = board.getCell(16, 9);
-		assertTrue(cell.isDoorway());
+		cell = board.getCell(0, 7);
+		assertTrue(cell.getIsDoor());
 		assertEquals(DoorDirection.DOWN, cell.getDoorDirection());
-		// Test that walkways are not doors
-		cell = board.getCell(12, 14);
-		assertFalse(cell.isDoorway());
+		// Test cells that are not doors
+		cell = board.getCell(11, 4); //walkway
+		assertFalse(cell.getIsDoor());
+		cell = board.getCell(2, 4); //bedroom
+		assertFalse(cell.getIsDoor());
+		cell = board.getCell(3, 13); //music room		
+		assertFalse(cell.getIsDoor());
+		cell = board.getCell(4, 22); //kitchen		
+		assertFalse(cell.getIsDoor());
+		cell = board.getCell(8, 5); //hall		
+		assertFalse(cell.getIsDoor());
+		cell = board.getCell(14, 2); //library		
+		assertFalse(cell.getIsDoor());
+		cell = board.getCell(14, 13); //gaming room		
+		assertFalse(cell.getIsDoor());
+		cell = board.getCell(20, 11); //bathrom		
+		assertFalse(cell.getIsDoor());
+		cell = board.getCell(4, 22); //kitchen		
+		assertFalse(cell.getIsDoor());
+		cell = board.getCell(19, 16); //study		
+		assertFalse(cell.getIsDoor());
+		cell = board.getCell(8, 15); //unused		
+		assertFalse(cell.getIsDoor());
 	}
 	
 

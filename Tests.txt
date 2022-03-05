@@ -1,0 +1,13 @@
+CSCI306, Section A
+Jun Lee
+Matthew Brause
+
+1. Minor edits mostly matching the test to our data
+
+2. testRoomLabels()
+-Test all the rooms
+-Rearranged the order of checking the rooms
+
+3. fourDoorDirections()
+-Test all the doors
+-Test cells in every room that are not doors

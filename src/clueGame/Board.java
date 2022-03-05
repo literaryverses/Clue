@@ -10,28 +10,16 @@ public class Board {
 	private BoardCell[][] grid;
 	private Set<BoardCell> targets;
 	private Set<BoardCell> visited;
-	final static int COLS = 21;
-	final static int ROWS = 25;
-	private String layoutFileName;
-	private String setupFileName;
+	static int COLS;
+	static int ROWS;
+	private String layoutConfigFile;
+	private String setupConfigFileName;
 	private Map<Character,Room> roomMap;
-	private String[][] cellTags;
 	
 	private static Board theInstance = new Board();
     // constructor is private to ensure only one can be created
     private Board() {
         super();
-        cellTags = new String[ROWS][COLS];
-        visited = new HashSet<BoardCell>();
-   		targets = new HashSet<BoardCell>();
-   		grid = new BoardCell[ROWS][COLS];   		
-   		
-   		for (int i =0; i < ROWS; i++) {
-   			for (int j=0; j < COLS; j++) {
-   				grid[i][j] = new BoardCell(i,j);
-   			}
-   		}
-   		makeAdjs();
     }
     // this method returns the only Board
     public static Board getInstance() {
@@ -40,18 +28,34 @@ public class Board {
     /*
      * initialize the board (since we are using singleton pattern)
      */
-    public void initialize()
-    {
+    public void initialize() {
+    	visited = new HashSet<BoardCell>();
+   		targets = new HashSet<BoardCell>();
+   		grid = new BoardCell[COLS][ROWS];   		
+   		
+   		for (int i =0; i < COLS; i++) {
+   			for (int j=0; j < ROWS; j++) {
+   				grid[i][j] = new BoardCell(i,j);
+   			}
+   		}
+   		makeAdjs();
     }
+    
+	public static int getCOLS() {
+		return COLS;
+	}
+	public static int getROWS() {
+		return ROWS;
+	}
+
 	
     public void calcTargets(BoardCell startCell, int pathLength) {
         this.visited.add(startCell);
         
         for (BoardCell adjCell : startCell.getAdjList()) {
-        	
             if (!(visited.contains(adjCell)) && !(adjCell.getOccupied())) { 
             	//doesn't look at this cell if its visited or occupied 
-                if (pathLength == 1 || adjCell.getDoor()) {
+                if (pathLength == 1 || adjCell.getIsDoor()) {
                 	//adds cell if it is a room entrance or last step of path
                     this.targets.add(adjCell);
                 } else {
@@ -59,28 +63,29 @@ public class Board {
                 }
             }
         }
-        //after doing all pathing from this cell, removes it from visited so other paths can still use cell
+        //after doing all paths from this cell, removes it from visited so other paths can still use cell
         this.visited.remove(startCell);
     }
+    
 	public Set<BoardCell> getTargets() {
 		return targets;
 	}
 	
 	public void setAdjList( int row, int col ) {
-		BoardCell newCell = grid[row][col];
+		BoardCell newCell = grid[col][row];
 		
 		//adds cells to the adjacent cell list if they are in the boundaries
 		if (col-1 >= 0) {
-			newCell.addAdjList(grid[row][col-1]);
+			newCell.addAdjList(grid[col-1][row]);
 		} 
 		if (col+1 < COLS) {
-			newCell.addAdjList(grid[row][col+1]);
+			newCell.addAdjList(grid[col+1][row]);
 		} 
 		if (row-1 >= 0) {
-			newCell.addAdjList(grid[row-1][col]);
+			newCell.addAdjList(grid[col][row-1]);
 		} 
 		if (row+1 < ROWS) {
-			newCell.addAdjList(grid[row+1][col]);
+			newCell.addAdjList(grid[col][row+1]);
 		} 
 		 
 	}
@@ -95,12 +100,18 @@ public class Board {
 		}
 	}
 	
-	public BoardCell getCell( int row, int col ) {
-		BoardCell cell = grid[row][col];
+	public BoardCell getCell( int col, int row ) {
+		BoardCell cell = grid[col][row];
 
 		return cell;
 	}
 	
+	public Room getRoom(char x) {
+		return roomMap.get(x);
+	}
+	
+	
+/*
 public void loadDataFile(String fileName) throws FileNotFoundException {
 		String[] lineTags;
 		String line;
@@ -123,5 +134,6 @@ public void loadDataFile(String fileName) throws FileNotFoundException {
 		}
 
 	};
+*/
 	
 }
