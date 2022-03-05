@@ -30,7 +30,7 @@ public class Board {
         	
             if (!(visited.contains(adjCell)) && !(adjCell.getOccupied())) { 
             	//doesn't look at this cell if its visited or occupied 
-                if (pathLength == 1 || adjCell.getIsRoom()) {
+                if (pathLength == 1 || adjCell.getIsDoor()) {
                 	//adds cell if it is a room entrance or last step of path
                     this.targets.add(adjCell);
                 } else {
