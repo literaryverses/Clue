@@ -11,8 +11,13 @@ public class Board {
 	final static int COLS = 4;
 	final static int ROWS = 4;
 	
-	public Board() {
-		visited = new HashSet<BoardCell>();
+    /*
+    * variable and methods used for singleton pattern
+    */
+    private static Board theInstance = new Board();
+    // constructor is private to ensure only one can be created
+    private Board() {
+    	visited = new HashSet<BoardCell>();
 		targets = new HashSet<BoardCell>();
 		grid = new BoardCell[COLS][ROWS];
 		for (int i =0; i < COLS; i++) {
@@ -21,7 +26,17 @@ public class Board {
 			}
 		}
 		makeAdjs();
-	}
+    }
+    // this method returns the only Board
+    public static Board getInstance() {
+    	return theInstance;
+    }
+    /*
+     * initialize the board (since we are using singleton pattern)
+     */
+    public void initialize()
+    {
+    }
 	
     public void calcTargets(BoardCell startCell, int pathLength) {
         this.visited.add(startCell);

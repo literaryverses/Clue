@@ -7,18 +7,25 @@ import experiment.TestBoard;
 
 
 public class BoardCell {
-	private int row;
 	private int col;
+	private int row;
 	private Set<BoardCell> adjList;
 	private boolean isDoor;
 	private boolean isOccupied;
-	final static int COLS = 4;
-	final static int ROWS = 4;
+	private DoorDirection doorDirection;
+	private char initial;
+	private boolean roomLabel;
+	private boolean roomCenter;
+	private char secretPassage;
 	
-	public BoardCell(int column, int row) {
-		this.row = row;
+	public BoardCell(int row, int column) {
 		this.col = column;
+		this.row = row;
 		this.adjList = new HashSet<BoardCell>();
+	}
+	
+	public void getDoorDirection() {
+		
 	}
 
 	public void addAdjList(BoardCell cell) {		
@@ -33,7 +40,7 @@ public class BoardCell {
 		this.isDoor = isDoor;
 	}
 	
-	public boolean getIsDoor() {
+	public boolean isDoorway() {
 		return this.isDoor;
 	}
 
@@ -47,7 +54,7 @@ public class BoardCell {
 	
     @Override
     public String toString() {
-        return this.col + " + " + this.row;
+        return this.row + " + " + this.col;
     }
 	
 }
