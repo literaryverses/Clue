@@ -14,7 +14,7 @@ public class Board {
 	final static int ROWS = 25;
 	private String layoutFileName;
 	private String setupFileName;
-	private Map<String,Room> roomMap;
+	private Map<Character,Room> roomMap;
 	private String[][] cellTags;
 	
 	private static Board theInstance = new Board();
