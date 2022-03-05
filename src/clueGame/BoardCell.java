@@ -40,7 +40,7 @@ public class BoardCell {
 		this.isDoor = isDoor;
 	}
 	
-	public boolean isDoorway() {
+	public boolean getIsDoor() {
 		return this.isDoor;
 	}
 
