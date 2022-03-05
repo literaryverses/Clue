@@ -28,9 +28,6 @@ public class Board {
    		
    		for (int i =0; i < ROWS; i++) {
    			for (int j=0; j < COLS; j++) {
-   				
-   				
-   				
    				grid[i][j] = new BoardCell(i,j);
    			}
    		}
@@ -54,7 +51,7 @@ public class Board {
         	
             if (!(visited.contains(adjCell)) && !(adjCell.getOccupied())) { 
             	//doesn't look at this cell if its visited or occupied 
-                if (pathLength == 1 || adjCell.isDoorway()) {
+                if (pathLength == 1 || adjCell.getDoor()) {
                 	//adds cell if it is a room entrance or last step of path
                     this.targets.add(adjCell);
                 } else {
