@@ -7,33 +7,20 @@ import experiment.TestBoard;
 
 
 public class BoardCell {
-	private int col;
-	private int row;
-	private Set<BoardCell> adjList;
 	private boolean isDoor;
 	private boolean isOccupied;
 	private DoorDirection doorDirection;
 	private char initial;
-	private boolean roomLabel;
-	private boolean roomCenter;
+	private boolean isLabel;
+	private boolean isCenter;
 	private char secretPassage;
 	
 	public BoardCell(int column, int row) {
-		this.col = column;
-		this.row = row;
-		this.adjList = new HashSet<BoardCell>();
+
 	}
 	
 	public DoorDirection getDoorDirection() {
 		return doorDirection;
-	}
-
-	public void addAdjList(BoardCell cell) {		
-		this.adjList.add(cell);
-	}
-	
-	public Set<BoardCell> getAdjList() {
-		return adjList;
 	}
 	
 	public void setIsDoor(boolean isDoor) {
@@ -44,12 +31,44 @@ public class BoardCell {
 		return this.isDoor;
 	}
 
-	public void setOccupied(boolean isOccupied) {
-		this.isOccupied = isOccupied;
+	
+	public char getInitial() {
+		return initial;
+	}
+
+	public void setInitial(char initial) {
+		this.initial = initial;
 	}
 	
 	public boolean getOccupied() {
 		return isOccupied;
 	}
+
+	public void setOccupied(boolean isOccupied) {
+		this.isOccupied = isOccupied;
+	}
 	
+	public boolean getIsLabel() {
+		return isLabel;
+	}
+	
+	public void setIsLabel(boolean isLabel) {
+		this.isLabel = isLabel;
+	}
+
+	public boolean getIsCenter() {
+		return isCenter;
+	}
+
+	public void setIsCenter(boolean isCenter) {
+		this.isCenter = isCenter;
+	}
+
+	public char getSecretPassage() {
+		return secretPassage;
+	}
+
+	public void setSecretPassage(char secretPassage) {
+		this.secretPassage = secretPassage;
+	}
 }

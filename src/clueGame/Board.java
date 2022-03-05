@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
 
+import experiment.TestBoardCell;
+
 public class Board {
 	private BoardCell[][] grid;
 	private Set<BoardCell> targets;
@@ -29,16 +31,7 @@ public class Board {
      * initialize the board (since we are using singleton pattern)
      */
     public void initialize() {
-    	visited = new HashSet<BoardCell>();
-   		targets = new HashSet<BoardCell>();
-   		grid = new BoardCell[COLS][ROWS];   		
-   		
-   		for (int i =0; i < COLS; i++) {
-   			for (int j=0; j < ROWS; j++) {
-   				grid[i][j] = new BoardCell(i,j);
-   			}
-   		}
-   		makeAdjs();
+    	
     }
     
 	public static int getCOLS() {
@@ -47,93 +40,18 @@ public class Board {
 	public static int getROWS() {
 		return ROWS;
 	}
+    
+    public void setupConfigFiles(String layoutConfigFile, String setupConfigFileName) throws BadConfigFormatException {
+    	
+    }
 
 	
-    public void calcTargets(BoardCell startCell, int pathLength) {
-        this.visited.add(startCell);
-        
-        for (BoardCell adjCell : startCell.getAdjList()) {
-            if (!(visited.contains(adjCell)) && !(adjCell.getOccupied())) { 
-            	//doesn't look at this cell if its visited or occupied 
-                if (pathLength == 1 || adjCell.getIsDoor()) {
-                	//adds cell if it is a room entrance or last step of path
-                    this.targets.add(adjCell);
-                } else {
-                    calcTargets(adjCell,pathLength-1); 
-                }
-            }
-        }
-        //after doing all paths from this cell, removes it from visited so other paths can still use cell
-        this.visited.remove(startCell);
-    }
-    
-	public Set<BoardCell> getTargets() {
-		return targets;
-	}
-	
-	public void setAdjList( int row, int col ) {
-		BoardCell newCell = grid[col][row];
-		
-		//adds cells to the adjacent cell list if they are in the boundaries
-		if (col-1 >= 0) {
-			newCell.addAdjList(grid[col-1][row]);
-		} 
-		if (col+1 < COLS) {
-			newCell.addAdjList(grid[col+1][row]);
-		} 
-		if (row-1 >= 0) {
-			newCell.addAdjList(grid[col][row-1]);
-		} 
-		if (row+1 < ROWS) {
-			newCell.addAdjList(grid[col][row+1]);
-		} 
-		 
-	}
-	
-	public void makeAdjs() {
-		//creates the adjacent cell list for all the cells in the grid
-		
-		for (int i = 0; i < ROWS; i++) {
-			for (int j = 0; j < COLS; j++) {
-				setAdjList(i,j);
-			}
-		}
+	public Room getRoom(BoardCell cell) {
+		return roomMap.get(cell.getInitial());
 	}
 	
 	public BoardCell getCell( int col, int row ) {
 		BoardCell cell = grid[col][row];
-
 		return cell;
 	}
-	
-	public Room getRoom(char x) {
-		return roomMap.get(x);
-	}
-	
-	
-/*
-public void loadDataFile(String fileName) throws FileNotFoundException {
-		String[] lineTags;
-		String line;
-		int count = 0;
-		// open file for reading
-		FileReader fileReader = new FileReader(fileName);
-		Scanner scan = new Scanner(fileReader);
-		
-		// loop over lines and add to array as a Student
-		while (scan.hasNextLine()) {
-			
-			// grab the data as strings
-			line = scan.nextLine();
-			lineTags = line.split(",");
-			for (int i = 0; i < lineTags.length; i++) {
-				cellTags[count][i] = lineTags[i];
-			}
-			count++;
-			
-		}
-
-	};
-*/
-	
 }

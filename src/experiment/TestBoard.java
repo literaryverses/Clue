@@ -27,7 +27,6 @@ public class TestBoard {
         this.visited.add(startCell);
         
         for (TestBoardCell adjCell : startCell.getAdjList()) {
-        	
             if (!(visited.contains(adjCell)) && !(adjCell.getOccupied())) { 
             	//doesn't look at this cell if its visited or occupied 
                 if (pathLength == 1 || adjCell.getIsRoom()) {
@@ -66,7 +65,6 @@ public class TestBoard {
 	
 	public void makeAdjs() {
 		//creates the adjacent cell list for all the cells in the grid
-		
 		for (int i = 0; i < COLS; i++) {
 			for (int j = 0; j < ROWS; j++) {
 				setAdjList(i,j);
@@ -76,7 +74,6 @@ public class TestBoard {
 	
 	public TestBoardCell getCell( int col, int row ) {
 		TestBoardCell cell = grid[col][row];
-
 		return cell;
 	}
 }

@@ -9,5 +9,5 @@ Matthew Brause
 -Rearranged the order of checking the rooms
 
 3. fourDoorDirections()
--Test all the doors
--Test cells in every room that are not doors
+-Test all directions of the doors
+-Test cells in every room

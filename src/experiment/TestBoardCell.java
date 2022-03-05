@@ -46,9 +46,4 @@ public class TestBoardCell {
 		return isOccupied;
 	}
 	
-    @Override
-    public String toString() {
-        return this.col + " + " + this.row;
-    }
-	
 }
