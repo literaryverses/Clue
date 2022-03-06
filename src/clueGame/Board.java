@@ -51,7 +51,8 @@ public class Board {
 	}
     
     public void setConfigFiles(String layoutConfigFile, String setupConfigFileName) throws BadConfigFormatException {
-
+    	this.layoutConfigFile = layoutConfigFile;
+    	this.setupConfigFileName = setupConfigFileName;
     }
     
     public void loadSetupConfig() throws BadConfigFormatException {
