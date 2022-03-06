@@ -30,9 +30,9 @@ public class Board {
      * initialize the board (since we are using singleton pattern)
      */
     public void initialize() throws FileNotFoundException {
-    	
-    	layoutConfigFile = "ClueLayout306.csv";
+    	layoutConfigFile = "data/ClueLayout306.csv";
     	loadDataFile(layoutConfigFile);
+    	//printBoard();
     	
     	grid = new BoardCell[ROWS][COLS];
 		for (int i =0; i < ROWS; i++) {
@@ -107,20 +107,20 @@ public class Board {
         String[] lineTags;
         String line;
         ArrayList<String> raws = new ArrayList<String>();
-        
+
         // open file for reading
         FileReader fileReader = new FileReader(fileName);
         Scanner scan = new Scanner(fileReader);
         
         // loop over lines and add to array
-        
         while (scan.hasNextLine()) {
         	raws.add(scan.nextLine());
         }
         scan.close();
         
         ROWS = raws.size();
-        COLS = raws.get(0).length();
+        lineTags = raws.get(0).split(",");
+        COLS = lineTags.length;
         cellTags = new String[ROWS][COLS];
         
         for (int i = 0; i < ROWS; i++) {
@@ -134,5 +134,15 @@ public class Board {
         }
 
     };
+    
+    public void printBoard() {
+    	System.out.println(ROWS + " , " + COLS);
+    	for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLS; j++) {
+                System.out.print(cellTags[i][j] + " ");
+            }
+            System.out.println(" ");
+        }
+    }
 	
 }
