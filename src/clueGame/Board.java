@@ -8,8 +8,8 @@ public class Board {
 	private BoardCell[][] grid;
 	private Set<BoardCell> targets;
 	private Set<BoardCell> visited;
-	private static int COLS = 20;
-	private static int ROWS = 24;
+	private static int COLS;
+	private static int ROWS;
 	private String layoutConfigFile;
 	private String setupConfigFileName;
 	private Map<Character,Room> roomMap = new HashMap<Character,Room>();
@@ -36,10 +36,10 @@ public class Board {
 		makeAdjs();
 	}
     
-	public int getCOLS() {
+	public int getNumColumns() {
 		return COLS;
 	}
-	public int getROWS() {
+	public int getNumRows() {
 		return ROWS;
 	}
     
@@ -60,7 +60,11 @@ public class Board {
 		return roomMap.get(cell.getInitial());
 	}
 	
-	public BoardCell getCell( int col, int row ) {
+	public Room getRoom(char x) {
+		return roomMap.get(x);
+	}
+	
+	public BoardCell getCell( int row, int col ) {
 		BoardCell cell = grid[col][row];
 		return cell;
 	}
@@ -74,7 +78,7 @@ public class Board {
 		}
 	}
 	
-	public void setAdjList( int col, int row ) {
+	public void setAdjList( int row, int col ) {
 		BoardCell newCell = grid[col][row];
 		
 		//adds cells to the adjacent cell list if they are in the boundaries
