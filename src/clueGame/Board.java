@@ -31,7 +31,7 @@ public class Board {
      */
     public void initialize() throws FileNotFoundException {
     	
-    	layoutConfigFile = "ClueLayout306";
+    	layoutConfigFile = "ClueLayout306.csv";
     	loadDataFile(layoutConfigFile);
     	
     	grid = new BoardCell[ROWS][COLS];
