@@ -2,17 +2,20 @@
 // Matthew Brause
 
 package clueGame;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.*;
 
 public class Board {
 	private BoardCell[][] grid;
 	private Set<BoardCell> targets;
 	private Set<BoardCell> visited;
-	private static int COLS;
-	private static int ROWS;
+	private int COLS;
+	private int ROWS;
 	private String layoutConfigFile;
 	private String setupConfigFileName;
 	private Map<Character,Room> roomMap = new HashMap<Character,Room>();
+	private String[][] cellTags;
 	
 	private static Board theInstance = new Board();
     // constructor is private to ensure only one can be created
@@ -26,10 +29,14 @@ public class Board {
     /*
      * initialize the board (since we are using singleton pattern)
      */
-    public void initialize() {
-    	grid = new BoardCell[COLS][ROWS];
-		for (int i =0; i < COLS; i++) {
-			for (int j=0; j < ROWS; j++) {
+    public void initialize() throws FileNotFoundException {
+    	
+    	layoutConfigFile = "ClueLayout306";
+    	loadDataFile(layoutConfigFile);
+    	
+    	grid = new BoardCell[ROWS][COLS];
+		for (int i =0; i < ROWS; i++) {
+			for (int j=0; j < COLS; j++) {
 				grid[i][j] = new BoardCell(i,j);
 			}
 		}
@@ -56,7 +63,7 @@ public class Board {
     }
 
 	
-	public Room getRoom(c cell) {
+	public Room getRoom(BoardCell cell) {
 		return roomMap.get(cell.getInitial());
 	}
 	
@@ -94,6 +101,38 @@ public class Board {
 		if (col+1 < COLS) {
 			newCell.addAdjList(grid[col+1][row]);
 		} 
-		 
 	}
+	
+	public void loadDataFile(String fileName) throws FileNotFoundException {
+        String[] lineTags;
+        String line;
+        ArrayList<String> raws = new ArrayList<String>();
+        
+        // open file for reading
+        FileReader fileReader = new FileReader(fileName);
+        Scanner scan = new Scanner(fileReader);
+        
+        // loop over lines and add to array
+        
+        while (scan.hasNextLine()) {
+        	raws.add(scan.nextLine());
+        }
+        scan.close();
+        
+        ROWS = raws.size();
+        COLS = raws.get(0).length();
+        cellTags = new String[ROWS][COLS];
+        
+        for (int i = 0; i < ROWS; i++) {
+            
+            // grab the data as strings
+            line = raws.get(i);
+            lineTags = line.split(",");
+            for (int j = 0; j < lineTags.length; j++) {
+                cellTags[i][j] = lineTags[j];
+            }          
+        }
+
+    };
+	
 }
