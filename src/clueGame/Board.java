@@ -54,6 +54,11 @@ public class Board {
     public void loadLayoutConfig() throws BadConfigFormatException {
     	
     }
+
+	
+	public Room getRoom(c cell) {
+		return roomMap.get(cell.getInitial());
+	}
 	
 	public Room getRoom(char x) {
 		return roomMap.get(x);
