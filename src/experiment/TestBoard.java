@@ -14,6 +14,7 @@ public class TestBoard {
 	public TestBoard() {
 		visited = new HashSet<TestBoardCell>();
 		targets = new HashSet<TestBoardCell>();
+		
 		grid = new TestBoardCell[COLS][ROWS];
 		for (int i =0; i < COLS; i++) {
 			for (int j=0; j < ROWS; j++) {

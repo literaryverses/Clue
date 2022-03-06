@@ -43,8 +43,10 @@ public class Board {
 		return ROWS;
 	}
     
-    public void setConfigFiles(String layoutConfigFile, String setupConfigFileName) {
-
+    public void setConfigFiles(String layoutCSV, String setupTXT) {
+    	this.layoutConfigFile = layoutCSV;
+    	this.setupConfigFileName = setupTXT;
+    	
     }
     
     public void loadSetupConfig() throws BadConfigFormatException {
