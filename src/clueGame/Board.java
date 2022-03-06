@@ -43,7 +43,7 @@ public class Board {
 		return ROWS;
 	}
     
-    public void setConfigFiles(String layoutConfigFile, String setupConfigFileName) throws BadConfigFormatException {
+    public void setConfigFiles(String layoutConfigFile, String setupConfigFileName) {
 
     }
     
