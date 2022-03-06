@@ -33,12 +33,7 @@ public class Board {
     	loadLayoutConfig();
     	//printBoard();
     	
-    	grid = new BoardCell[ROWS][COLS];
-		for (int i =0; i < ROWS; i++) {
-			for (int j=0; j < COLS; j++) {
-				grid[i][j] = new BoardCell(i,j);
-			}
-		}
+    	makeBoard();
 		makeAdjs();
 	}
     
@@ -101,6 +96,15 @@ public class Board {
 	public BoardCell getCell( int row, int col ) {
 		BoardCell cell = grid[col][row];
 		return cell;
+	}
+	
+	public void makeBoard() {
+		grid = new BoardCell[ROWS][COLS];
+		for (int i =0; i < ROWS; i++) {
+			for (int j=0; j < COLS; j++) {
+				grid[i][j] = new BoardCell(i,j);
+			}
+		}
 	}
 	
 	public void makeAdjs() {
