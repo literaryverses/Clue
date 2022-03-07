@@ -97,4 +97,8 @@ public class BoardCell {
 	public void addAdjList(BoardCell cell) {		
 		this.adjList.add(cell);
 	}
+	
+	public Set<BoardCell> getAdjList() {
+		return adjList;
+	}
 }

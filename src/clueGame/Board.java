@@ -36,18 +36,32 @@ public class Board {
     	}
 	}
     
+    /*
+     * get columns of grid
+     */
 	public int getNumColumns() {
 		return COLS;
 	}
+	
+	/*
+	 * get rows of grid
+	 */
 	public int getNumRows() {
 		return ROWS;
 	}
     
+	/*
+	 * Sets up files to read 
+	 * @param String layoutCSV, setupTXT
+	 */
     public void setConfigFiles(String layoutCSV, String setupTXT) {
     	this.layoutConfigFile = "data/"+layoutCSV;
     	this.setupConfigFileName = "data/"+setupTXT;
     }
     
+    /*
+     * loads setup file to read in legend
+     */
     public void loadSetupConfig() throws BadConfigFormatException, FileNotFoundException {
 		// open file
     	FileReader fileReader = new FileReader(setupConfigFileName);
@@ -73,6 +87,9 @@ public class Board {
 		scan.close();
     }
     
+    /*
+     * loads layout file to read in map
+     */
     public void loadLayoutConfig() throws BadConfigFormatException, FileNotFoundException {
     	String[] line;
     	
@@ -88,6 +105,11 @@ public class Board {
     	createGrid(raws);
 		makeAdjList();
 	}
+    
+    /*
+     * creates a grid based on info extracted from layout file
+     * @param ArrayList<String> raws
+     */
 	public void createGrid(ArrayList<String> raws) throws BadConfigFormatException {
 		String[] line;
 		grid = new BoardCell[ROWS][COLS];
@@ -122,21 +144,25 @@ public class Board {
 		}
 	}
     
+	/*
+	 * Sets the variables for special cells
+	 * @param BoardCell newCell, char first, second 
+	 */
 	public void editSpecialCells(BoardCell newCell, char first, char second) throws BadConfigFormatException {
-		if (second == '*' ) {
+		if (second == '*' ) { // Room center
 			newCell.setIsCenter(true);
 			Character c = first;
 			Room room = roomMap.get(c);
 			room.setCenterCell(newCell);
 		}
-		if (second == '#') {
+		if (second == '#') { // Room Label
 			newCell.setIsLabel(true);
 			Character c = first;
 			Room room = roomMap.get(c);
 			room.setLabelCell(newCell);
 		}
 		if (second == '^' || second == 'v' || second == '>' || second == '<') {
-			newCell.setIsDoor(true);
+			newCell.setIsDoor(true); // Doorway
 			newCell.setDoorDirection(second);
 		}
 		if (second < 91 && second > 64) { // checks if second char is letter
@@ -144,6 +170,9 @@ public class Board {
 		}
 	}
     
+	/*
+	 * returns data extracted from read layout file
+	 */
 	public ArrayList<String> extractLayoutFile() throws FileNotFoundException {
 		String[] line;
         ArrayList<String> raws = new ArrayList<String>();
@@ -160,6 +189,9 @@ public class Board {
 		return raws;
 	}
 	
+	/*
+	 * creates an adjacency list for every cell in teh grid
+	 */
 	public void makeAdjList() {
 		//creates the adjacent cell list for all the cells in the grid
 		for (int i = 0; i < ROWS; i++) {
@@ -172,20 +204,36 @@ public class Board {
 		}
 	}
 
-	
+	/*
+	 * gets room of given cell
+	 * @param BoardCell cell
+	 */
 	public Room getRoom(BoardCell cell) {
 		return roomMap.get(cell.getInitial());
 	}
 	
+	/*
+	 * gets room based on legend key
+	 * @param char x
+	 */
 	public Room getRoom(char x) {
 		return roomMap.get(x);
 	}
 	
+	/*
+	 * gets cell from grid based on coordinates
+	 * @param int row, int col
+	 */
 	public BoardCell getCell( int row, int col ) {
 		BoardCell cell = grid[row][col];
 		return cell;
 	}
 	
+	/*
+	 * checks for valid cells to add to adjacency list of a given cell
+	 *  based on cell's coordinates
+	 * @param int row, int col
+	 */
 	public void setAdjList( int row, int col ) {
 		BoardCell newCell = grid[row][col];
 		
@@ -203,5 +251,42 @@ public class Board {
 			newCell.addAdjList(grid[row][col+1]);
 		} 
 		 
+	}
+	
+	/*
+	 * Calculates player's available targets based on how many steps
+	 *  are needed and the starting cell
+	 * @param BoardCell startCell, int pathLength
+	 */
+	public void calcTargets(BoardCell startCell, int pathLength) {
+        this.visited.add(startCell);
+        
+        for (BoardCell adjCell : startCell.getAdjList()) {
+            if (!(visited.contains(adjCell)) && !(adjCell.getOccupied())) { 
+            	//doesn't look at this cell if its visited or occupied 
+                if (pathLength == 1 || adjCell.isRoomCenter()) { // FIXME
+                	//adds cell if it is a room entrance or last step of path
+                    this.targets.add(adjCell);
+                } else {
+                    calcTargets(adjCell,pathLength-1); 
+                }
+            }
+        }
+        //after doing all pathing from this cell, removes it from visited so other paths can still use cell
+        this.visited.remove(startCell);
+    }
+	
+	/*
+	 * returns the target list
+	 */
+	public Set<BoardCell> getTargets() {
+		return targets;
+	}
+	
+	/*
+	 * returns the adjacency list
+	 */
+	public Set<BoardCell> getAdjList(int row, int col) {
+		return grid[row][col].getAdjList();
 	}
 }

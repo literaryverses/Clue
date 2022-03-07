@@ -41,6 +41,7 @@ public class TestBoard {
         //after doing all pathing from this cell, removes it from visited so other paths can still use cell
         this.visited.remove(startCell);
     }
+    
 	public Set<TestBoardCell> getTargets() {
 		return targets;
 	}
