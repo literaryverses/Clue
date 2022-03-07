@@ -9,8 +9,8 @@ public class Board {
 	private BoardCell[][] grid;
 	private Set<BoardCell> targets;
 	private Set<BoardCell> visited;
-	private static int COLS;
-	private static int ROWS;
+	private int ROWS;
+	private int COLS;
 	private String layoutConfigFile;
 	private String setupConfigFileName;
 	private Map<Character,Room> roomMap = new HashMap<Character,Room>();
@@ -91,7 +91,7 @@ public class Board {
 
         // create grid from dimensions
         // extract data and save by cell
-    	grid = new BoardCell[COLS][ROWS];
+    	grid = new BoardCell[ROWS][COLS];
 		for (int i =0; i < ROWS; i++) {
 			line = raws.get(i).split(",");
 			for (int j=0; j < COLS; j++) {
@@ -103,18 +103,18 @@ public class Board {
         		newCell.setInitial(first);
         		
         		
-        		if (line.length == 2) {
+        		if (cell.length() == 2) {
         			second = line[j].charAt(1); // extract 2nd char
         		}
         		if (second == '*' ) {
         			newCell.setIsCenter(true);
-        			Character c = second;
+        			Character c = first;
         			Room room = roomMap.get(c);
         			room.setCenterCell(newCell);
         		}
         		if (second == '#') {
         			newCell.setIsLabel(true);
-        			Character c = second;
+        			Character c = first;
         			Room room = roomMap.get(c);
         			room.setLabelCell(newCell);
         		}
@@ -130,12 +130,15 @@ public class Board {
 			}
 		}
 		//creates the adjacent cell list for all the cells in the grid
-		for (int i = 0; i < COLS; i++) {
-			for (int j = 0; j < ROWS; j++) {
+		for (int i = 0; i < ROWS; i++) {
+			for (int j = 0; j < COLS; j++) {
+				if (j==21) {
+					//delete
+				}
 				setAdjList(i,j);
 			}
 		}
-    }
+	}
 
 	
 	public Room getRoom(BoardCell cell) {
@@ -147,34 +150,25 @@ public class Board {
 	}
 	
 	public BoardCell getCell( int row, int col ) {
-		BoardCell cell = grid[col][row];
+		BoardCell cell = grid[row][col];
 		return cell;
 	}
 	
-	public void makeAdjs() {
-		//creates the adjacent cell list for all the cells in the grid
-		for (int i = 0; i < COLS; i++) {
-			for (int j = 0; j < ROWS; j++) {
-				setAdjList(i,j);
-			}
-		}
-	}
-	
 	public void setAdjList( int row, int col ) {
-		BoardCell newCell = grid[col][row];
+		BoardCell newCell = grid[row][col];
 		
 		//adds cells to the adjacent cell list if they are in the boundaries
 		if (row-1 >= 0) {
-			newCell.addAdjList(grid[col][row-1]);
+			newCell.addAdjList(grid[row-1][col]);
 		} 
 		if (row+1 < ROWS) {
-			newCell.addAdjList(grid[col][row+1]);
+			newCell.addAdjList(grid[row+1][col]);
 		} 
 		if (col-1 >= 0) {
-			newCell.addAdjList(grid[col-1][row]);
+			newCell.addAdjList(grid[row][col-1]);
 		} 
 		if (col+1 < COLS) {
-			newCell.addAdjList(grid[col+1][row]);
+			newCell.addAdjList(grid[row][col+1]);
 		} 
 		 
 	}

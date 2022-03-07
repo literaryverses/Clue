@@ -15,10 +15,10 @@ public class TestBoard {
 		visited = new HashSet<TestBoardCell>();
 		targets = new HashSet<TestBoardCell>();
 		
-		grid = new TestBoardCell[COLS][ROWS];
+		grid = new TestBoardCell[ROWS][COLS];
 		for (int i =0; i < COLS; i++) {
 			for (int j=0; j < ROWS; j++) {
-				grid[i][j] = new TestBoardCell(i,j);
+				grid[j][i] = new TestBoardCell(j,i);
 			}
 		}
 		makeAdjs();
@@ -45,21 +45,21 @@ public class TestBoard {
 		return targets;
 	}
 	
-	public void setAdjList( int col, int row ) {
-		TestBoardCell newCell = grid[col][row];
+	public void setAdjList( int row, int col ) {
+		TestBoardCell newCell = grid[row][col];
 		
 		//adds cells to the adjacent cell list if they are in the boundaries
 		if (row-1 >= 0) {
-			newCell.addAdjList(grid[col][row-1]);
+			newCell.addAdjList(grid[row-1][col]);
 		} 
 		if (row+1 < ROWS) {
-			newCell.addAdjList(grid[col][row+1]);
+			newCell.addAdjList(grid[row+1][col]);
 		} 
 		if (col-1 >= 0) {
-			newCell.addAdjList(grid[col-1][row]);
+			newCell.addAdjList(grid[row][col-1]);
 		} 
 		if (col+1 < COLS) {
-			newCell.addAdjList(grid[col+1][row]);
+			newCell.addAdjList(grid[row][col+1]);
 		} 
 		 
 	}
@@ -68,13 +68,13 @@ public class TestBoard {
 		//creates the adjacent cell list for all the cells in the grid
 		for (int i = 0; i < COLS; i++) {
 			for (int j = 0; j < ROWS; j++) {
-				setAdjList(i,j);
+				setAdjList(j,i);
 			}
 		}
 	}
 	
-	public TestBoardCell getCell( int col, int row ) {
-		TestBoardCell cell = grid[col][row];
+	public TestBoardCell getCell( int row, int col ) {
+		TestBoardCell cell = grid[row][col];
 		return cell;
 	}
 }
