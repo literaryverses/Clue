@@ -72,6 +72,66 @@ public class Board {
     
     public void loadLayoutConfig() throws BadConfigFormatException, FileNotFoundException {
     	String[] line;
+    	
+    	// extract data from file
+		ArrayList<String> raws = extractLayoutFile();
+        
+        // determine dimensions
+        ROWS = raws.size();
+        line = raws.get(0).split(",");
+        COLS = line.length;
+
+        // create grid from dimensions
+    	createGrid(raws);
+		makeAdjList();
+	}
+	public void createGrid(ArrayList<String> raws) {
+		String[] line;
+		grid = new BoardCell[ROWS][COLS];
+		for (int i =0; i < ROWS; i++) {
+			line = raws.get(i).split(",");
+			for (int j=0; j < COLS; j++) {
+				BoardCell newCell = new BoardCell(i,j); // create new cell
+				String cell = line[j]; // extract cell from 
+        		
+        		char first = line[j].charAt(0); // extract 1st char
+        		char second = ' ';
+        		newCell.setInitial(first);
+        		
+        		if (cell.length() == 2) {
+        			second = line[j].charAt(1); // extract 2nd char
+        		}
+        		editSpecialCells(newCell, first, second);
+        		
+				grid[i][j] = newCell; // insert cell into grid
+			}
+		}
+	}
+    
+	public void editSpecialCells(BoardCell newCell, char first, char second) {
+		if (second == '*' ) {
+			newCell.setIsCenter(true);
+			Character c = first;
+			Room room = roomMap.get(c);
+			room.setCenterCell(newCell);
+		}
+		if (second == '#') {
+			newCell.setIsLabel(true);
+			Character c = first;
+			Room room = roomMap.get(c);
+			room.setLabelCell(newCell);
+		}
+		if (second == '^' || second == 'v' || second == '>' || second == '<') {
+			newCell.setIsDoor(true);
+			newCell.setDoorDirection(second);
+		}
+		if (second < 91 && second > 64) {
+			newCell.setSecretPassage(second);
+		}
+	}
+    
+	public ArrayList<String> extractLayoutFile() throws FileNotFoundException {
+		String[] line;
         ArrayList<String> raws = new ArrayList<String>();
 
         // open file for reading
@@ -83,52 +143,10 @@ public class Board {
         	raws.add(scan.nextLine());
         }
         scan.close();
-        
-        // determine dimensions
-        ROWS = raws.size();
-        line = raws.get(0).split(",");
-        COLS = line.length;
-
-        // create grid from dimensions
-        // extract data and save by cell
-    	grid = new BoardCell[ROWS][COLS];
-		for (int i =0; i < ROWS; i++) {
-			line = raws.get(i).split(",");
-			for (int j=0; j < COLS; j++) {
-				BoardCell newCell = new BoardCell(i,j); // create new cell
-				String cell = line[j]; // extract cell from 
-        		
-        		char first = line[j].charAt(0); // extract 1st char
-        		char second = ' ';
-        		newCell.setInitial(first);
-        		
-        		
-        		if (cell.length() == 2) {
-        			second = line[j].charAt(1); // extract 2nd char
-        		}
-        		if (second == '*' ) {
-        			newCell.setIsCenter(true);
-        			Character c = first;
-        			Room room = roomMap.get(c);
-        			room.setCenterCell(newCell);
-        		}
-        		if (second == '#') {
-        			newCell.setIsLabel(true);
-        			Character c = first;
-        			Room room = roomMap.get(c);
-        			room.setLabelCell(newCell);
-        		}
-        		if (second == '^' || second == 'v' || second == '>' || second == '<') {
-        			newCell.setIsDoor(true);
-        			newCell.setDoorDirection(second);
-        		}
-        		if (second < 91 && second > 64) {
-        			newCell.setSecretPassage(second);
-        		}
-        		
-				grid[i][j] = newCell; // insert cell into grid
-			}
-		}
+		return raws;
+	}
+	
+	public void makeAdjList() {
 		//creates the adjacent cell list for all the cells in the grid
 		for (int i = 0; i < ROWS; i++) {
 			for (int j = 0; j < COLS; j++) {
