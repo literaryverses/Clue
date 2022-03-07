@@ -2,20 +2,18 @@
 // Matthew Brause
 
 package clueGame;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.*;
 
 public class Board {
 	private BoardCell[][] grid;
 	private Set<BoardCell> targets;
 	private Set<BoardCell> visited;
-	private int COLS;
-	private int ROWS;
+	private static int COLS;
+	private static int ROWS;
 	private String layoutConfigFile;
 	private String setupConfigFileName;
 	private Map<Character,Room> roomMap = new HashMap<Character,Room>();
-	private String[][] cellTags;
 	
 	private static Board theInstance = new Board();
     // constructor is private to ensure only one can be created
@@ -29,12 +27,13 @@ public class Board {
     /*
      * initialize the board (since we are using singleton pattern)
      */
-    public void initialize() throws BadConfigFormatException {
-    	loadLayoutConfig();
-    	//printBoard();
-    	
-    	makeBoard();
-		makeAdjs();
+    public void initialize() { 
+    	try {
+    		loadSetupConfig();
+    		loadLayoutConfig();
+    	} catch (Exception e) {
+    		System.out.println(e.getMessage());
+    	}
 	}
     
 	public int getNumColumns() {
@@ -44,18 +43,35 @@ public class Board {
 		return ROWS;
 	}
     
-    public void setConfigFiles(String layoutConfigFile, String setupConfigFileName) throws BadConfigFormatException {
-    	this.layoutConfigFile = layoutConfigFile;
-    	this.setupConfigFileName = setupConfigFileName;
+    public void setConfigFiles(String layoutCSV, String setupTXT) {
+    	this.layoutConfigFile = "data/"+layoutCSV;
+    	this.setupConfigFileName = "data/"+setupTXT;
     }
     
-    public void loadSetupConfig() throws BadConfigFormatException {
-    	
+    public void loadSetupConfig() throws BadConfigFormatException, FileNotFoundException {
+		// open file
+    	FileReader fileReader = new FileReader(setupConfigFileName);
+		Scanner scan = new Scanner(fileReader);
+		
+		// read each line
+		while (scan.hasNextLine()) {
+			String line = scan.nextLine();
+			String[] lines = line.split(", "); // split line by commas
+			if (lines[0].equals("Room") || lines[0].equals("Space")) {
+				Room r = new Room();
+				r.setName(lines[1]); // extract room
+				Character c = lines[2].charAt(0); // extract initial
+				roomMap.put(c, r);
+			}
+			else {
+				continue;
+			}
+		}
+		scan.close();
     }
     
-    public void loadLayoutConfig() throws BadConfigFormatException {
-    	String[] lineTags;
-        String line;
+    public void loadLayoutConfig() throws BadConfigFormatException, FileNotFoundException {
+    	String[] line;
         ArrayList<String> raws = new ArrayList<String>();
 
         // open file for reading
@@ -68,20 +84,57 @@ public class Board {
         }
         scan.close();
         
+        // determine dimensions
         ROWS = raws.size();
-        lineTags = raws.get(0).split(",");
-        COLS = lineTags.length;
-        cellTags = new String[ROWS][COLS];
-        
-        for (int i = 0; i < ROWS; i++) {
-            
-            // grab the data as strings
-            line = raws.get(i);
-            lineTags = line.split(",");
-            for (int j = 0; j < lineTags.length; j++) {
-                cellTags[i][j] = lineTags[j];
-            }          
-        }
+        line = raws.get(0).split(",");
+        COLS = line.length;
+
+        // create grid from dimensions
+        // extract data and save by cell
+    	grid = new BoardCell[COLS][ROWS];
+		for (int i =0; i < ROWS; i++) {
+			line = raws.get(i).split(",");
+			for (int j=0; j < COLS; j++) {
+				BoardCell newCell = new BoardCell(i,j); // create new cell
+				String cell = line[j]; // extract cell from 
+        		
+        		char first = line[j].charAt(0); // extract 1st char
+        		char second = ' ';
+        		newCell.setInitial(first);
+        		
+        		
+        		if (line.length == 2) {
+        			second = line[j].charAt(1); // extract 2nd char
+        		}
+        		if (second == '*' ) {
+        			newCell.setIsCenter(true);
+        			Character c = second;
+        			Room room = roomMap.get(c);
+        			room.setCenterCell(newCell);
+        		}
+        		if (second == '#') {
+        			newCell.setIsLabel(true);
+        			Character c = second;
+        			Room room = roomMap.get(c);
+        			room.setLabelCell(newCell);
+        		}
+        		if (second == '^' || second == 'v' || second == '>' || second == '<') {
+        			newCell.setIsDoor(true);
+        			newCell.setDoorDirection(second);
+        		}
+        		if (second < 91 && second > 64) {
+        			newCell.setSecretPassage(second);
+        		}
+        		
+				grid[i][j] = newCell; // insert cell into grid
+			}
+		}
+		//creates the adjacent cell list for all the cells in the grid
+		for (int i = 0; i < COLS; i++) {
+			for (int j = 0; j < ROWS; j++) {
+				setAdjList(i,j);
+			}
+		}
     }
 
 	
@@ -96,15 +149,6 @@ public class Board {
 	public BoardCell getCell( int row, int col ) {
 		BoardCell cell = grid[col][row];
 		return cell;
-	}
-	
-	public void makeBoard() {
-		grid = new BoardCell[ROWS][COLS];
-		for (int i =0; i < ROWS; i++) {
-			for (int j=0; j < COLS; j++) {
-				grid[i][j] = new BoardCell(i,j);
-			}
-		}
 	}
 	
 	public void makeAdjs() {
@@ -132,48 +176,6 @@ public class Board {
 		if (col+1 < COLS) {
 			newCell.addAdjList(grid[col+1][row]);
 		} 
+		 
 	}
-	
-	public void loadDataFile(String fileName) throws FileNotFoundException {
-        String[] lineTags;
-        String line;
-        ArrayList<String> raws = new ArrayList<String>();
-
-        // open file for reading
-        FileReader fileReader = new FileReader(fileName);
-        Scanner scan = new Scanner(fileReader);
-        
-        // loop over lines and add to array
-        while (scan.hasNextLine()) {
-        	raws.add(scan.nextLine());
-        }
-        scan.close();
-        
-        ROWS = raws.size();
-        lineTags = raws.get(0).split(",");
-        COLS = lineTags.length;
-        cellTags = new String[ROWS][COLS];
-        
-        for (int i = 0; i < ROWS; i++) {
-            
-            // grab the data as strings
-            line = raws.get(i);
-            lineTags = line.split(",");
-            for (int j = 0; j < lineTags.length; j++) {
-                cellTags[i][j] = lineTags[j];
-            }          
-        }
-
-    }
-    
-    public void printBoard() {
-    	System.out.println(ROWS + " , " + COLS);
-    	for (int i = 0; i < ROWS; i++) {
-            for (int j = 0; j < COLS; j++) {
-                System.out.print(cellTags[i][j] + " ");
-            }
-            System.out.println(" ");
-        }
-    }
-	
 }

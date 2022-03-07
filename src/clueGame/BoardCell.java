@@ -5,6 +5,7 @@ package clueGame;
 import java.util.*;
 
 public class BoardCell {
+	private int row, col;
 	private boolean isDoor;
 	private boolean isOccupied;
 	private DoorDirection doorDirection;
@@ -15,13 +16,35 @@ public class BoardCell {
 	private Set<BoardCell> adjList = new HashSet<BoardCell>();
 	
 	public BoardCell(int row, int column) {
-
-	}
+		this.row = row;
+		this.col = column;
+		this.adjList = new HashSet<BoardCell>();
+		this.doorDirection = DoorDirection.NONE;
+		this.isOccupied = false;
+		this.isDoor = false;
+		this.isLabel = false;
+		this.isCenter = false;
+	} 
 	
 	public DoorDirection getDoorDirection() {
 		return doorDirection;
 	}
 	
+	public void setDoorDirection(char w) {
+		if (w=='>') {
+			this.doorDirection = doorDirection.RIGHT;			
+		}
+		else if (w=='<') {
+			this.doorDirection = doorDirection.LEFT;			
+		}
+		else if (w=='v') {
+			this.doorDirection = doorDirection.DOWN;			
+		}
+		else if (w=='^'){
+			this.doorDirection = doorDirection.UP;
+		}
+	}
+
 	public void setIsDoor(boolean isDoor) {
 		this.isDoor = isDoor;
 	}
