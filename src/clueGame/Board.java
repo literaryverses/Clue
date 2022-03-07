@@ -7,8 +7,8 @@ import java.util.*;
 
 public class Board {
 	private BoardCell[][] grid;
-	private Set<BoardCell> targets;
-	private Set<BoardCell> visited;
+	private Set<BoardCell> targets = new HashSet<BoardCell>();
+	private Set<BoardCell> visited = new HashSet<BoardCell>();
 	private int ROWS;
 	private int COLS;
 	private String layoutConfigFile;
