@@ -2,6 +2,7 @@
 // Matthew Brause
 
 package clueGame;
+import java.io.FileReader;
 import java.util.*;
 
 public class Board {
@@ -26,7 +27,14 @@ public class Board {
     /*
      * initialize the board (since we are using singleton pattern)
      */
-    public void initialize() {
+    public void initialize() { 
+    	
+    	try {
+    		loadSetupConfig();
+    		loadLayoutConfig();
+    	} catch (BadConfigFormatException e) {
+    		System.out.println(e.getMessage());
+    	}
     	
     	grid = new BoardCell[COLS][ROWS];
 		for (int i =0; i < COLS; i++) {
@@ -51,7 +59,33 @@ public class Board {
     }
     
     public void loadSetupConfig() throws BadConfigFormatException {
-    	
+    	String[] lineTags;
+        String line;
+        ArrayList<String> raws = new ArrayList<String>();
+
+        // open file for reading
+        FileReader fileReader = new FileReader(layoutConfigFile);
+        Scanner scan = new Scanner(fileReader);
+        
+        // loop over lines and add to array
+        while (scan.hasNextLine()) {
+        	raws.add(scan.nextLine());
+        }
+        scan.close();
+        
+        ROWS = raws.size();
+        lineTags = raws.get(0).split(",");
+        COLS = lineTags.length;
+        cellTags = new String[ROWS][COLS];
+        
+        for (int i = 0; i < ROWS; i++) {
+            
+            // grab the data as strings
+            line = raws.get(i);
+            lineTags = line.split(",");
+            for (int j = 0; j < lineTags.length; j++) {
+                cellTags[i][j] = lineTags[j];
+            }
     }
     
     public void loadLayoutConfig() throws BadConfigFormatException {
