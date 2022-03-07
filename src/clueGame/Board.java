@@ -63,6 +63,9 @@ public class Board {
 				Character c = lines[2].charAt(0); // extract initial
 				roomMap.put(c, r);
 			}
+			else if (Character.isLetter(lines[0].charAt(0))) {
+				throw new BadConfigFormatException();
+			}
 			else {
 				continue;
 			}
@@ -85,16 +88,27 @@ public class Board {
     	createGrid(raws);
 		makeAdjList();
 	}
-	public void createGrid(ArrayList<String> raws) {
+	public void createGrid(ArrayList<String> raws) throws BadConfigFormatException {
 		String[] line;
 		grid = new BoardCell[ROWS][COLS];
+		
 		for (int i =0; i < ROWS; i++) {
+			
 			line = raws.get(i).split(",");
+			
+			if (line.length < COLS) {
+				throw new BadConfigFormatException("Dimensions are inconsistent");
+			}
+			
 			for (int j=0; j < COLS; j++) {
 				BoardCell newCell = new BoardCell(i,j); // create new cell
 				String cell = line[j]; // extract cell from 
         		
         		char first = line[j].charAt(0); // extract 1st char
+    			Character c = first;
+        		if (roomMap.containsKey(c) == false) {
+    				throw new BadConfigFormatException("Unidentified room located");
+    			}
         		char second = ' ';
         		newCell.setInitial(first);
         		
@@ -108,7 +122,7 @@ public class Board {
 		}
 	}
     
-	public void editSpecialCells(BoardCell newCell, char first, char second) {
+	public void editSpecialCells(BoardCell newCell, char first, char second) throws BadConfigFormatException {
 		if (second == '*' ) {
 			newCell.setIsCenter(true);
 			Character c = first;
@@ -125,7 +139,7 @@ public class Board {
 			newCell.setIsDoor(true);
 			newCell.setDoorDirection(second);
 		}
-		if (second < 91 && second > 64) {
+		if (second < 91 && second > 64) { // checks if second char is letter
 			newCell.setSecretPassage(second);
 		}
 	}
