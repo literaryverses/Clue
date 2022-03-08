@@ -174,4 +174,9 @@ public class BoardCell {
 		return adjList;
 	}
 	
+	@Override
+	public String toString() {
+		return "(" + this.row + "," + this.col + ")";
+	}
+	
 }
