@@ -27,7 +27,7 @@ class BoardAdjTargetTest {
 	}
 
 	@Test
-	void testWalkways() {
+	void testWalkwayAdjacency() {
 		//tests a walkway that is connected on all sides
 		Set<BoardCell> testList = board.getAdjList(9, 6);
 		assertEquals(4, testList.size());
@@ -36,7 +36,7 @@ class BoardAdjTargetTest {
 		assertTrue(testList.contains(board.getCell(9, 7)));
 		assertTrue(testList.contains(board.getCell(9, 5)));
 		
-		//tests a walkway in a corner
+		//tests a walkway in a corner of room and edge
 		testList = board.getAdjList(7, 20);
 		assertEquals(2, testList.size());
 		assertTrue(testList.contains(board.getCell(6, 20)));
@@ -49,6 +49,24 @@ class BoardAdjTargetTest {
 		assertTrue(testList.contains(board.getCell(3, 12)));
 		assertTrue(testList.contains(board.getCell(4, 11)));
 		assertTrue(testList.contains(board.getCell(2, 16)));
+	}
+	
+	void testRoomAdjacency() {
+		//tests room center
+		Set<BoardCell> testList = board.getAdjList(21, 12);
+		assertEquals(2, testList.size());
+		assertTrue(testList.contains(board.getCell(23, 8)));
+		assertTrue(testList.contains(board.getCell(19, 16)));
+		
+		//tests normal room
+		testList = board.getAdjList(5, 5);
+		assertEquals(0, testList.size());
+		
+		//tests secret passage
+		testList = board.getAdjList(2, 2);
+		assertEquals(2, testList.size());
+		assertTrue(testList.contains(board.getCell(6, 5)));
+		assertTrue(testList.contains(board.getCell(10, 20)));
 		
 	}
 
