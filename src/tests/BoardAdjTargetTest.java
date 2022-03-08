@@ -51,6 +51,7 @@ class BoardAdjTargetTest {
 		assertTrue(testList.contains(board.getCell(2, 16)));
 	}
 	
+	@Test
 	void testRoomAdjacency() {
 		//tests room center
 		Set<BoardCell> testList = board.getAdjList(21, 12);
@@ -69,5 +70,46 @@ class BoardAdjTargetTest {
 		assertTrue(testList.contains(board.getCell(10, 20)));
 		
 	}
+	
+	// Tests out of room center, 1, 3 and 4
+		// These are LIGHT BLUE on the planning spreadsheet
+		@Test
+		public void testTargetsInWalkways() {
+			// test a roll of 1
+			board.calcTargets(board.getCell(15, 12), 1);
+			Set<BoardCell> targets= board.getTargets();
+			assertEquals(3, targets.size());
+			assertTrue(targets.contains(board.getCell(15, 11)));
+			assertTrue(targets.contains(board.getCell(16, 12)));	
+			assertTrue(targets.contains(board.getCell(14, 12)));	
+			
+			// test a roll of 2
+			board.calcTargets(board.getCell(15, 12), 2);
+			targets= board.getTargets();
+			assertEquals(5, targets.size());
+			assertTrue(targets.contains(board.getCell(17, 12)));	
+			assertTrue(targets.contains(board.getCell(16, 13)));	
+			assertTrue(targets.contains(board.getCell(13, 12)));	
+			assertTrue(targets.contains(board.getCell(14, 11)));	
+			assertTrue(targets.contains(board.getCell(16, 11)));	
+			
+			// test a roll of 4
+			board.calcTargets(board.getCell(15, 12), 4);
+			targets= board.getTargets();
+			assertEquals(12, targets.size());
+			assertTrue(targets.contains(board.getCell(17, 12)));	
+			assertTrue(targets.contains(board.getCell(16, 13)));	
+			assertTrue(targets.contains(board.getCell(13, 12)));	
+			assertTrue(targets.contains(board.getCell(14, 11)));	
+			assertTrue(targets.contains(board.getCell(16, 11)));	
+			assertTrue(targets.contains(board.getCell(11, 14)));	
+			assertTrue(targets.contains(board.getCell(12, 11)));	
+			assertTrue(targets.contains(board.getCell(11, 12)));	
+			assertTrue(targets.contains(board.getCell(16, 9)));	
+			assertTrue(targets.contains(board.getCell(16, 15)));	
+			assertTrue(targets.contains(board.getCell(17, 10)));	
+			assertTrue(targets.contains(board.getCell(17, 14)));	
+		}
+	
 
 }
