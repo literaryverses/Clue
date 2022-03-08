@@ -12,6 +12,7 @@ public class BoardCell {
 	private char initial;
 	private boolean isLabel;
 	private boolean isCenter;
+	private boolean isUsed;
 	private char secretPassage;
 	private Set<BoardCell> adjList = new HashSet<BoardCell>();
 	
@@ -28,6 +29,7 @@ public class BoardCell {
 		this.isDoor = false;
 		this.isLabel = false;
 		this.isCenter = false;
+		this.isUsed = true;
 	} 
 	
 	/*

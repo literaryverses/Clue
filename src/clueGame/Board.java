@@ -144,7 +144,7 @@ public class Board {
 			}
 		}
 	}
-    
+	
 	/*
 	 * Sets the variables for special cells
 	 * @param BoardCell newCell, char first, second 
@@ -237,7 +237,7 @@ public class Board {
 	 */
 	public void setAdjList( int row, int col ) {
 		BoardCell newCell = grid[row][col];
-		
+		BoardCell other;
 		//adds cells to the adjacent cell list if they are in the boundaries
 		if (row-1 >= 0) {
 			newCell.addAdjList(grid[row-1][col]);
