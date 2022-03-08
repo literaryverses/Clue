@@ -27,6 +27,7 @@ class BoardAdjTargetTest {
 	}
 
 	@Test
+	//adjacency tests are orange
 	void testWalkwayAdjacency() {
 		//tests a walkway that is connected on all sides
 		Set<BoardCell> testList = board.getAdjList(9, 6);
@@ -52,12 +53,12 @@ class BoardAdjTargetTest {
 	}
 	
 	@Test
+	//tested rooms are light orange
 	void testRoomAdjacency() {
 		//tests room center
-		Set<BoardCell> testList = board.getAdjList(21, 12);
-		assertEquals(2, testList.size());
-		assertTrue(testList.contains(board.getCell(23, 8)));
-		assertTrue(testList.contains(board.getCell(19, 16)));
+		Set<BoardCell> testList = board.getAdjList(11, 14);
+		assertEquals(1, testList.size());
+		assertTrue(testList.contains(board.getCell(12, 12)));
 		
 		//tests normal room
 		testList = board.getAdjList(5, 5);
@@ -73,6 +74,7 @@ class BoardAdjTargetTest {
 	
 	
 	@Test
+	//tested cell is light blue
 	public void testTargetsInWalkways() {
 		// test a roll of 1
 		board.calcTargets(board.getCell(15, 12), 1);
@@ -111,6 +113,7 @@ class BoardAdjTargetTest {
 	}
 	
 	@Test
+	//tested cell is light blue
 	public void testTargetInDiningRoom() {
 		board.calcTargets(board.getCell(21, 12), 1);
 		Set<BoardCell> targets = board.getTargets();
@@ -142,6 +145,7 @@ class BoardAdjTargetTest {
 	}
 	
 	@Test
+	//tested cell is light blue
 	public void testTargetInKitchen() {
 		board.calcTargets(board.getCell(21, 3), 1);
 		Set<BoardCell> targets = board.getTargets();
@@ -159,6 +163,7 @@ class BoardAdjTargetTest {
 	}
 	
 	@Test
+	//occupied cells are red
 	public void testOccupied() {
 		//test occupied walkway
 		board.getCell(6, 19).setOccupied(true);
