@@ -29,9 +29,17 @@ public class BoardCell {
 		this.isDoor = false;
 		this.isLabel = false;
 		this.isCenter = false;
-		this.isUsed = true;
+		this.isUsed = false;
 	} 
 	
+	public boolean getIsUsed() {
+		return isUsed;
+	}
+
+	public void setIsUsed(boolean isUsed) {
+		this.isUsed = isUsed;
+	}
+
 	/*
 	 * returns door direction of doorway
 	 */
@@ -153,8 +161,10 @@ public class BoardCell {
 	 * adds cell to adjacency list
 	 * @param BoardCell cell
 	 */
-	public void addAdjList(BoardCell cell) {		
-		this.adjList.add(cell);
+	public void addAdjList(BoardCell cell) {	
+		if (cell.isUsed) {
+			this.adjList.add(cell);
+		}
 	}
 	
 	/*
@@ -163,4 +173,5 @@ public class BoardCell {
 	public Set<BoardCell> getAdjList() {
 		return adjList;
 	}
+	
 }

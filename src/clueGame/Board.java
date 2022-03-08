@@ -155,6 +155,7 @@ public class Board {
 			Character c = first;
 			Room room = roomMap.get(c);
 			room.setCenterCell(newCell);
+			newCell.setIsUsed(true);
 		}
 		if (second == '#') { // Room Label
 			newCell.setIsLabel(true);
@@ -164,10 +165,14 @@ public class Board {
 		}
 		if (second == '^' || second == 'v' || second == '>' || second == '<') {
 			newCell.setIsDoor(true); // Doorway
+			// do doors
 			newCell.setDoorDirection(second);
 		}
 		if (second < 91 && second > 64) { // checks if second char is letter
 			newCell.setSecretPassage(second);
+		}
+		if (first == 'W' ) {
+			newCell.setIsUsed(true);
 		}
 	}
     
@@ -237,7 +242,6 @@ public class Board {
 	 */
 	public void setAdjList( int row, int col ) {
 		BoardCell newCell = grid[row][col];
-		BoardCell other;
 		//adds cells to the adjacent cell list if they are in the boundaries
 		if (row-1 >= 0) {
 			newCell.addAdjList(grid[row-1][col]);
@@ -251,7 +255,36 @@ public class Board {
 		if (col+1 < COLS) {
 			newCell.addAdjList(grid[row][col+1]);
 		} 
+		if (newCell.isDoorway()) {
+			connectDoor(newCell,row,col);
+		}
 		 
+	}
+	
+	public void connectDoor(BoardCell cell,int row, int col) {
+		char roomKey = 0;
+		switch (cell.getDoorDirection()) {
+		case UP: 
+			roomKey = grid[row-1][col].getInitial();
+			break;
+		case DOWN: 
+			roomKey = grid[row+1][col].getInitial();
+			break;
+		case LEFT: 
+			roomKey = grid[row][col-1].getInitial();
+			break;
+		case RIGHT: 
+			roomKey = grid[row][col+1].getInitial();
+			break;
+		default:
+			break;
+		}
+		if (roomKey != 0) {
+			Room room = roomMap.get(roomKey);
+			BoardCell roomCenter = room.getCenterCell();
+			cell.addAdjList(roomCenter);
+			roomCenter.addAdjList(cell);
+		}
 	}
 	
 	/*
