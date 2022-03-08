@@ -8,7 +8,6 @@ Room, Bathroom, P
 Room, Gaming Room, G
 Room, Study, S
 Room, Hall, H
-
 //Other spaces on board
 Space, Unused, X
 Space, Walkway, W
