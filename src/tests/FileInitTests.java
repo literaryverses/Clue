@@ -43,29 +43,11 @@ public class FileInitTests {
 	@Test
 	public void testRoomLabels() {
 		// To ensure data is correctly loaded, test retrieving all the rooms
-		BoardCell cell = new BoardCell(0,0);
-		cell.setInitial('D');
-		assertEquals("Dining Room", board.getRoom(cell) );
-		cell.setInitial('B');
-		assertEquals("Bedroom", board.getRoom(cell).getName() );
-		cell.setInitial('L');
-		assertEquals("Library", board.getRoom(cell).getName() );
-		cell.setInitial('M');
-		assertEquals("Music Room", board.getRoom(cell).getName() );
-		cell.setInitial('W');
-		assertEquals("Walkway", board.getRoom(cell).getName() );
-		cell.setInitial('K');
-		assertEquals("Kitchen", board.getRoom(cell).getName() );
-		cell.setInitial('P');
-		assertEquals("Bathroom", board.getRoom(cell).getName() );
-		cell.setInitial('G');
-		assertEquals("Gaming Room", board.getRoom(cell).getName() );
-		cell.setInitial('S');
-		assertEquals("Study", board.getRoom(cell).getName() );
-		cell.setInitial('H');
-		assertEquals("Hall", board.getRoom(cell).getName() );
-		cell.setInitial('X');
-		assertEquals("Unused", board.getRoom(cell).getName() );
+		assertEquals("Bedroom", board.getRoom('B').getName() );
+		assertEquals("Library", board.getRoom('L').getName() );
+		assertEquals("Music Room", board.getRoom('M').getName() );
+		assertEquals("Dining Room", board.getRoom('D').getName() );
+		assertEquals("Walkway", board.getRoom('W').getName() );
 	}
 
 	// Tests if we have the same number of rows and columns
@@ -81,8 +63,10 @@ public class FileInitTests {
 		BoardCell cell = board.getCell(8, 11);
 		assertTrue(cell.isDoorway());
 		assertEquals(DoorDirection.LEFT, cell.getDoorDirection());
-		cell = board.getCell(8, 5);
+		cell = board.getCell(6, 5);
 		assertTrue(cell.isDoorway());
+		//System.out.println(cell.isDoorway());
+		//System.out.println(cell.getDoorDirection());
 		assertEquals(DoorDirection.UP, cell.getDoorDirection());
 		cell = board.getCell(1, 6);
 		assertTrue(cell.isDoorway());
@@ -122,7 +106,7 @@ public class FileInitTests {
 		int numDoors = 0;
 		for (int row = 0; row < board.getNumRows(); row++)
 			for (int col = 0; col < board.getNumColumns(); col++) {
-				BoardCell cell = board.getCell(col, row);
+				BoardCell cell = board.getCell(row, col);
 				if (cell.isDoorway())
 					numDoors++;
 			}
@@ -145,7 +129,7 @@ public class FileInitTests {
 		cell = board.getCell(11, 2);
 		room = board.getRoom( cell ) ;
 		assertTrue( room != null );
-		assertEquals( room.getName(), "Music room" ) ;
+		assertEquals( room.getName(), "Music Room" ) ;
 		assertTrue( cell.isLabel() );
 		assertTrue( room.getLabelCell() == cell );
 		
@@ -165,7 +149,7 @@ public class FileInitTests {
 		assertTrue( cell.getSecretPassage() == 'P' );
 		
 		// test a walkway
-		cell = board.getCell(8, 10);
+		cell = board.getCell(8, 11);
 		room = board.getRoom( cell ) ;
 		assertTrue( room != null );
 		assertEquals( room.getName(), "Walkway" ) ;

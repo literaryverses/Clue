@@ -73,6 +73,7 @@ public class Board {
 			String[] lines = line.split(", "); // split line by commas
 			if (lines[0].equals("Room") || lines[0].equals("Space")) {
 				Room r = new Room();
+				//System.out.println("here");
 				r.setName(lines[1]); // extract room
 				Character c = lines[2].charAt(0); // extract initial
 				roomMap.put(c, r);

@@ -42,6 +42,7 @@ public class BoardCell {
 	 * @param char w
 	 */
 	public void setDoorDirection(char w) {
+		
 		if (w=='>') {
 			this.doorDirection = doorDirection.RIGHT;			
 		}
