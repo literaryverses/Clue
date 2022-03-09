@@ -24,23 +24,28 @@ public class TestBoard {
 		makeAdjs();
 	}
 	
-    public void calcTargets(TestBoardCell startCell, int pathLength) {
-        this.visited.add(startCell);
-        
+	
+	public void calcTargets(TestBoardCell startCell, int pathLength) {
+		visited.clear();
+		targets.clear();
+		visited.add(startCell);
+		findAllTargets(startCell, pathLength);
+	}
+	
+	public void findAllTargets(TestBoardCell startCell, int numSteps) {
         for (TestBoardCell adjCell : startCell.getAdjList()) {
-            if (!(visited.contains(adjCell)) && !(adjCell.getOccupied())) { 
-            	//doesn't look at this cell if its visited or occupied 
-                if (pathLength == 1 || adjCell.getIsRoom()) {
-                	//adds cell if it is a room entrance or last step of path
-                    this.targets.add(adjCell);
-                } else {
-                    calcTargets(adjCell,pathLength-1); 
-                }
-            }
+        	if (!(visited.contains(adjCell))&& !(adjCell.getOccupied())) {
+        		visited.add(adjCell);
+        		if (numSteps==1 || adjCell.getIsRoom()) {
+        			targets.add(adjCell);
+        		}
+        		else {
+            		findAllTargets(adjCell, numSteps-1);
+            	}
+        		visited.remove(adjCell);
+        	}
         }
-        //after doing all pathing from this cell, removes it from visited so other paths can still use cell
-        this.visited.remove(startCell);
-    }
+	}
     
 	public Set<TestBoardCell> getTargets() {
 		return targets;

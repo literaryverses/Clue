@@ -202,9 +202,6 @@ public class Board {
 		//creates the adjacent cell list for all the cells in the grid
 		for (int i = 0; i < ROWS; i++) {
 			for (int j = 0; j < COLS; j++) {
-				if (j==21) {
-					//delete
-				}
 				setAdjList(i,j);
 			}
 		}
@@ -288,27 +285,36 @@ public class Board {
 	}
 	
 	/*
-	 * Calculates player's available targets based on how many steps
-	 *  are needed and the starting cell
+	 * Initiates adding available targets based on how many steps
+	 *  are needed from the starting cell
 	 * @param BoardCell startCell, int pathLength
 	 */
 	public void calcTargets(BoardCell startCell, int pathLength) {
-        this.visited.add(startCell);
-        
+		visited.clear();
+		targets.clear();
+		visited.add(startCell);
+		findAllTargets(startCell, pathLength);
+	}
+	
+	/*
+	 * Recursively finds available targets based on how many steps
+	 *  are needed from the starting cell 
+	 * @param BoardCell startCell, int numSteps
+	 */
+	public void findAllTargets(BoardCell startCell, int numSteps) {
         for (BoardCell adjCell : startCell.getAdjList()) {
-            if (!(visited.contains(adjCell)) && !(adjCell.getOccupied())) { 
-            	//doesn't look at this cell if its visited or occupied 
-                if (pathLength == 1 || adjCell.isRoomCenter()) { // FIXME
-                	//adds cell if it is a room entrance or last step of path
-                    this.targets.add(adjCell);
-                } else {
-                    calcTargets(adjCell,pathLength-1); 
-                }
-            }
+        	if (!(visited.contains(adjCell))&& !(adjCell.getOccupied())) {
+        		visited.add(adjCell);
+        		if (numSteps==1 || adjCell.isRoomCenter()) {
+        			targets.add(adjCell);
+        		}
+        		else {
+            		findAllTargets(adjCell, numSteps-1);
+            	}
+        		visited.remove(adjCell);
+        	}
         }
-        //after doing all pathing from this cell, removes it from visited so other paths can still use cell
-        this.visited.remove(startCell);
-    }
+	}
 	
 	/*
 	 * returns the target list
