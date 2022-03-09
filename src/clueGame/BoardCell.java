@@ -161,8 +161,8 @@ public class BoardCell {
 	 * adds cell to adjacency list
 	 * @param BoardCell cell
 	 */
-	public void addAdjList(BoardCell cell) {	
-		if (cell.isUsed) {
+	public void addAdjList(BoardCell cell) {
+		if (cell.isUsed && this.isUsed) {
 			this.adjList.add(cell);
 		}
 	}
