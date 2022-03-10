@@ -320,7 +320,7 @@ public class Board {
         		if (numSteps==1 || adjCell.isRoomCenter()) {
         			targets.add(adjCell);
         		}
-        		else {
+        		else { //TODO probably need to make sure that this doenst allow travel through rooms
             		findAllTargets(adjCell, numSteps-1);
             	}
         		visited.remove(adjCell);
