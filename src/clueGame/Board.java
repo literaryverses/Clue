@@ -198,7 +198,7 @@ public class Board {
 	}
 	
 	/*
-	 * creates an adjacency list for every cell in teh grid
+	 * creates an adjacency list for every cell in the grid
 	 */
 	public void makeAdjList() {
 		//creates the adjacent cell list for all the cells in the grid

@@ -51,19 +51,20 @@ public class BoardCell {
 	 * sets door direction based on given symbol read on file
 	 * @param char w
 	 */
-	public void setDoorDirection(char w) {
-		
-		if (w=='>') {
-			this.doorDirection = doorDirection.RIGHT;			
-		}
-		else if (w=='<') {
-			this.doorDirection = doorDirection.LEFT;			
-		}
-		else if (w=='v') {
-			this.doorDirection = doorDirection.DOWN;			
-		}
-		else if (w=='^'){
+	public void setDoorDirection(char direction) {
+		switch (direction) {
+		case '>':
+			this.doorDirection = doorDirection.RIGHT;
+			break;
+		case '<':
+			this.doorDirection = doorDirection.LEFT;
+			break;	
+		case 'v':
+			this.doorDirection = doorDirection.DOWN;
+			break;	
+		case '^':
 			this.doorDirection = doorDirection.UP;
+			break;	
 		}
 	}
 
