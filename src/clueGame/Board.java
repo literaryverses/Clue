@@ -95,13 +95,11 @@ public class Board {
     	String[] line;
     	
     	// extract data from file
-		ArrayList<String> raws = extractLayoutFile();
+		ArrayList<String> raws = this.extractLayoutFile();
         
         // determine dimensions
         ROWS = raws.size();
-        line = raws.get(0).split(",");
-        COLS = line.length;
-
+        COLS = raws.get(0).split(",").length;
         // create grid from dimensions
     	createGrid(raws);
 		makeAdjList();
@@ -150,23 +148,26 @@ public class Board {
 	 * @param BoardCell newCell, char first, second 
 	 */
 	public void editSpecialCells(BoardCell newCell, char first, char second) throws BadConfigFormatException {
-		if (second == '*' ) { // Room center
+		switch (second) {
+		case '*' :
 			newCell.setIsCenter(true);
-			Character c = first;
-			Room room = roomMap.get(c);
+			Room room = roomMap.get(first);
 			room.setCenterCell(newCell);
 			newCell.setIsUsed(true);
-		}
-		if (second == '#') { // Room Label
+			break;
+		case '#':
 			newCell.setIsLabel(true);
-			Character c = first;
-			Room room = roomMap.get(c);
-			room.setLabelCell(newCell);
-		}
-		if (second == '^' || second == 'v' || second == '>' || second == '<') {
+			Room room1 = roomMap.get(first);
+			room1.setLabelCell(newCell);
+			break;
+		case '^':
+		case 'v':
+		case '<':
+		case '>':
 			newCell.setIsDoor(true); // Doorway
 			newCell.setDoorDirection(second);
 			newCell.setIsUsed(true);
+			break;
 		}
 		if (second < 91 && second > 64) { // checks if second char is letter
 			newCell.setSecretPassage(second);
