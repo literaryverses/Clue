@@ -6,6 +6,10 @@ public class Room {
 	private BoardCell centerCell;
 	private BoardCell labelCell;
 	
+	public Room() {
+		super();
+	}
+	
 	public String getName() {
 		return name;
 	}
