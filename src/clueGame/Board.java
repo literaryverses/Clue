@@ -72,11 +72,11 @@ public class Board {
 			String line = scan.nextLine();
 			String[] lines = line.split(", "); // split line by commas
 			if (lines[0].equals("Room") || lines[0].equals("Space")) {
-				Room r = new Room();
+				Room room = new Room();
 				//System.out.println("here");
-				r.setName(lines[1]); // extract room
-				Character c = lines[2].charAt(0); // extract initial
-				roomMap.put(c, r);
+				room.setName(lines[1]); // extract room
+				Character label = lines[2].charAt(0); // extract initial
+				roomMap.put(label, room);
 			}
 			else if (Character.isLetter(lines[0].charAt(0))) {
 				throw new BadConfigFormatException();
