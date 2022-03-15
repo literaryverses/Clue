@@ -9,8 +9,8 @@ public class Board {
 	private BoardCell[][] grid;
 	private Set<BoardCell> targets = new HashSet<BoardCell>();
 	private Set<BoardCell> visited = new HashSet<BoardCell>();
-	private int ROWS;
-	private int COLS;
+	private int rows;
+	private int cols;
 	private String layoutConfigFile;
 	private String setupConfigFileName;
 	private Map<Character,Room> roomMap = new HashMap<Character,Room>();
@@ -40,14 +40,14 @@ public class Board {
      * get columns of grid
      */
 	public int getNumColumns() {
-		return COLS;
+		return cols;
 	}
 	
 	/*
 	 * get rows of grid
 	 */
 	public int getNumRows() {
-		return ROWS;
+		return rows;
 	}
     
 	/*
@@ -98,8 +98,8 @@ public class Board {
 		ArrayList<String> raws = this.extractLayoutFile();
         
         // determine dimensions
-        ROWS = raws.size();
-        COLS = raws.get(0).split(",").length;
+        rows = raws.size();
+        cols = raws.get(0).split(",").length;
         // create grid from dimensions
     	createGrid(raws);
 		makeAdjList();
@@ -111,17 +111,17 @@ public class Board {
      */
 	public void createGrid(ArrayList<String> raws) throws BadConfigFormatException {
 		String[] line;
-		grid = new BoardCell[ROWS][COLS];
+		grid = new BoardCell[rows][cols];
 		
-		for (int i =0; i < ROWS; i++) {
+		for (int i =0; i < rows; i++) {
 			
 			line = raws.get(i).split(",");
 			
-			if (line.length < COLS) {
+			if (line.length < cols) {
 				throw new BadConfigFormatException("Dimensions are inconsistent");
 			}
 			
-			for (int j=0; j < COLS; j++) {
+			for (int j=0; j < cols; j++) {
 				BoardCell newCell = new BoardCell(i,j); // create new cell
 				String cell = line[j]; // extract cell from 
         		
@@ -202,8 +202,8 @@ public class Board {
 	 */
 	public void makeAdjList() {
 		//creates the adjacent cell list for all the cells in the grid
-		for (int i = 0; i < ROWS; i++) {
-			for (int j = 0; j < COLS; j++) {
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
 				setAdjList(i,j);
 			}
 		}
@@ -245,13 +245,13 @@ public class Board {
 		if (row-1 >= 0) {
 			newCell.addAdjList(grid[row-1][col]);
 		} 
-		if (row+1 < ROWS) {
+		if (row+1 < rows) {
 			newCell.addAdjList(grid[row+1][col]);
 		} 
 		if (col-1 >= 0) {
 			newCell.addAdjList(grid[row][col-1]);
 		} 
-		if (col+1 < COLS) {
+		if (col+1 < cols) {
 			newCell.addAdjList(grid[row][col+1]);
 		} 
 		
