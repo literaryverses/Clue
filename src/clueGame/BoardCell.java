@@ -32,10 +32,16 @@ public class BoardCell {
 		this.isUsed = false;
 	} 
 	
+	/*
+	 * returns if a cell is marked as usable
+	 */
 	public boolean getIsUsed() {
 		return isUsed;
 	}
 
+	/*
+	 * sets a cell as usable or not
+	 */
 	public void setIsUsed(boolean isUsed) {
 		this.isUsed = isUsed;
 	}
