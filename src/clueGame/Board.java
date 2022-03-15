@@ -268,6 +268,10 @@ public class Board {
 		 
 	}
 	
+	/*
+	 * This adds adjacent rooms to doors
+	 * @param BoardCell cell, int row, int col
+	 */
 	public void connectDoor(BoardCell cell, int row, int col) {
 		char c = 0;
 		switch (cell.getDoorDirection()) {
@@ -290,6 +294,10 @@ public class Board {
 		roomCenter.addAdjList(cell);
 	}
 	
+	/*
+	 * This adds adjacent rooms to secret passages
+	 * @param BoardCell centerCell, Character c
+	 */
 	public void connectPassage(BoardCell centerCell, Character c) {
 		Room room = roomMap.get(c);
 		BoardCell otherCenter = room.getCenterCell();
