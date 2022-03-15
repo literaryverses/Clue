@@ -6,13 +6,13 @@ import java.io.*;
 import java.util.*;
 
 public class Board {
-	private BoardCell[][] grid;
-	private Set<BoardCell> targets = new HashSet<BoardCell>();
-	private Set<BoardCell> visited = new HashSet<BoardCell>();
 	private int rows;
 	private int cols;
 	private String layoutConfigFile;
 	private String setupConfigFileName;
+	private BoardCell[][] grid;
+	private Set<BoardCell> targets = new HashSet<BoardCell>();
+	private Set<BoardCell> visited = new HashSet<BoardCell>();
 	private Map<Character,Room> roomMap = new HashMap<Character,Room>();
 	
 	private static Board theInstance = new Board();
