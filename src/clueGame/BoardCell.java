@@ -8,12 +8,12 @@ public class BoardCell {
 	private int row, col;
 	private boolean isDoor;
 	private boolean isOccupied;
-	private DoorDirection doorDirection;
-	private char initial;
 	private boolean isLabel;
 	private boolean isCenter;
 	private boolean isUsed;
+	private char initial;
 	private char secretPassage;
+	private DoorDirection doorDirection;
 	private Set<BoardCell> adjList = new HashSet<BoardCell>();
 	
 	/*
