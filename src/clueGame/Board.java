@@ -36,6 +36,11 @@ public class Board {
     	}
 	}
     
+    
+    public void deal() {
+    	
+    }
+    
     /*
      * get columns of grid
      */
