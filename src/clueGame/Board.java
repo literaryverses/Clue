@@ -14,6 +14,7 @@ public class Board {
 	private Set<BoardCell> targets = new HashSet<BoardCell>();
 	private Set<BoardCell> visited = new HashSet<BoardCell>();
 	private Map<Character,Room> roomMap = new HashMap<Character,Room>();
+	private Map<String,Card> cardMap = new HashMap<String,Player>();
 	
 	private static Board theInstance = new Board();
     // constructor is private to ensure only one can be created
@@ -83,6 +84,8 @@ public class Board {
 				Character label = lines[2].charAt(0); // extract initial
 				roomMap.put(label, room);
 			}
+			
+			
 			else if (Character.isLetter(lines[0].charAt(0))) {
 				throw new BadConfigFormatException();
 			}
