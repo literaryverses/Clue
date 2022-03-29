@@ -14,7 +14,7 @@ public class Board {
 	private Set<BoardCell> targets = new HashSet<BoardCell>();
 	private Set<BoardCell> visited = new HashSet<BoardCell>();
 	private Map<Character,Room> roomMap = new HashMap<Character,Room>();
-	private Map<String,Card> cardMap = new HashMap<String,Card>();
+	private Map<String,Card> deck = new HashMap<String,Card>();
 	
 	private static Board theInstance = new Board();
     // constructor is private to ensure only one can be created
