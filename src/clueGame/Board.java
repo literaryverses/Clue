@@ -43,6 +43,12 @@ public class Board {
     	return this.players;
     }
     
+    public ArrayList<Card> getDeck() {
+    	return this.deck;
+    }
+    
+    
+    
     public void deal() {
     	Collections.shuffle(deck);
 		int playerIndex = 0;
@@ -58,6 +64,7 @@ public class Board {
     			cardCount++;
     			if (cardCount == 3) {
     				playerIndex++;
+    				cardCount = 0;
     			}
     		}
     	}

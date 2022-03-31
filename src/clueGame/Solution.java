@@ -49,4 +49,17 @@ public class Solution {
 			return true;
 		}
 	}
+
+	public Card getRoom() {
+		return room;
+	}
+
+	public Card getPerson() {
+		return person;
+	}
+
+	public Card getWeapon() {
+		return weapon;
+	}
+
 }
