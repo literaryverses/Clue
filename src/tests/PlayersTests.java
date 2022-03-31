@@ -17,9 +17,9 @@ class PlayersTests {
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		man = new HumanPlayer();
-		comp = new ComputerPlayer();
-		comp2 = new ComputerPlayer();
+		man = new HumanPlayer("You");
+		comp = new ComputerPlayer("Harry");
+		comp2 = new ComputerPlayer("Dick");
 	}
 
 	@Test

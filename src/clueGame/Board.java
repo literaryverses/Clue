@@ -14,7 +14,9 @@ public class Board {
 	private Set<BoardCell> targets = new HashSet<BoardCell>();
 	private Set<BoardCell> visited = new HashSet<BoardCell>();
 	private Map<Character,Room> roomMap = new HashMap<Character,Room>();
-	private Map<String,Card> deck = new HashMap<String,Card>();
+	private ArrayList<Card> deck = new ArrayList<Card>();
+	private ArrayList<Player> players = new ArrayList<Player>();
+	private Solution theAnswer = new Solution();
 	
 	private static Board theInstance = new Board();
     // constructor is private to ensure only one can be created
@@ -77,15 +79,29 @@ public class Board {
 		while (scan.hasNextLine()) {
 			String line = scan.nextLine();
 			String[] lines = line.split(", "); // split line by commas
-			if (lines[0].equals("Room") || lines[0].equals("Space")) {
+			if (lines[0].equals("Room") || lines[0].equals("Space")) { // if line is room
 				Room room = new Room();
-				//System.out.println("here");
 				room.setName(lines[1]); // extract room
 				Character label = lines[2].charAt(0); // extract initial
 				roomMap.put(label, room);
 			}
+			else if (lines[0].equals("Person")) { // else if line is person
+				Player player;
+				if (lines[1].equals("Player")) {
+					player = new HumanPlayer(lines[1]);
+				}
+				else {
+					player = new ComputerPlayer(lines[1]);
+				}
+				players.add(player);
+			}
 			
-			
+			// create cards from file
+			if (lines[0].equals("Room")||lines[0].equals("Person")||lines[0].equals("Weapon")) {
+				Card card = new Card(lines[1]);
+				card.setType(lines[0]);
+				deck.add(card);
+			}
 			else if (Character.isLetter(lines[0].charAt(0))) {
 				throw new BadConfigFormatException();
 			}

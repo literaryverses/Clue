@@ -6,8 +6,6 @@ public abstract class Player {
 	private int row, column;
 	private static int nextColor;
 	
-	
-	
 	public Player(String name) {
 		super();
 		interpretColor();
@@ -37,10 +35,12 @@ public abstract class Player {
 		}
 		nextColor++;
 	}
+	
+	public String getColor() {
+		return color;
+	}
 
-
-
-	public void updateHand(Card card) {
+	public void updateHand(Card card) { //FIXME
 		
 	}
 }
