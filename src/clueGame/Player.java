@@ -40,10 +40,14 @@ public abstract class Player {
 	}
 	
 	public String getColor() {
-		return color;
+		return this.color;
 	}
 
 	public void updateHand(Card card) { //FIXME
 		hand.add(card);
+	}
+	
+	public ArrayList<Card> getHand() {
+		return this.hand;
 	}
 }
