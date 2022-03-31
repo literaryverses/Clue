@@ -127,10 +127,10 @@ public class Board {
 			// create cards from file
 			if (lines[0].equals("Room")||lines[0].equals("Person")||lines[0].equals("Weapon")) {
 				Card card = new Card(lines[1]);
-				card.setType(lines[0]);
+				card.setType(lines[0].toUpperCase());
 				deck.add(card);
 			}
-			else if (Character.isLetter(lines[0].charAt(0))) {
+			else if (Character.isLetter(lines[0].charAt(0)) && lines[1]!="Space") {
 				throw new BadConfigFormatException();
 			}
 			else {
