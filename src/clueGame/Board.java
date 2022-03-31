@@ -34,6 +34,7 @@ public class Board {
     	try {
     		loadSetupConfig();
     		loadLayoutConfig();
+    		deal();
     	} catch (Exception e) {
     		System.out.println(e.getMessage());
     	}
@@ -52,17 +53,23 @@ public class Board {
     }
     
     public void deal() {
-    	Collections.shuffle(deck);
+    	ArrayList<Card> tempDeck = new ArrayList<Card>();
+    	
+    	for (Card card : deck) {
+    		tempDeck.add(card);
+    	}
+    	
+    	Collections.shuffle(tempDeck);
 		int playerIndex = 0;
 		int cardCount = 0;
-    	for (Card c : deck) {
+    	for (Card c : tempDeck) {
     		if (!theAnswer.hasCard(c) && !theAnswer.isFull()) {
     			theAnswer.add(c);
-    			deck.remove(c);
+    			tempDeck.remove(c);
     		}
     		else {
     			players.get(playerIndex).updateHand(c);
-    			deck.remove(c);
+    			tempDeck.remove(c);
     			cardCount++;
     			if (cardCount == 3) {
     				playerIndex++;
