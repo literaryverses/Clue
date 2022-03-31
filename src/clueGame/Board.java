@@ -39,6 +39,9 @@ public class Board {
     	}
 	}
     
+    public ArrayList<Player> getPlayers() {
+    	return this.players;
+    }
     
     public void deal() {
     	Collections.shuffle(deck);
