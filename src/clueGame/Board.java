@@ -41,7 +41,23 @@ public class Board {
     
     
     public void deal() {
-    	
+    	Collections.shuffle(deck);
+		int playerIndex = 0;
+		int cardCount = 0;
+    	for (Card c : deck) {
+    		if (!theAnswer.hasCard(c) && !theAnswer.isFull()) {
+    			theAnswer.add(c);
+    			deck.remove(c);
+    		}
+    		else {
+    			players.get(playerIndex).updateHand(c);
+    			deck.remove(c);
+    			cardCount++;
+    			if (cardCount == 3) {
+    				playerIndex++;
+    			}
+    		}
+    	}
     }
     
     /*

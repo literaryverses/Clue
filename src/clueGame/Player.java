@@ -1,10 +1,13 @@
 package clueGame;
 
+import java.util.*;
+
 public abstract class Player {
 	private String name;
 	private String color;
 	private int row, column;
 	private static int nextColor;
+	private ArrayList<Card> hand = new ArrayList<Card>();
 	
 	public Player(String name) {
 		super();
@@ -41,6 +44,6 @@ public abstract class Player {
 	}
 
 	public void updateHand(Card card) { //FIXME
-		
+		hand.add(card);
 	}
 }

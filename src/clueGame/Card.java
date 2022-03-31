@@ -16,7 +16,16 @@ public class Card {
 		return cardType;
 	}
 	
-	public boolean equals(Card Target) {
-		return true; //FIXME
+	public String getName() {
+		return cardName;
+	}
+	
+	public boolean equals(Card target) {
+		if (this.cardName == target.getName() && this.cardType == target.getType()) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 }

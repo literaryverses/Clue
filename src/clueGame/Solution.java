@@ -27,4 +27,26 @@ public class Solution {
 		}
 		return true;
 	}
+	
+	public void add(Card c) {
+		CardType t = c.getType();
+		if (t==CardType.ROOM) {
+			this.room = c;
+		}
+		else if (t==CardType.PERSON) {
+			this.person = c;
+		}
+		else if (t==CardType.WEAPON) {
+			this.weapon = c;
+		}
+	}
+	
+	public boolean isFull() {
+		if (this.room == null || this.person == null || this.weapon == null) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
 }
