@@ -47,7 +47,9 @@ public class Board {
     	return this.deck;
     }
     
-    
+    public Solution getAnswer() {
+    	return theAnswer;
+    }
     
     public void deal() {
     	Collections.shuffle(deck);

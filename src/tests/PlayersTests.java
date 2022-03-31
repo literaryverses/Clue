@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import clueGame.Player;
+import clueGame.Solution;
 import clueGame.Board;
 import clueGame.Card;
 import clueGame.ComputerPlayer;
@@ -45,15 +46,25 @@ class PlayersTests {
 		ArrayList<Card> deck = board.getDeck();
 		
 		assertTrue(players.size() == 6);
+		
 		assertTrue(players.get(5) instanceof HumanPlayer);
 		for (int i = 0; i < 5; i++) {
 			assertTrue(players.get(i) instanceof ComputerPlayer);
 		}
+		
+		
 		assertTrue(deck.size() == 21);
 		board.deal();
 		
+		Solution answer = board.getAnswer();
+		assertTrue(answer.getPerson() != null);
+		assertTrue(answer.getRoom() != null);
+		assertTrue(answer.getWeapon() != null);
 		
-		
+		assertTrue(board.getDeck().size() == 0);
+		for (Player player : players) {
+			assertTrue(player.getHand().size() == 3);
+		}
 	}
 
 	@Test
