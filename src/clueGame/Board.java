@@ -36,7 +36,7 @@ public class Board {
     		loadLayoutConfig();
     		deal();
     	} catch (Exception e) {
-    		System.out.println("Error");
+    		//System.out.println("Error");
     		System.out.println(e.getMessage());
     	}
 	}
@@ -55,11 +55,11 @@ public class Board {
     
     public void deal() {
     	ArrayList<Card> usedDeck = new ArrayList<Card>();
-    	System.out.println("In deal");
+    	//System.out.println("In deal");
     	Collections.shuffle(deck);
 		int playerIndex = 0;
 		int cardCount = 0;
-		System.out.println(deck.size());
+		//System.out.println(deck.size());
     	for (Card c : deck) {
     		if (!theAnswer.hasCard(c) && !theAnswer.isFull()) {
     			theAnswer.add(c);
@@ -169,8 +169,8 @@ public class Board {
     	int[] rowLocs = {7, 19, 23, 17, 6, 0};
     	int[] colLocs = {19, 17, 7, 0, 1, 12};
     	int index = 0;
-    	System.out.println("right here");
-    	System.out.println(players.size());
+    	//System.out.println("right here");
+    	//System.out.println(players.size());
     	for (Player p : players) {
     		p.setPlace(rowLocs[index], colLocs[index]);
     		index++;

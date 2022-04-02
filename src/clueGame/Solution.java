@@ -11,19 +11,19 @@ public class Solution {
 	public boolean hasCard(Card c) {
 		CardType t = c.getType();
 		if (t==CardType.ROOM) {
-			System.out.println("Checking Room");
+			//System.out.println("Checking Room");
 			if (this.room == null) {
 				return false;
 			}
 		}
 		else if (t==CardType.PERSON) {
-			System.out.println("Checking Person");
+			//System.out.println("Checking Person");
 			if (this.person == null) {
 				return false;
 			}
 		}
 		else if (t==CardType.WEAPON) {
-			System.out.println("Checking Weapon");
+			//System.out.println("Checking Weapon");
 			if (this.weapon == null) {
 				return false;
 			}
@@ -32,7 +32,7 @@ public class Solution {
 	}
 	
 	public void add(Card c) {
-		System.out.println("Adding a card to solution");
+		//System.out.println("Adding a card to solution");
 		CardType t = c.getType();
 		if (t==CardType.ROOM) {
 			this.room = c;
@@ -49,11 +49,11 @@ public class Solution {
 	
 	public boolean isFull() {
 		if (this.room == null || this.person == null || this.weapon == null) {
-			System.out.println("The card isnt full");
+			//System.out.println("The card isnt full");
 			return false;
 		}
 		else {
-			System.out.println("The card is full");
+			//System.out.println("The card is full");
 			return true;
 		}
 	}

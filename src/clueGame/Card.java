@@ -9,7 +9,7 @@ public class Card {
 	}
 	
 	public void setType(String label) {
-		System.out.println(label);
+		//System.out.println(label);
 		cardType = CardType.valueOf(label);
 	}
 	
