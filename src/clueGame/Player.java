@@ -15,6 +15,11 @@ public abstract class Player {
 		this.name = name;
 	}
 	
+	public void setPlace(int row, int column) {
+		this.row = row;
+		this.column = column;
+	}
+	
 	public void interpretColor() {
 		switch(nextColor) {
 		case 0:
@@ -43,7 +48,7 @@ public abstract class Player {
 		return this.color;
 	}
 
-	public void updateHand(Card card) { //FIXME
+	public void updateHand(Card card) {
 		hand.add(card);
 	}
 	

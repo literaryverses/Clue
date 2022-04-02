@@ -161,8 +161,27 @@ public class Board {
         cols = raws.get(0).split(",").length;
         // create grid from dimensions
     	createGrid(raws);
+    	placePlayers();
 		makeAdjList();
 	}
+    
+    /*
+     * set player locations on board
+     */
+    public void placePlayers() {
+    	for (Player p : players) {
+    		Random rand = new Random();
+    		int column = rand.nextInt(cols);
+    		int row = rand.nextInt(rows);
+    		BoardCell bc = grid[row][column];
+    		while (!bc.getIsUsed() || visited.contains(bc)) {
+        		column = rand.nextInt(cols);
+        		row = rand.nextInt(rows);
+    		}
+    		visited.add(bc);
+    		p.setPlace(row, column);
+    	}
+    }
     
     /*
      * creates a grid based on info extracted from layout file
@@ -228,7 +247,7 @@ public class Board {
 			newCell.setIsUsed(true);
 			break;
 		}
-		if (second < 91 && second > 64) { // checks if second char is letter
+		if (Character.isLetter(second)) { // checks if second char is letter
 			newCell.setSecretPassage(second);
 			newCell.setIsUsed(true);
 		}
