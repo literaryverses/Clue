@@ -54,14 +54,11 @@ public class Board {
     }
     
     public void deal() {
-    	ArrayList<Card> usedDeck = new ArrayList<Card>();
-    	//System.out.println("In deal");
     	Collections.shuffle(deck);
 		int playerIndex = 0;
 		int cardCount = 0;
-		//System.out.println(deck.size());
     	for (Card c : deck) {
-    		if (!theAnswer.hasCard(c) && !theAnswer.isFull()) {
+    		if (!theAnswer.hasCard(c) && !theAnswer.isFull()) { //Checks to see if the solution has that card type already and isnt full
     			theAnswer.add(c);
     		}
     		else {
@@ -129,7 +126,7 @@ public class Board {
 				players.add(player);
 			}
 			
-			// create cards from file
+			// create cards from file and adds it to deck
 			if (lines[0].equals("Room")||lines[0].equals("Person")||lines[0].equals("Weapon")) {
 				Card card = new Card(lines[1]);
 				card.setType(lines[0].toUpperCase());
