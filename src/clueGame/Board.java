@@ -54,23 +54,17 @@ public class Board {
     }
     
     public void deal() {
-    	ArrayList<Card> tempDeck = new ArrayList<Card>();
+    	ArrayList<Card> usedDeck = new ArrayList<Card>();
     	//System.out.println("In deal");
-    	for (Card card : deck) {
-    		tempDeck.add(card);
-    	}
-    	
-    	Collections.shuffle(tempDeck);
+    	Collections.shuffle(deck);
 		int playerIndex = 0;
 		int cardCount = 0;
-    	for (Card c : tempDeck) {
+    	for (Card c : deck) {
     		if (!theAnswer.hasCard(c) && !theAnswer.isFull()) {
     			theAnswer.add(c);
-    			tempDeck.remove(c);
     		}
     		else {
     			players.get(playerIndex).updateHand(c);
-    			tempDeck.remove(c);
     			cardCount++;
     			if (cardCount == 3) {
     				playerIndex++;
