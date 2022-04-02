@@ -55,10 +55,11 @@ public class Board {
     
     public void deal() {
     	ArrayList<Card> usedDeck = new ArrayList<Card>();
-    	//System.out.println("In deal");
+    	System.out.println("In deal");
     	Collections.shuffle(deck);
 		int playerIndex = 0;
 		int cardCount = 0;
+		System.out.println(deck.size());
     	for (Card c : deck) {
     		if (!theAnswer.hasCard(c) && !theAnswer.isFull()) {
     			theAnswer.add(c);

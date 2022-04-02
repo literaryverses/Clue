@@ -11,7 +11,7 @@ Room, Hall, H
 //Other spaces on board
 Space, Unused, X
 Space, Walkway, W
-//Players
+//People
 Person, Lil Wayne
 Person, Eminem
 Person, MF Doom
