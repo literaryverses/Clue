@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +25,6 @@ class PlayersTests {
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		
 		board = Board.getInstance();
 		// set the file names to use my config files
 		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");		
@@ -32,13 +32,6 @@ class PlayersTests {
 		board.initialize();
 		
 		players = board.getPlayers();
-		
-		man = new HumanPlayer("You");
-		comp = new ComputerPlayer("Harry");
-		comp2 = new ComputerPlayer("Dick");
-		
-		
-		
 	}
 	
 	@Test

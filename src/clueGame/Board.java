@@ -33,14 +33,18 @@ public class Board {
     public void initialize() { 
     	try {
     		loadSetupConfig();
+    		System.out.println("here2");
     		loadLayoutConfig();
+    		System.out.println("here3");
     		deal();
+    		System.out.println("here");
     	} catch (Exception e) {
     		System.out.println(e.getMessage());
     	}
 	}
     
     public ArrayList<Player> getPlayers() {
+    	System.out.println(players.size());
     	return this.players;
     }
     
@@ -112,6 +116,7 @@ public class Board {
 		
 		// read each line
 		while (scan.hasNextLine()) {
+			//System.out.println("here");
 			String line = scan.nextLine();
 			String[] lines = line.split(", "); // split line by commas
 			if (lines[0].equals("Room") || lines[0].equals("Space")) { // if line is room
@@ -121,6 +126,7 @@ public class Board {
 				roomMap.put(label, room);
 			}
 			else if (lines[0].equals("Person")) { // else if line is person
+				//System.out.println("here");
 				Player player;
 				if (lines[1].equals("Player")) {
 					player = new HumanPlayer(lines[1]);
@@ -137,14 +143,13 @@ public class Board {
 				card.setType(lines[0].toUpperCase());
 				deck.add(card);
 			}
-			else if (Character.isLetter(lines[0].charAt(0)) && lines[1]!="Space") {
+			else if (Character.isLetter(lines[0].charAt(0)) && !lines[0].equals("Space")) {
 				throw new BadConfigFormatException();
 			}
 			else {
 				continue;
 			}
 		}
-		scan.close();
     }
     
     /*
@@ -155,31 +160,32 @@ public class Board {
     	
     	// extract data from file
 		ArrayList<String> raws = this.extractLayoutFile();
-        
+		System.out.println("here3");
         // determine dimensions
         rows = raws.size();
         cols = raws.get(0).split(",").length;
+        System.out.println("here5");
         // create grid from dimensions
     	createGrid(raws);
+    	System.out.println("here6");
     	placePlayers();
+    	System.out.println("here7");
 		makeAdjList();
+		System.out.println("here4");
 	}
     
     /*
      * set player locations on board
      */
     public void placePlayers() {
+    	int[] rowLocs = {7, 19, 23, 17, 6, 0};
+    	int[] colLocs = {19, 17, 7, 0, 1, 12};
+    	int index = 0;
+    	System.out.println("right here");
+    	System.out.println(players.size());
     	for (Player p : players) {
-    		Random rand = new Random();
-    		int column = rand.nextInt(cols);
-    		int row = rand.nextInt(rows);
-    		BoardCell bc = grid[row][column];
-    		while (!bc.getIsUsed() || visited.contains(bc)) {
-        		column = rand.nextInt(cols);
-        		row = rand.nextInt(rows);
-    		}
-    		visited.add(bc);
-    		p.setPlace(row, column);
+    		p.setPlace(rowLocs[index], colLocs[index]);
+    		index++;
     	}
     }
     
