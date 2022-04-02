@@ -11,3 +11,17 @@ Room, Hall, H
 //Other spaces on board
 Space, Unused, X
 Space, Walkway, W
+//Players
+Person, Lil Wayne
+Person, Eminem
+Person, MF Doom
+Person, Jay-Z
+Person, Kanye West
+Person, Player
+//Weapons
+Weapon, Knife
+Weapon, Sword
+Weapon, Pistol
+Weapon, Ax
+Weapon, Turtle shell
+Weapon, Lamp
