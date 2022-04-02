@@ -21,10 +21,10 @@ class PlayersTests {
 	private ComputerPlayer comp;
 	private ComputerPlayer comp2;
 	private static Board board;
-	private ArrayList<Player> players;
+	private static ArrayList<Player> players;
 	
-	@BeforeEach
-	void setUp() throws Exception {
+	@BeforeAll
+	static void setUp() throws Exception {
 		board = Board.getInstance();
 		// set the file names to use my config files
 		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");		

@@ -36,6 +36,7 @@ public class Board {
     		loadLayoutConfig();
     		deal();
     	} catch (Exception e) {
+    		System.out.println("Error");
     		System.out.println(e.getMessage());
     	}
 	}
@@ -54,7 +55,7 @@ public class Board {
     
     public void deal() {
     	ArrayList<Card> tempDeck = new ArrayList<Card>();
-    	
+    	//System.out.println("In deal");
     	for (Card card : deck) {
     		tempDeck.add(card);
     	}
@@ -162,7 +163,7 @@ public class Board {
         // create grid from dimensions
     	createGrid(raws);
     	placePlayers();
-    	System.out.println("here7");
+    	//System.out.println("here7");
 		makeAdjList();
 	}
     
