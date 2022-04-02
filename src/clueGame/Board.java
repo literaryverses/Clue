@@ -33,18 +33,14 @@ public class Board {
     public void initialize() { 
     	try {
     		loadSetupConfig();
-    		System.out.println("here2");
     		loadLayoutConfig();
-    		System.out.println("here3");
     		deal();
-    		System.out.println("here");
     	} catch (Exception e) {
     		System.out.println(e.getMessage());
     	}
 	}
     
     public ArrayList<Player> getPlayers() {
-    	System.out.println(players.size());
     	return this.players;
     }
     
@@ -160,18 +156,14 @@ public class Board {
     	
     	// extract data from file
 		ArrayList<String> raws = this.extractLayoutFile();
-		System.out.println("here3");
         // determine dimensions
         rows = raws.size();
         cols = raws.get(0).split(",").length;
-        System.out.println("here5");
         // create grid from dimensions
     	createGrid(raws);
-    	System.out.println("here6");
     	placePlayers();
     	System.out.println("here7");
 		makeAdjList();
-		System.out.println("here4");
 	}
     
     /*
