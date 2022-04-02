@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Set;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,8 +17,8 @@ class BoardAdjTargetTest {
 	
 	private static Board board;
 
-	@BeforeEach
-	void setUp() throws Exception {
+	@BeforeAll
+	static void setUp() throws Exception {
 		// Board is singleton, get the only instance
 		board = Board.getInstance();
 		// set the file names to use my config files

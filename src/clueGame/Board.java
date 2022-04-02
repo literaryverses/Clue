@@ -392,7 +392,9 @@ public class Board {
 	 * @param BoardCell startCell, int numSteps
 	 */
 	public void findAllTargets(BoardCell startCell, int numSteps) {
+		System.out.println("InFind");
         for (BoardCell adjCell : startCell.getAdjList()) {
+        	System.out.println("InFindFor");
         	if ( !visited.contains(adjCell) && (!adjCell.getOccupied() || adjCell.isRoomCenter()) ) {
         		visited.add(adjCell);
         		if (numSteps==1 || adjCell.isRoomCenter()) {
@@ -410,6 +412,7 @@ public class Board {
 	 * returns the target list
 	 */
 	public Set<BoardCell> getTargets() {
+		System.out.println(targets.size());
 		return targets;
 	}
 	
