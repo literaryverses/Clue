@@ -54,6 +54,14 @@ public class Board {
     	return true;
     }
     
+    private BoardCell ComputerPlayerMove(Player p) {
+    	
+    	BoardCell bc = p.selectTarget(targets, roomMap);
+    	p.setPlace(bc.getRow(), bc.getColumn()); //FIXME
+    	p.setRoomName(roomMap, grid); // set new room name for player
+    	return bc;
+    }
+    
     private Card handleAccusation(Solution accusation) {
     	for (Player p : players) {
     		Card c = p.disproveSuggestion(accusation);
@@ -62,13 +70,6 @@ public class Board {
     		}
     	}
     	return null;
-    }
-    
-    private void setPlayerRoomName(Player p) {
-    	BoardCell bc = getCell(p.getRow(), p.getCol());
-    	char c = bc.getInitial();
-    	Room r = roomMap.get(c);
-    	p.setRoomName(r.getName());
     }
     
     public ArrayList<Player> getPlayers() {
@@ -87,12 +88,15 @@ public class Board {
     	Collections.shuffle(deck);
 		int playerIndex = 0;
 		int cardCount = 0;
-    	for (Card c : deck) {
-    		if (!theAnswer.hasCardType(c) && !theAnswer.isFull()) { //Checks to see if the solution has that card type already and isnt full
+    	for (Card c : deck) { 		
+    		 //Checks to see if the solution has that card type already and isn't full
+    		if (!theAnswer.hasCardType(c) && !theAnswer.isFull()) {
     			theAnswer.add(c);
     		}
     		else {
-    			players.get(playerIndex).updateHand(c);
+    			Player p = players.get(playerIndex);
+    			p.updateHand(c);
+    			p.seeCard(c); // adds hand of cards to seen list
     			cardCount++;
     			if (cardCount == 3) {
     				playerIndex++;
@@ -135,9 +139,19 @@ public class Board {
 		
 		// read each line
 		while (scan.hasNextLine()) {
-			//System.out.println("here");
 			String line = scan.nextLine();
 			String[] lines = line.split(", "); // split line by commas
+			
+			// create cards from file and adds it to deck
+			if (lines[0].equals("Room")||lines[0].equals("Person")||lines[0].equals("Weapon")) {
+				Card card = new Card(lines[1]);
+				card.setType(lines[0].toUpperCase());
+				deck.add(card);
+			}
+			else if (Character.isLetter(lines[0].charAt(0)) && !lines[0].equals("Space")) {
+				throw new BadConfigFormatException();
+			}
+			
 			if (lines[0].equals("Room") || lines[0].equals("Space")) { // if line is room
 				Room room = new Room();
 				room.setName(lines[1]); // extract room
@@ -145,7 +159,6 @@ public class Board {
 				roomMap.put(label, room);
 			}
 			else if (lines[0].equals("Person")) { // else if line is person
-				//System.out.println("here");
 				Player player;
 				if (lines[1].equals("Player")) {
 					player = new HumanPlayer(lines[1]);
@@ -154,22 +167,11 @@ public class Board {
 					player = new ComputerPlayer(lines[1]);
 				}
 				players.add(player);
-			}
-			
-			// create cards from file and adds it to deck
-			if (lines[0].equals("Room")||lines[0].equals("Person")||lines[0].equals("Weapon")) {
-				Card card = new Card(lines[1]);
-				card.setType(lines[0].toUpperCase());
-				deck.add(card);
-				for (Player p : players) {
-					p.addUnseen(card); // add unseen cards to every player
+				for (Card c : deck) { // adds card of player to player's seen list
+		    		if (c.getType()==CardType.PERSON && c.getName().equals(player.getName())) {
+		    				player.seeCard(c);
+		    		}
 				}
-			}
-			else if (Character.isLetter(lines[0].charAt(0)) && !lines[0].equals("Space")) {
-				throw new BadConfigFormatException();
-			}
-			else {
-				continue;
 			}
 		}
     }
@@ -205,7 +207,7 @@ public class Board {
     		p.setPlace(rowLocs[index], colLocs[index]); // set players in Room
     		index++;
     		if (p instanceof ComputerPlayer) {
-    			setPlayerRoomName(p);
+    			p.setRoomName(roomMap, grid);
     		}
     	}
     }

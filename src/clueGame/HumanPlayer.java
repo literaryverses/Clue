@@ -1,5 +1,8 @@
 package clueGame;
 
+import java.util.Map;
+import java.util.Set;
+
 public class HumanPlayer extends Player{
 
 	public HumanPlayer(String name) {
@@ -7,4 +10,8 @@ public class HumanPlayer extends Player{
 		// TODO Auto-generated constructor stub
 	}
 	
+	public BoardCell selectTarget(Set<BoardCell> t, Map<Character,Room> roomMap) {
+		return new BoardCell(0,0); // FIXME
+	}
+
 }

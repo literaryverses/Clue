@@ -181,6 +181,20 @@ public class BoardCell {
 		return adjList;
 	}
 	
+	/*
+	 * gets row of cell
+	 */
+	public int getRow() {
+		return this.row;
+	}
+	
+	/*
+	 * gets column of cell
+	 */
+	public int getColumn() {
+		return this.col;
+	}
+	
 	@Override
 	public String toString() {
 		return "(" + this.row + "," + this.col + ")";
