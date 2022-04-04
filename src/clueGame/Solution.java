@@ -8,7 +8,7 @@ public class Solution {
 	public Solution() {
 	}
 	
-	public boolean hasCard(Card c) { 
+	public boolean hasCardType(Card c) { 
 		//checks to see if the solution already has a card of the same type
 		CardType t = c.getType();
 		if (t==CardType.ROOM) {
@@ -40,8 +40,6 @@ public class Solution {
 		}
 		else if (t==CardType.WEAPON) {
 			this.weapon = c;
-		} else {
-			System.out.println("Something went wrong in dealing answer");
 		}
 	}
 	

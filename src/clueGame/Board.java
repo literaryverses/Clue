@@ -64,6 +64,13 @@ public class Board {
     	return null;
     }
     
+    private void setPlayerRoomName(Player p) {
+    	BoardCell bc = getCell(p.getRow(), p.getCol());
+    	char c = bc.getInitial();
+    	Room r = roomMap.get(c);
+    	p.setRoomName(r.getName());
+    }
+    
     public ArrayList<Player> getPlayers() {
     	return this.players;
     }
@@ -81,7 +88,7 @@ public class Board {
 		int playerIndex = 0;
 		int cardCount = 0;
     	for (Card c : deck) {
-    		if (!theAnswer.hasCard(c) && !theAnswer.isFull()) { //Checks to see if the solution has that card type already and isnt full
+    		if (!theAnswer.hasCardType(c) && !theAnswer.isFull()) { //Checks to see if the solution has that card type already and isnt full
     			theAnswer.add(c);
     		}
     		else {
@@ -154,6 +161,9 @@ public class Board {
 				Card card = new Card(lines[1]);
 				card.setType(lines[0].toUpperCase());
 				deck.add(card);
+				for (Player p : players) {
+					p.addUnseen(card); // add unseen cards to every player
+				}
 			}
 			else if (Character.isLetter(lines[0].charAt(0)) && !lines[0].equals("Space")) {
 				throw new BadConfigFormatException();
@@ -192,8 +202,11 @@ public class Board {
     	//System.out.println("right here");
     	//System.out.println(players.size());
     	for (Player p : players) {
-    		p.setPlace(rowLocs[index], colLocs[index]);
+    		p.setPlace(rowLocs[index], colLocs[index]); // set players in Room
     		index++;
+    		if (p instanceof ComputerPlayer) {
+    			setPlayerRoomName(p);
+    		}
     	}
     }
     

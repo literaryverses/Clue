@@ -3,11 +3,14 @@ package clueGame;
 import java.util.*;
 
 public abstract class Player {
-	private String name;
+	protected String name;
 	private String color;
 	private int row, column;
 	private static int nextColor;
 	private ArrayList<Card> hand = new ArrayList<Card>();
+	protected ArrayList<Card> seen = new ArrayList<Card>();
+	protected ArrayList<Card> unseen = new ArrayList<Card>();
+
 	
 	public Player(String name) {
 		super();
@@ -35,6 +38,15 @@ public abstract class Player {
 		this.row = row;
 		this.column = column;
 	}
+	
+	public int getRow() {
+		return row;
+	}
+	
+	public int getCol() {
+		return column;
+	}
+	
 	
 	public void interpretColor() {
 		switch(nextColor) {
@@ -71,4 +83,16 @@ public abstract class Player {
 	public ArrayList<Card> getHand() {
 		return this.hand;
 	}
+	
+	public void seeCard(Card c) {
+		unseen.remove(c);
+		seen.add(c);
+	}
+	
+	public void addUnseen(Card c) {
+		unseen.add(c);
+	}
+	
+	abstract public void setRoomName(String room);
+	
 }
