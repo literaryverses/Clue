@@ -6,5 +6,9 @@ public class ComputerPlayer extends Player {
 		super(name);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public void makeSuggestion() {
+		
+	}
 
 }

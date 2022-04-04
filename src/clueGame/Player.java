@@ -15,6 +15,10 @@ public abstract class Player {
 		this.name = name;
 	}
 	
+	public void disproveSuggestion() {
+		
+	}
+	
 	public void setPlace(int row, int column) {
 		this.row = row;
 		this.column = column;

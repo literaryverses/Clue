@@ -41,6 +41,23 @@ public class Board {
     	}
 	}
     
+    private boolean checkAccusation(Solution accusation)  {
+    	if (!theAnswer.getPerson().equals(accusation.getPerson())) {
+    		return false;
+    	}
+    	if (!theAnswer.getWeapon().equals(accusation.getWeapon())) {
+    		return false;
+    	}
+    	if (!theAnswer.getRoom().equals(accusation.getRoom())) {
+    		return false;
+    	}
+    	return true;
+    }
+    
+    private void handleAccusation() {
+    	
+    }
+    
     public ArrayList<Player> getPlayers() {
     	return this.players;
     }
