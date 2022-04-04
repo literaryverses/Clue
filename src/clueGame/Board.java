@@ -54,8 +54,14 @@ public class Board {
     	return true;
     }
     
-    private void handleAccusation() {
-    	
+    private Card handleAccusation(Solution accusation) {
+    	for (Player p : players) {
+    		Card c = p.disproveSuggestion(accusation);
+    		if (c!=null) {
+    			return c;
+    		}
+    	}
+    	return null;
     }
     
     public ArrayList<Player> getPlayers() {
