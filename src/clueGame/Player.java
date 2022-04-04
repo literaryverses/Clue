@@ -15,8 +15,20 @@ public abstract class Player {
 		this.name = name;
 	}
 	
-	public void disproveSuggestion() {
+	public Card disproveSuggestion(Solution suggestion) {
+		for (Card c : hand) {
+			if (c.equals(suggestion.getPerson())) {
+				return c;
+			}
+			if (c.equals(suggestion.getWeapon())) {
+				return c;
+			}
+			if (c.equals(suggestion.getRoom())) {
+				return c;
+			}
+		}
 		
+		return null;
 	}
 	
 	public void setPlace(int row, int column) {
