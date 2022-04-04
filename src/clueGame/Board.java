@@ -57,7 +57,7 @@ public class Board {
     private BoardCell ComputerPlayerMove(Player p) {
     	
     	BoardCell bc = p.selectTarget(targets, roomMap);
-    	p.setPlace(bc.getRow(), bc.getColumn()); //FIXME
+    	p.setPlace(bc.getRow(), bc.getColumn());
     	p.setRoomName(roomMap, grid); // set new room name for player
     	return bc;
     }
