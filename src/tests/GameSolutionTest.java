@@ -36,7 +36,15 @@ class GameSolutionTest {
 
 	@Test
 	void testAccusation() {
-		
+		board.setAnswer("Eminem", "Knife", "Bathroom");
+		Solution accusation = new Solution(board.pickCard("Eminem"), board.pickCard("Knife"), board.pickCard("Bathroom"));
+		assertTrue(board.checkAccusation(accusation));
+		accusation = new Solution(board.pickCard("Player"), board.pickCard("Knife"), board.pickCard("Bathroom"));
+		assertTrue(!(board.checkAccusation(accusation)));
+		accusation = new Solution(board.pickCard("Eminem"), board.pickCard("Ax"), board.pickCard("Bathroom"));
+		assertTrue(!(board.checkAccusation(accusation)));
+		accusation = new Solution(board.pickCard("Eminem"), board.pickCard("Knife"), board.pickCard("Kitchen"));
+		assertTrue(!(board.checkAccusation(accusation)));
 	}
 	
 	@Test

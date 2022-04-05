@@ -82,6 +82,10 @@ public class Board {
     	
     }
     
+    public void setAnswer(String person, String weapon, String room) {
+    	theAnswer = new Solution(pickCard(person), pickCard(weapon), pickCard(room));
+    }
+    
     public ArrayList<Player> getPlayers() {
     	return this.players;
     }

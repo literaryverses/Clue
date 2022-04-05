@@ -8,6 +8,12 @@ public class Solution {
 	public Solution() {
 	}
 	
+	public Solution(Card person, Card weapon, Card room) {
+		this.person = person;
+		this.weapon = weapon;
+		this.room = room;		
+	}
+	
 	public boolean hasCardType(Card c) { 
 		//checks to see if the solution already has a card of the same type
 		CardType t = c.getType();
