@@ -53,8 +53,24 @@ class GameSolutionTest {
 	void testDisprove() {
 		String name = "Eminem";
 		board.getPlayer(name).overrideHand(board.pickCard("Knife"), board.pickCard("Ax"), board.pickCard("Kitchen"));
-		Solution suggestion = new Solution(board.pickCard("Eminem"), board.pickCard("Knife"), board.pickCard("Bathroom"));
-		assertTrue(board.pickCard("Knife").equals(board.getPlayer("Eminem").disproveSuggestion(suggestion)));
+		Solution suggestion = new Solution(board.pickCard(name), board.pickCard("Knife"), board.pickCard("Bathroom"));
+		assertTrue(board.pickCard("Knife").equals(board.getPlayer(name).disproveSuggestion(suggestion)));
+		
+		suggestion = new Solution(board.pickCard(name), board.pickCard("Library"), board.pickCard("Bathroom"));
+		assertTrue(board.getPlayer(name).disproveSuggestion(suggestion) == null);
+		
+		suggestion = new Solution(board.pickCard(name), board.pickCard("Knife"), board.pickCard("Ax"));
+		int count1 = 0;
+		int count2 = 0;
+		for (int i = 0; i < 20; i++) {
+			if (board.getPlayer(name).disproveSuggestion(suggestion).equals(board.pickCard("Knife"))) {
+				count1++;
+			} else if (board.getPlayer(name).disproveSuggestion(suggestion).equals(board.pickCard("Ax"))) {
+				count2++;
+			}
+		}
+		assertTrue(count1 > 0);
+		assertTrue(count2 > 0);
 	}
 	
 	@Test
