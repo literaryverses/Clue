@@ -41,7 +41,7 @@ public class Board {
     	}
 	}
     
-    private boolean checkAccusation(Solution accusation)  {
+    public boolean checkAccusation(Solution accusation)  {
     	if (!theAnswer.getPerson().equals(accusation.getPerson())) {
     		return false;
     	}
@@ -54,7 +54,7 @@ public class Board {
     	return true;
     }
     
-    private BoardCell ComputerPlayerMove(Player p) {
+    public BoardCell ComputerPlayerMove(Player p) {
     	
     	BoardCell bc = p.selectTarget(targets, roomMap);
     	p.setPlace(bc.getRow(), bc.getColumn());
@@ -62,7 +62,7 @@ public class Board {
     	return bc;
     }
     
-    private Card handleAccusation(Solution accusation) {
+    public Card handleAccusation(Solution accusation) {
     	for (Player p : players) {
     		Card c = p.disproveSuggestion(accusation);
     		if (c!=null) {
@@ -70,6 +70,16 @@ public class Board {
     		}
     	}
     	return null;
+    }
+    
+    public Card pickCard(String name) {
+    	for (Card c : deck) {
+    		if (c.getName() == name) {
+    			return c;
+    		}
+    	}
+		return null;
+    	
     }
     
     public ArrayList<Player> getPlayers() {
@@ -430,9 +440,9 @@ public class Board {
 	 * @param BoardCell startCell, int numSteps
 	 */
 	public void findAllTargets(BoardCell startCell, int numSteps) {
-		System.out.println("InFind");
+		//System.out.println("InFind");
         for (BoardCell adjCell : startCell.getAdjList()) {
-        	System.out.println("InFindFor");
+        	//System.out.println("InFindFor");
         	if ( !visited.contains(adjCell) && (!adjCell.getOccupied() || adjCell.isRoomCenter()) ) {
         		visited.add(adjCell);
         		if (numSteps==1 || adjCell.isRoomCenter()) {
@@ -450,7 +460,7 @@ public class Board {
 	 * returns the target list
 	 */
 	public Set<BoardCell> getTargets() {
-		System.out.println(targets.size());
+		//System.out.println(targets.size());
 		return targets;
 	}
 	
