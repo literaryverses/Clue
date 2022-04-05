@@ -82,6 +82,15 @@ public class Board {
     	
     }
     
+    public Player getPlayer(String name) {
+    	for (Player p : players) {
+    		if (p.getName() == name) {
+    			return p;
+    		}
+    	}
+    	return null;
+    }
+    
     public void setAnswer(String person, String weapon, String room) {
     	theAnswer = new Solution(pickCard(person), pickCard(weapon), pickCard(room));
     }

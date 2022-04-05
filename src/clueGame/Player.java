@@ -92,4 +92,11 @@ public abstract class Player {
 	public ArrayList<Card> getHand() {
 		return this.hand;
 	}
+	
+	public void overrideHand(Card c1, Card c2, Card c3) {
+		hand.clear();
+		hand.add(c1);
+		hand.add(c2);
+		hand.add(c3);
+	}
 }

@@ -36,6 +36,7 @@ class GameSolutionTest {
 
 	@Test
 	void testAccusation() {
+		Solution tempAnswer = board.getAnswer();
 		board.setAnswer("Eminem", "Knife", "Bathroom");
 		Solution accusation = new Solution(board.pickCard("Eminem"), board.pickCard("Knife"), board.pickCard("Bathroom"));
 		assertTrue(board.checkAccusation(accusation));
@@ -45,11 +46,15 @@ class GameSolutionTest {
 		assertTrue(!(board.checkAccusation(accusation)));
 		accusation = new Solution(board.pickCard("Eminem"), board.pickCard("Knife"), board.pickCard("Kitchen"));
 		assertTrue(!(board.checkAccusation(accusation)));
+		board.setAnswer(tempAnswer.getPerson().getName(), tempAnswer.getWeapon().getName(), tempAnswer.getRoom().getName());
 	}
 	
 	@Test
 	void testDisprove() {
-		
+		String name = "Eminem";
+		board.getPlayer(name).overrideHand(board.pickCard("Knife"), board.pickCard("Ax"), board.pickCard("Kitchen"));
+		Solution suggestion = new Solution(board.pickCard("Eminem"), board.pickCard("Knife"), board.pickCard("Bathroom"));
+		assertTrue(board.pickCard("Knife").equals(board.getPlayer("Eminem").disproveSuggestion(suggestion)));
 	}
 	
 	@Test
