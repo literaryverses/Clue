@@ -23,6 +23,9 @@ public abstract class Player {
 	public void setRoomName(Map<Character,Room> roomMap, BoardCell[][] grid) {
 	}
 	
+	/*
+	 * Disproves suggestion based on player cards
+	 */
 	public Card disproveSuggestion(Solution suggestion) {
 		for (Card card : hand) {
 			if (card.equals(suggestion.getPerson())&&!card.getName().equals(this.name)) {
@@ -56,7 +59,9 @@ public abstract class Player {
 		return column;
 	}
 	
-	
+	/*
+	 * Chooses the player color
+	 */
 	public void interpretColor() {
 		switch(nextColor) {
 		case 0:

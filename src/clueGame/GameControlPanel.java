@@ -13,16 +13,8 @@ public class GameControlPanel extends JPanel{
 	public GameControlPanel()  {
 		JButton accuseButton = new JButton("Make Accusation");
 		add(accuseButton, BorderLayout.EAST);
-		accuseButton.addActionListener(new ButtonListener());
 		JButton nextButton = new JButton("NEXT!");
 		add(nextButton, BorderLayout.EAST);
-		nextButton.addActionListener(new ButtonListener());
-	}
-	
-	public class ButtonListener() implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			// call accuse function
-		}
 	}
 
 	/**
