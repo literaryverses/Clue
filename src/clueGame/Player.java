@@ -7,7 +7,7 @@ public abstract class Player {
 	private String color;
 	protected int row, column;
 	private static int nextColor;
-	private ArrayList<Card> hand = new ArrayList<Card>();
+	protected ArrayList<Card> hand = new ArrayList<Card>();
 	
 	public Player(String name) {
 		super();
@@ -15,7 +15,7 @@ public abstract class Player {
 		this.name = name;
 	}
 	
-	abstract public BoardCell selectTarget(Set<BoardCell> t, Map<Character,Room> roomMap);
+	abstract public BoardCell selectTarget(Set<BoardCell> t, Map<Character,Room> roomMap, ArrayList<Card> deck);
 	
 	public void seeCard(Card c) {
 	}
@@ -24,15 +24,15 @@ public abstract class Player {
 	}
 	
 	public Card disproveSuggestion(Solution suggestion) {
-		for (Card c : hand) {
-			if (c.equals(suggestion.getPerson())) {
-				return c;
+		for (Card card : hand) {
+			if (card.equals(suggestion.getPerson())&&!card.getName().equals(this.name)) {
+				return card;
 			}
-			if (c.equals(suggestion.getWeapon())) {
-				return c;
+			if (card.equals(suggestion.getWeapon())) {
+				return card;
 			}
-			if (c.equals(suggestion.getRoom())) {
-				return c;
+			if (card.equals(suggestion.getRoom())) {
+				return card;
 			}
 		}
 		
@@ -91,12 +91,5 @@ public abstract class Player {
 	
 	public ArrayList<Card> getHand() {
 		return this.hand;
-	}
-	
-	public void overrideHand(Card c1, Card c2, Card c3) {
-		hand.clear();
-		hand.add(c1);
-		hand.add(c2);
-		hand.add(c3);
 	}
 }

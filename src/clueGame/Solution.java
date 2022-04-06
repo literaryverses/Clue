@@ -8,26 +8,20 @@ public class Solution {
 	public Solution() {
 	}
 	
-	public Solution(Card person, Card weapon, Card room) {
-		this.person = person;
-		this.weapon = weapon;
-		this.room = room;		
-	}
-	
-	public boolean hasCardType(Card c) { 
+	public boolean hasCardType(Card card) { 
 		//checks to see if the solution already has a card of the same type
-		CardType t = c.getType();
-		if (t==CardType.ROOM) {
+		CardType type = card.getType();
+		if (type==CardType.ROOM) {
 			if (this.room == null) {
 				return false;
 			}
 		}
-		else if (t==CardType.PERSON) {
+		else if (type==CardType.PERSON) {
 			if (this.person == null) {
 				return false;
 			}
 		}
-		else if (t==CardType.WEAPON) {
+		else if (type==CardType.WEAPON) {
 			if (this.weapon == null) {
 				return false;
 			}
@@ -35,17 +29,17 @@ public class Solution {
 		return true;
 	}
 	
-	public void add(Card c) {
+	public void add(Card card) {
 		//adds a card to the solution and puts it into the right type
-		CardType t = c.getType();
-		if (t==CardType.ROOM) {
-			this.room = c;
+		CardType type = card.getType();
+		if (type==CardType.ROOM) {
+			this.room = card;
 		}
-		else if (t==CardType.PERSON) {
-			this.person = c;
+		else if (type==CardType.PERSON) {
+			this.person = card;
 		}
-		else if (t==CardType.WEAPON) {
-			this.weapon = c;
+		else if (type==CardType.WEAPON) {
+			this.weapon = card;
 		}
 	}
 	

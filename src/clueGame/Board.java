@@ -54,45 +54,21 @@ public class Board {
     	return true;
     }
     
-    public BoardCell ComputerPlayerMove(Player p) {
-    	
-    	BoardCell bc = p.selectTarget(targets, roomMap);
-    	p.setPlace(bc.getRow(), bc.getColumn());
-    	p.setRoomName(roomMap, grid); // set new room name for player
-    	return bc;
+    public BoardCell ComputerPlayerMove(Player player) {
+    	BoardCell newCell = player.selectTarget(targets, roomMap, deck);
+    	player.setPlace(newCell.getRow(), newCell.getColumn());
+    	player.setRoomName(roomMap, grid); // set new room name for player
+    	return newCell;
     }
     
-    public Card handleAccusation(Solution accusation) {
-    	for (Player p : players) {
-    		Card c = p.disproveSuggestion(accusation);
-    		if (c!=null) {
-    			return c;
+    public Card handleSuggestion(Solution suggestion) {
+    	for (Player player : players) {
+    		Card card = player.disproveSuggestion(suggestion);
+    		if (card!=null) {
+    			return card;
     		}
     	}
     	return null;
-    }
-    
-    public Card pickCard(String name) {
-    	for (Card c : deck) {
-    		if (c.getName() == name) {
-    			return c;
-    		}
-    	}
-		return null;
-    	
-    }
-    
-    public Player getPlayer(String name) {
-    	for (Player p : players) {
-    		if (p.getName() == name) {
-    			return p;
-    		}
-    	}
-    	return null;
-    }
-    
-    public void setAnswer(String person, String weapon, String room) {
-    	theAnswer = new Solution(pickCard(person), pickCard(weapon), pickCard(room));
     }
     
     public ArrayList<Player> getPlayers() {
@@ -111,15 +87,14 @@ public class Board {
     	Collections.shuffle(deck);
 		int playerIndex = 0;
 		int cardCount = 0;
-    	for (Card c : deck) { 		
+    	for (Card card : deck) { 		
     		 //Checks to see if the solution has that card type already and isn't full
-    		if (!theAnswer.hasCardType(c) && !theAnswer.isFull()) {
-    			theAnswer.add(c);
+    		if (!theAnswer.hasCardType(card) && !theAnswer.isFull()) {
+    			setAnswer(card);
     		}
     		else {
-    			Player p = players.get(playerIndex);
-    			p.updateHand(c);
-    			p.seeCard(c); // adds hand of cards to seen list
+    			Player player = players.get(playerIndex);
+    			player.updateHand(card);
     			cardCount++;
     			if (cardCount == 3) {
     				playerIndex++;
@@ -128,6 +103,13 @@ public class Board {
     		}
     	}
     }
+    
+    /*
+     * set theAnswer with cards
+     */
+	public void setAnswer(Card c) {
+		theAnswer.add(c);
+	}
     
     /*
      * get columns of grid
@@ -190,9 +172,9 @@ public class Board {
 					player = new ComputerPlayer(lines[1]);
 				}
 				players.add(player);
-				for (Card c : deck) { // adds card of player to player's seen list
-		    		if (c.getType()==CardType.PERSON && c.getName().equals(player.getName())) {
-		    				player.seeCard(c);
+				for (Card card : deck) { // adds card of player to player's seen list
+		    		if (card.getType()==CardType.PERSON && card.getName().equals(player.getName())) {
+		    				player.seeCard(card);
 		    		}
 				}
 			}
@@ -226,11 +208,11 @@ public class Board {
     	int index = 0;
     	//System.out.println("right here");
     	//System.out.println(players.size());
-    	for (Player p : players) {
-    		p.setPlace(rowLocs[index], colLocs[index]); // set players in Room
+    	for (Player player : players) {
+    		player.setPlace(rowLocs[index], colLocs[index]); // set players in Room
     		index++;
-    		if (p instanceof ComputerPlayer) {
-    			p.setRoomName(roomMap, grid);
+    		if (player instanceof ComputerPlayer) {
+    			player.setRoomName(roomMap, grid);
     		}
     	}
     }
@@ -332,8 +314,8 @@ public class Board {
 	 */
 	public void makeAdjList() {
 		//creates the adjacent cell list for all the cells in the grid
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; j++) {
+		for (int i = 0; i < rows; i++) { // iterates each row
+			for (int j = 0; j < cols; j++) { // iterates each column
 				setAdjList(i,j);
 			}
 		}
@@ -353,6 +335,20 @@ public class Board {
 	 */
 	public Room getRoom(char x) {
 		return roomMap.get(x);
+	}
+	
+	/*
+	 * gets room Map
+	 */
+	public Map<Character,Room> getRoomMap() {
+		return roomMap;
+	}
+	
+	/*
+	 * gets board grid
+	 */
+	public BoardCell[][] getGrid() {
+		return grid;
 	}
 	
 	/*
@@ -389,11 +385,11 @@ public class Board {
 			connectDoor(newCell,row,col);
 		}
 		else if (newCell.getSecretPassage() > 64) {
-			Character c = newCell.getInitial();
-			Room room = roomMap.get(c);
+			Character character = newCell.getInitial();
+			Room room = roomMap.get(character);
 			BoardCell centerCell = room.getCenterCell();
-			c = newCell.getSecretPassage();
-			connectPassage(centerCell,c);
+			character = newCell.getSecretPassage();
+			connectPassage(centerCell,character);
 		}
 		 
 	}
@@ -403,22 +399,22 @@ public class Board {
 	 * @param BoardCell cell, int row, int col
 	 */
 	public void connectDoor(BoardCell cell, int row, int col) {
-		char c = 0;
+		char roomInitial = 0;
 		switch (cell.getDoorDirection()) {
 		case UP: 
-			c = grid[row-1][col].getInitial();
+			roomInitial = grid[row-1][col].getInitial();
 			break;
 		case DOWN: 
-			c = grid[row+1][col].getInitial();
+			roomInitial = grid[row+1][col].getInitial();
 			break;
 		case LEFT: 
-			c = grid[row][col-1].getInitial();
+			roomInitial = grid[row][col-1].getInitial();
 			break;
 		case RIGHT: 
-			c = grid[row][col+1].getInitial();
+			roomInitial = grid[row][col+1].getInitial();
 		default:
 		}
-		Room room = roomMap.get(c);
+		Room room = roomMap.get(roomInitial);
 		BoardCell roomCenter = room.getCenterCell();
 		cell.addAdjList(roomCenter);
 		roomCenter.addAdjList(cell);
@@ -453,9 +449,9 @@ public class Board {
 	 * @param BoardCell startCell, int numSteps
 	 */
 	public void findAllTargets(BoardCell startCell, int numSteps) {
-		//System.out.println("InFind");
+		System.out.println("InFind");
         for (BoardCell adjCell : startCell.getAdjList()) {
-        	//System.out.println("InFindFor");
+        	System.out.println("InFindFor");
         	if ( !visited.contains(adjCell) && (!adjCell.getOccupied() || adjCell.isRoomCenter()) ) {
         		visited.add(adjCell);
         		if (numSteps==1 || adjCell.isRoomCenter()) {
@@ -473,10 +469,10 @@ public class Board {
 	 * returns the target list
 	 */
 	public Set<BoardCell> getTargets() {
-		//System.out.println(targets.size());
+		System.out.println(targets.size());
 		return targets;
 	}
-	
+
 	/*
 	 * returns the adjacency list
 	 */

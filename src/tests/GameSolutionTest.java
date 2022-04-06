@@ -7,75 +7,142 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import clueGame.Player;
-import clueGame.Solution;
-import clueGame.Board;
-import clueGame.Card;
-import clueGame.ComputerPlayer;
-import clueGame.HumanPlayer;
+import clueGame.*;
 
 class GameSolutionTest {
-
-	private HumanPlayer man;
-	private ComputerPlayer comp;
-	private ComputerPlayer comp2;
 	private static Board board;
-	private static ArrayList<Player> players;
-	
+	private static Card a = new Card("Eminem");
+	private static Card b = new Card("Knife");
+	private static Card c = new Card("Bathroom");
+	private static Card d = new Card("Finn");
+	private static Card e = new Card("Nuke");
+	private static Card f = new Card("Cat realm");
+	private Player p = new ComputerPlayer("Steve");
+
+
 	@BeforeAll
-	static void setUp() throws Exception {
+	static void setUpBeforeClass() throws Exception {
 		board = Board.getInstance();
 		// set the file names to use my config files
 		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");		
 		// Initialize will load config files 
-		board.initialize();
-		
-		players = board.getPlayers();
+		board.loadSetupConfig();
+		board.loadLayoutConfig();
+		b.setType("WEAPON");
+		c.setType("ROOM");
+		a.setType("PERSON");
+		d.setType("PERSON");
+		e.setType("WEAPON");
+		f.setType("ROOM");
+		board.setAnswer(a);
+		board.setAnswer(b);
+		board.setAnswer(c);
 	}
-	
 
 	@Test
 	void testAccusation() {
-		Solution tempAnswer = board.getAnswer();
-		board.setAnswer("Eminem", "Knife", "Bathroom");
-		Solution accusation = new Solution(board.pickCard("Eminem"), board.pickCard("Knife"), board.pickCard("Bathroom"));
-		assertTrue(board.checkAccusation(accusation));
-		accusation = new Solution(board.pickCard("Player"), board.pickCard("Knife"), board.pickCard("Bathroom"));
-		assertTrue(!(board.checkAccusation(accusation)));
-		accusation = new Solution(board.pickCard("Eminem"), board.pickCard("Ax"), board.pickCard("Bathroom"));
-		assertTrue(!(board.checkAccusation(accusation)));
-		accusation = new Solution(board.pickCard("Eminem"), board.pickCard("Knife"), board.pickCard("Kitchen"));
-		assertTrue(!(board.checkAccusation(accusation)));
-		board.setAnswer(tempAnswer.getPerson().getName(), tempAnswer.getWeapon().getName(), tempAnswer.getRoom().getName());
+		//right accusation
+		Solution right = new Solution();
+		right.add(a);
+		right.add(b);
+		right.add(c);
+		assertTrue(board.checkAccusation(right));
+		
+		//wrong person
+		Solution wrongP = new Solution();
+		wrongP.add(d);
+		wrongP.add(b);
+		wrongP.add(c);
+		assertFalse(board.checkAccusation(wrongP));
+		
+		//wrong weapon
+		Solution wrongW = new Solution();
+		wrongW.add(a);
+		wrongW.add(e);
+		wrongW.add(c);
+		assertFalse(board.checkAccusation(wrongW));
+		
+		//wrong room
+		Solution wrongR = new Solution();
+		wrongR.add(a);
+		wrongR.add(b);
+		wrongR.add(f);
+		assertFalse(board.checkAccusation(wrongR));
 	}
 	
 	@Test
-	void testDisprove() {
-		String name = "Eminem";
-		board.getPlayer(name).overrideHand(board.pickCard("Knife"), board.pickCard("Ax"), board.pickCard("Kitchen"));
-		Solution suggestion = new Solution(board.pickCard(name), board.pickCard("Knife"), board.pickCard("Bathroom"));
-		assertTrue(board.pickCard("Knife").equals(board.getPlayer(name).disproveSuggestion(suggestion)));
+	void testDisprove() {		
+		p.updateHand(a);
+		p.updateHand(b);
+		p.updateHand(c);
 		
-		suggestion = new Solution(board.pickCard(name), board.pickCard("Library"), board.pickCard("Bathroom"));
-		assertTrue(board.getPlayer(name).disproveSuggestion(suggestion) == null);
+		// nothing matches
+		Solution suggestion1 = new Solution();
+		suggestion1.add(d);
+		suggestion1.add(e);
+		suggestion1.add(f);
+		assertTrue(p.disproveSuggestion(suggestion1)==null);
 		
-		suggestion = new Solution(board.pickCard(name), board.pickCard("Knife"), board.pickCard("Ax"));
-		int count1 = 0;
-		int count2 = 0;
-		for (int i = 0; i < 20; i++) {
-			if (board.getPlayer(name).disproveSuggestion(suggestion).equals(board.pickCard("Knife"))) {
-				count1++;
-			} else if (board.getPlayer(name).disproveSuggestion(suggestion).equals(board.pickCard("Ax"))) {
-				count2++;
-			}
-		}
-		assertTrue(count1 > 0);
-		assertTrue(count2 > 0);
+		
+		// one matches
+		Solution suggestion2 = new Solution();
+		suggestion2.add(a);
+		suggestion2.add(e);
+		suggestion2.add(f);
+		assertTrue(p.disproveSuggestion(suggestion2).equals(a));
+		
+		
+		// two matches
+		Solution suggestion3 = new Solution();
+		suggestion3.add(a);
+		suggestion3.add(b);
+		suggestion3.add(f);
+		Card z = p.disproveSuggestion(suggestion3);
+		assertTrue(z.equals(a)||z.equals(b));
 	}
 	
 	@Test
 	void testHandle() {
+		Solution suggest = new Solution();
+		suggest.add(a);
+		suggest.add(b);
+		suggest.add(c);
 		
+		ArrayList<Card> tempDeck = board.getDeck();
+		tempDeck.remove(10);
+		tempDeck.remove(5);
+		tempDeck.remove(15);
+		board.deal();
+		
+		// assertion no one can dispute
+		assertTrue(null == board.handleSuggestion(suggest));
+
+		
+		// assertion only accusing player can dispute
+		ArrayList<Player> players = board.getPlayers();
+		for (Player p : players) {
+			if (p.getName().equals("Eminem")) {
+				p.updateHand(a);
+			}
+		}
+		assertTrue(null == board.handleSuggestion(suggest));
+		
+		// assertion human can dispute
+		for (Player p: players) {
+			if (p.getName().equals("Player")) {
+				p.updateHand(b);
+			}
+		}
+		assertTrue(b.equals(board.handleSuggestion(suggest)));
+		
+		// assertion two players can dispute
+		for (Player p: players) {
+			if (p.getName().equals("MF Doom")) {
+				p.updateHand(c);
+			}
+		}
+		// MF Doom comes before player
+		assertTrue(c.equals(board.handleSuggestion(suggest)));
 	}
 
 }

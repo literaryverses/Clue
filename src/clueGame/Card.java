@@ -20,6 +20,9 @@ public class Card {
 		return cardName;
 	}
 	
+	/*
+	 * checks if given card is equal to instance card
+	 */
 	public boolean equals(Card target) {
 		if (this.cardName == target.getName() && this.cardType == target.getType()) {
 			return true;
