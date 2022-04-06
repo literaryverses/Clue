@@ -8,6 +8,9 @@ public class Solution {
 	public Solution() {
 	}
 	
+	/*
+	 * Checks to make sure card type of given card is in solution
+	 */
 	public boolean hasCardType(Card card) { 
 		//checks to see if the solution already has a card of the same type
 		CardType type = card.getType();
@@ -29,6 +32,9 @@ public class Solution {
 		return true;
 	}
 	
+	/*
+	 * Adds card to solution
+	 */
 	public void add(Card card) {
 		//adds a card to the solution and puts it into the right type
 		CardType type = card.getType();
@@ -43,6 +49,9 @@ public class Solution {
 		}
 	}
 	
+	/*
+	 * Checks to see if solution has three cards
+	 */
 	public boolean isFull() {
 		if (this.room == null || this.person == null || this.weapon == null) {
 			return false;
