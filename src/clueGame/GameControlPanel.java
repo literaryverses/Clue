@@ -7,14 +7,58 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class GameControlPanel extends JPanel{
+	private JTextField playerName = new JTextField();
+	private JTextField rollNum = new JTextField();
+	private JTextField guessText = new JTextField();
+	private JTextField GuessResult = new JTextField();
+
+	
+	
 	/**
 	 * Constructor for the panel, it does 90% of the work
 	 */
 	public GameControlPanel()  {
+		JPanel gameControlPanel = new JPanel();
+		gameControlPanel.setLayout(new GridLayout(2,0));
+		
+		JPanel turnOptionsPanel = new JPanel();
+		turnOptionsPanel.setLayout(new GridLayout(1,4));
+		gameControlPanel.add(turnOptionsPanel);
+		
+		JPanel whoseTurnPanel = new JPanel();
+		whoseTurnPanel.setLayout(new GridLayout(1,0));
+		JLabel whoseTurn = new JLabel("Whose Turn?");
+		
+		JPanel rollPanel = new JPanel();
+		JLabel rollLabel = new JLabel("Roll:");
+		
 		JButton accuseButton = new JButton("Make Accusation");
-		add(accuseButton, BorderLayout.EAST);
+		turnOptionsPanel.add(accuseButton);
 		JButton nextButton = new JButton("NEXT!");
-		add(nextButton, BorderLayout.EAST);
+		turnOptionsPanel.add(nextButton);
+		
+		JPanel guessPanel = new JPanel();
+		guessPanel.setLayout(new GridLayout(0,2));
+		gameControlPanel.add(guessPanel);
+		
+		JPanel playerGuessPanel = new JPanel();
+		JPanel guessResultPanel = new JPanel();
+	}
+
+	public void setPlayerName(JTextField playerName) {
+		this.playerName = playerName;
+	}
+
+	public void setRollNum(JTextField rollNum) {
+		this.rollNum = rollNum;
+	}
+
+	public void setGuessText(JTextField guessText) {
+		this.guessText = guessText;
+	}
+
+	public void setGuessResult(JTextField guessResult) {
+		GuessResult = guessResult;
 	}
 
 	/**
@@ -25,9 +69,12 @@ public class GameControlPanel extends JPanel{
 	public static void main(String[] args) {
 		GameControlPanel panel = new GameControlPanel();  // create the panel
 		JFrame frame = new JFrame();  // create the frame 
+		frame.setTitle("Game Control Panel");
 		frame.setContentPane(panel); // put the panel in the frame
 		frame.setSize(750, 180);  // size the frame
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
 		frame.setVisible(true); // make it visible
+		
+
 	}
 }
