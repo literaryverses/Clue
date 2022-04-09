@@ -7,7 +7,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 public class GameControlPanel extends JPanel{
-	private JTextField playerName = new JTextField(10);
+	private JTextField playerTurn = new JTextField(10);
 	private JTextField rollNum = new JTextField(3);
 	private JTextField guessText = new JTextField(20);
 	private JTextField guessResult = new JTextField(20);
@@ -26,7 +26,7 @@ public class GameControlPanel extends JPanel{
 		JPanel whoseTurnPanel = new JPanel();
 		JLabel whoseTurn = new JLabel("Whose Turn?");
 		whoseTurnPanel.add(whoseTurn);
-		whoseTurnPanel.add(playerName);
+		whoseTurnPanel.add(playerTurn);
 		turnOptionsPanel.add(whoseTurnPanel);
 		
 		JPanel rollPanel = new JPanel();
@@ -56,15 +56,12 @@ public class GameControlPanel extends JPanel{
 
 	}
 
-	public void setPlayerName(String playerName) {
-		this.playerName.setText(playerName);
+	public void setTurn(Player player, int roll) {
+		this.playerTurn.setText(player.getName());
+		this.rollNum.setText(Integer.toString(roll));
 	}
 
-	public void setRollNum(String rollNum) {
-		this.rollNum.setText(rollNum);
-	}
-
-	public void setGuessText(String guessText) {
+	public void setGuess(String guessText) {
 		this.guessText.setText(guessText);
 	}
 
@@ -86,6 +83,10 @@ public class GameControlPanel extends JPanel{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
 		frame.setVisible(true); // make it visible
 		
+		// test filling in the data
+		panel.setTurn(new ComputerPlayer("Col. Mustard"), 5);
+		panel.setGuess("I have no guess!");
+		panel.setGuessResult("So you have nothing?");
 
 	}
 }
