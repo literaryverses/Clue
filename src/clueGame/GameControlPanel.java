@@ -3,8 +3,8 @@ package clueGame;
 
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.*;
+import javax.swing.border.*;
 
 public class GameControlPanel extends JPanel{
 	private JTextField playerName = new JTextField();
@@ -18,31 +18,43 @@ public class GameControlPanel extends JPanel{
 	 * Constructor for the panel, it does 90% of the work
 	 */
 	public GameControlPanel()  {
-		JPanel gameControlPanel = new JPanel();
-		gameControlPanel.setLayout(new GridLayout(2,0));
+		setLayout(new GridLayout(2,0));
 		
 		JPanel turnOptionsPanel = new JPanel();
 		turnOptionsPanel.setLayout(new GridLayout(1,4));
-		gameControlPanel.add(turnOptionsPanel);
 		
 		JPanel whoseTurnPanel = new JPanel();
 		whoseTurnPanel.setLayout(new GridLayout(1,0));
 		JLabel whoseTurn = new JLabel("Whose Turn?");
+		whoseTurnPanel.add(whoseTurn);
+		whoseTurnPanel.add(playerName);
+		turnOptionsPanel.add(whoseTurnPanel);
 		
 		JPanel rollPanel = new JPanel();
 		JLabel rollLabel = new JLabel("Roll:");
+		rollPanel.add(rollLabel);
+		rollPanel.add(rollNum);
+		turnOptionsPanel.add(rollPanel);
 		
 		JButton accuseButton = new JButton("Make Accusation");
 		turnOptionsPanel.add(accuseButton);
 		JButton nextButton = new JButton("NEXT!");
 		turnOptionsPanel.add(nextButton);
+		add(turnOptionsPanel);
 		
 		JPanel guessPanel = new JPanel();
 		guessPanel.setLayout(new GridLayout(0,2));
-		gameControlPanel.add(guessPanel);
 		
 		JPanel playerGuessPanel = new JPanel();
+		playerGuessPanel.setBorder(new TitledBorder (new EtchedBorder(), "Guess"));
+		playerGuessPanel.add(guessText);
 		JPanel guessResultPanel = new JPanel();
+		guessResultPanel.setBorder(new TitledBorder (new EtchedBorder(), "Guess Result"));
+		guessResultPanel.add(guessResult);
+		guessPanel.add(playerGuessPanel);
+		guessPanel.add(guessResultPanel);
+		add(guessPanel);
+
 	}
 
 	public void setPlayerName(String playerName) {
