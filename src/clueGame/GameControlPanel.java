@@ -99,6 +99,5 @@ public class GameControlPanel extends JPanel{
 		panel.setTurn(new ComputerPlayer("Col. Mustard"), 5);
 		panel.setGuess("I have no guess!");
 		panel.setGuessResult("So you have nothing?");
-
 	}
 }
