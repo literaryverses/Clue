@@ -18,9 +18,9 @@ public class GameControlPanel extends JPanel{
 	 * Constructor for the panel, it does 90% of the work
 	 */
 	public GameControlPanel()  {
-		setLayout(new GridLayout(2,0));
+		setLayout(new GridLayout(2,0)); // set up Layout of control panel
 		
-		JPanel turnOptionsPanel = new JPanel();
+		JPanel turnOptionsPanel = new JPanel(); // add upper turn options panel
 		turnOptionsPanel.setLayout(new GridLayout(1,4));
 		
 		JPanel whoseTurnPanel = new JPanel();
@@ -41,7 +41,7 @@ public class GameControlPanel extends JPanel{
 		turnOptionsPanel.add(nextButton);
 		add(turnOptionsPanel);
 		
-		JPanel guessPanel = new JPanel();
+		JPanel guessPanel = new JPanel(); // add lower guess panel
 		guessPanel.setLayout(new GridLayout(0,2));
 		
 		JPanel playerGuessPanel = new JPanel();
@@ -56,15 +56,27 @@ public class GameControlPanel extends JPanel{
 
 	}
 
+	/*
+	 * Sets the turn display
+	 * @param Player, int
+	 */
 	public void setTurn(Player player, int roll) {
 		this.playerTurn.setText(player.getName());
 		this.rollNum.setText(Integer.toString(roll));
 	}
 
+	/*
+	 * Sets the guess display
+	 * @param String
+	 */
 	public void setGuess(String guessText) {
 		this.guessText.setText(guessText);
 	}
 
+	/*
+	 * Sets the guess result display
+	 * @param String
+	 */
 	public void setGuessResult(String guessResult) {
 		this.guessResult.setText(guessResult);
 	}
