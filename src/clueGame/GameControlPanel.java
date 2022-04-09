@@ -7,10 +7,10 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 public class GameControlPanel extends JPanel{
-	private JTextField playerName = new JTextField();
-	private JTextField rollNum = new JTextField();
-	private JTextField guessText = new JTextField();
-	private JTextField guessResult = new JTextField();
+	private JTextField playerName = new JTextField(10);
+	private JTextField rollNum = new JTextField(3);
+	private JTextField guessText = new JTextField(20);
+	private JTextField guessResult = new JTextField(20);
 
 	
 	
@@ -24,7 +24,6 @@ public class GameControlPanel extends JPanel{
 		turnOptionsPanel.setLayout(new GridLayout(1,4));
 		
 		JPanel whoseTurnPanel = new JPanel();
-		whoseTurnPanel.setLayout(new GridLayout(1,0));
 		JLabel whoseTurn = new JLabel("Whose Turn?");
 		whoseTurnPanel.add(whoseTurn);
 		whoseTurnPanel.add(playerName);
