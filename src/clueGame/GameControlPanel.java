@@ -10,7 +10,7 @@ public class GameControlPanel extends JPanel{
 	private JTextField playerName = new JTextField();
 	private JTextField rollNum = new JTextField();
 	private JTextField guessText = new JTextField();
-	private JTextField GuessResult = new JTextField();
+	private JTextField guessResult = new JTextField();
 
 	
 	
@@ -45,20 +45,20 @@ public class GameControlPanel extends JPanel{
 		JPanel guessResultPanel = new JPanel();
 	}
 
-	public void setPlayerName(JTextField playerName) {
-		this.playerName = playerName;
+	public void setPlayerName(String playerName) {
+		this.playerName.setText(playerName);
 	}
 
-	public void setRollNum(JTextField rollNum) {
-		this.rollNum = rollNum;
+	public void setRollNum(String rollNum) {
+		this.rollNum.setText(rollNum);
 	}
 
-	public void setGuessText(JTextField guessText) {
-		this.guessText = guessText;
+	public void setGuessText(String guessText) {
+		this.guessText.setText(guessText);
 	}
 
-	public void setGuessResult(JTextField guessResult) {
-		GuessResult = guessResult;
+	public void setGuessResult(String guessResult) {
+		this.guessResult.setText(guessResult);
 	}
 
 	/**
