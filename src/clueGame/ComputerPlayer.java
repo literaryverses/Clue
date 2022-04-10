@@ -4,7 +4,8 @@ import java.util.*;
 
 public class ComputerPlayer extends Player {
 	private String roomName;
-	protected ArrayList<Card> seen = new ArrayList<Card>();
+	private ArrayList<Card> seen = new ArrayList<Card>();
+
 	
 	public ComputerPlayer(String name) {
 		super(name);
@@ -59,10 +60,10 @@ public class ComputerPlayer extends Player {
 				random = newCell;
 			}
 			if (newCell.isRoomCenter()) { // if board cell 
-				Room r = roomMap.get(newCell.getInitial());
-				String roomName = r.getName();
-				for (Card c : seen) {
-					if (!c.getName().equals(roomName) && c.getType()==CardType.ROOM) {
+				Room room = roomMap.get(newCell.getInitial());
+				String roomName = room.getName();
+				for (Card card : seen) {
+					if (!card.getName().equals(roomName) && card.getType()==CardType.ROOM) {
 						moveTo.add(newCell);
 					}
 				}
@@ -80,15 +81,14 @@ public class ComputerPlayer extends Player {
 	}
 	
 	@Override
-	public void updateHand(Card c) {
-		hand.add(c);
-		seeCard(c);
+	public void updateHand(Card card) {
+		hand.add(card);
+		seeCard(card);
 	}
 	
-	public void seeCard(Card c) {
-		if (!this.seen.contains(c)) {
-			seen.add(c);
+	public void seeCard(Card card) {
+		if (!this.seen.contains(card)) {
+			seen.add(card);
 		}
 	}
-
 }

@@ -1,10 +1,11 @@
 package clueGame;
 
+import java.awt.*;
 import java.util.*;
 
 public abstract class Player {
 	protected String name;
-	private String color;
+	private Color color;
 	protected int row, column;
 	private static int nextColor;
 	protected ArrayList<Card> hand = new ArrayList<Card>();
@@ -15,9 +16,13 @@ public abstract class Player {
 		this.name = name;
 	}
 	
-	abstract public BoardCell selectTarget(Set<BoardCell> t, Map<Character,Room> roomMap, ArrayList<Card> deck);
+	abstract public BoardCell selectTarget(Set<BoardCell> targets, Map<Character,Room> roomMap,
+			ArrayList<Card> deck);
 	
 	public void setRoomName(Map<Character,Room> roomMap, BoardCell[][] grid) {
+	}
+	
+	public void seeCard(Card card) {
 	}
 	
 	/*
@@ -62,28 +67,28 @@ public abstract class Player {
 	public void interpretColor() {
 		switch(nextColor) {
 		case 0:
-			this.color = "Red";
+			this.color = Color.RED;
 			break;
 		case 1:
-			this.color = "Orange";
+			this.color = Color.ORANGE;
 			break;
 		case 2:
-			this.color = "Yellow";
+			this.color = Color.YELLOW;
 			break;
 		case 3:
-			this.color = "Green";
+			this.color = Color.GREEN;
 			break;
 		case 4:
-			this.color = "Blue";
+			this.color = Color.BLUE;
 			break;
 		case 5:
-			this.color = "Purple";
+			this.color = Color.MAGENTA;
 			break;
 		}
 		nextColor++;
 	}
 	
-	public String getColor() {
+	public Color getColor() {
 		return this.color;
 	}
 
