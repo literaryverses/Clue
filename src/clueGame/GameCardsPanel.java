@@ -38,20 +38,20 @@ public class GameCardsPanel extends JPanel{
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
-		JLabel label1 = new JLabel("In Hand:");
-		JTextField field1 = new JTextField(20);
-		field1.setEditable(false);
-		field1.setText("None");
+		JLabel hand = new JLabel("In Hand:");
+		JTextField fieldHand = new JTextField(20);
+		fieldHand.setEditable(false);
+		fieldHand.setText("None");
 		
-		JLabel label2 = new JLabel("Seen:");
-		JTextField field2 = new JTextField(20);
-		field2.setEditable(false);
-		field2.setText("None");
+		JLabel seen = new JLabel("Seen:");
+		JTextField fieldSeen = new JTextField(20);
+		fieldSeen.setEditable(false);
+		fieldSeen.setText("None");
 		
-		panel.add(label1);
-		panel.add(field1);
-		panel.add(label2);
-		panel.add(field2);
+		panel.add(hand);
+		panel.add(fieldHand);
+		panel.add(seen);
+		panel.add(fieldSeen);
 		
 		return panel;
 	}
@@ -66,7 +66,7 @@ public class GameCardsPanel extends JPanel{
 	}
 	
 	public void setPlayerSeen(String[] playerSeen) {
-		playersHand.clear();
+		playersSeen.clear();
 		for (String cardName : playerSeen) {
 			JTextField field = new JTextField(cardName);
 			field.setEditable(false);
@@ -75,19 +75,133 @@ public class GameCardsPanel extends JPanel{
 	}
 	
 	
-	
 	public void updatePlayerPanel() {
 		playersPanel.removeAll();
-		JLabel label1 = new JLabel("In Hand:");
-		playersPanel.add(label1);
-		for (JTextField field : playersHand) {
-			playersPanel.add(field);
+		
+		
+		JLabel hand = new JLabel("In Hand:");
+		playersPanel.add(hand);
+		if (playersHand.size() == 0) {
+			playersPanel.add(empty());
+		} else {
+			for (JTextField field : playersHand) {
+				playersPanel.add(field);
+			}
 		}
-		JLabel label2 = new JLabel("Seen:");
-		playersPanel.add(label2);
-		for (JTextField field : playersSeen) {
-			playersPanel.add(field);
+		
+		
+		JLabel seen = new JLabel("Seen:");
+		playersPanel.add(seen);
+		if (playersSeen.size() == 0) {
+			playersPanel.add(empty());
+		} else {
+			for (JTextField field : playersSeen) {
+				playersPanel.add(field);
+			}
 		}
+	}
+	
+	
+	public void setRoomHand(String[] roomHand) {
+		roomsHand.clear();
+		for (String cardName : roomHand) {
+			JTextField field = new JTextField(cardName);
+			field.setEditable(false);
+			roomsHand.add(field);
+		}
+	}
+	
+	public void setRoomSeen(String[] roomSeen) {
+		roomsSeen.clear();
+		for (String cardName : roomSeen) {
+			JTextField field = new JTextField(cardName);
+			field.setEditable(false);
+			roomsSeen.add(field);
+		}
+	}
+	
+	
+	public void updateRoomPanel() {
+		roomsPanel.removeAll();
+		
+		JLabel hand = new JLabel("In Hand:");
+		roomsPanel.add(hand);
+		if (roomsHand.size() == 0) {
+			roomsPanel.add(empty());
+		} else {
+			for (JTextField field : roomsHand) {
+				roomsPanel.add(field);
+			}
+		}
+		
+		
+		JLabel seen = new JLabel("Seen:");
+		roomsPanel.add(seen);
+		if (roomsSeen.size() == 0) {
+			roomsPanel.add(empty());
+		} else {
+			for (JTextField field : roomsSeen) {
+				roomsPanel.add(field);
+			}
+		}
+	}
+	
+	
+	public void setWeaponHand(String[] weaponHand) {
+		weaponsHand.clear();
+		for (String cardName : weaponHand) {
+			JTextField field = new JTextField(cardName);
+			field.setEditable(false);
+			weaponsHand.add(field);
+		}
+	}
+	
+	public void setWeaponSeen(String[] weaponSeen) {
+		weaponsSeen.clear();
+		for (String cardName : weaponSeen) {
+			JTextField field = new JTextField(cardName);
+			field.setEditable(false);
+			weaponsSeen.add(field);
+		}
+	}
+	
+	
+	public void updateWeaponPanel() {
+		weaponsPanel.removeAll();
+		
+		JLabel hand = new JLabel("In Hand:");
+		weaponsPanel.add(hand);
+		if (weaponsHand.size() == 0) {
+			weaponsPanel.add(empty());
+		} else {
+			for (JTextField field : weaponsHand) {
+				weaponsPanel.add(field);
+			}
+		}
+		
+		
+		JLabel seen = new JLabel("Seen:");
+		weaponsPanel.add(seen);
+		if (weaponsSeen.size() == 0) {
+			weaponsPanel.add(empty());
+		} else {
+			for (JTextField field : weaponsSeen) {
+				weaponsPanel.add(field);
+			}
+		}
+	}
+	
+	public void updateAll() {
+		updatePlayerPanel();
+		updateRoomPanel();
+		updateWeaponPanel();
+	}
+	
+	public JTextField empty() {
+		JTextField empty = new JTextField(20);
+		empty.setEditable(false);
+		empty.setText("None");
+		return empty;
 	}
 
 	public static void main(String[] args) {
@@ -101,8 +215,18 @@ public class GameCardsPanel extends JPanel{
 		
 		//Tests
 		String[] playerHand = {"Lil Wayne", "Eminem"};
+		String[] playersSeen = {"Kanye West"};
+		String[] roomHand = {"Kitchen"};
+		String[] roomsSeen = {"Bathroom", "Library", "Dining Room", "Hall", "Study", "Music Room"};
+		String[] weaponHand = {};
+		String[] weaponsSeen = {"Knife"};
 		panel.setPlayerHand(playerHand);
-		panel.updatePlayerPanel();
+		panel.setPlayerSeen(playersSeen);
+		panel.setRoomHand(roomHand);
+		panel.setRoomSeen(roomsSeen);
+		panel.setWeaponHand(weaponHand);
+		panel.setWeaponSeen(weaponsSeen);
+		panel.updateAll();
 		frame.revalidate();
 
 	}
