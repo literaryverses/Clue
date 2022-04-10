@@ -172,11 +172,11 @@ public class Board {
 					player = new ComputerPlayer(lines[1]);
 				}
 				players.add(player);
-				for (Card card : deck) { // adds card of player to player's seen list
-		    		if (card.getType()==CardType.PERSON && card.getName().equals(player.getName())) {
-		    				player.seeCard(card);
-		    		}
-				}
+				//for (Card card : deck) { // adds card of player to player's seen list
+		    	//	if (card.getType()==CardType.PERSON && card.getName().equals(player.getName())) {
+		    	//			player.seeCard(card);
+		    	//	}
+				//}
 			}
 		}
     }

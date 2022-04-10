@@ -17,9 +17,6 @@ public abstract class Player {
 	
 	abstract public BoardCell selectTarget(Set<BoardCell> t, Map<Character,Room> roomMap, ArrayList<Card> deck);
 	
-	public void seeCard(Card c) {
-	}
-	
 	public void setRoomName(Map<Character,Room> roomMap, BoardCell[][] grid) {
 	}
 	
