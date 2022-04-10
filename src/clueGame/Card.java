@@ -8,6 +8,11 @@ public class Card {
 		cardName = name;
 	}
 	
+	public Card(String name, CardType type) {
+		cardName = name;
+		cardType = type;
+	}
+	
 	public void setType(String label) {
 		cardType = CardType.valueOf(label);
 	}
