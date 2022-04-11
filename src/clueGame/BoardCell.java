@@ -34,10 +34,20 @@ public class BoardCell {
 		this.isUsed = false;
 	} 
 	
+	/*
+	 * draws boardCell
+	 */
 	public void draw(Graphics g) {
-		g.setColor(Color.WHITE);
 		g.drawRect(this.row, this.col, 20, 20);
-		
+		if (initial == 'W') {
+			g.setColor(Color.WHITE);
+		}
+		else if (initial == 'X') {
+			g.setColor(Color.BLACK);
+		}
+		else {
+			g.setColor(Color.GRAY);
+		}
 	}
 	
 	/*
