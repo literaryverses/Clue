@@ -85,6 +85,7 @@ public class GameCardsPanel extends JPanel{
 		for (Card card : hand) {
 			JTextField field = new JTextField(card.getName());
 			field.setName("Hand");
+			field.setBackground(player.getColor());
 			field.setEditable(false);
 			
 			switch (card.getType().name()) { // add card to array by type
