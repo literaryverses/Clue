@@ -4,8 +4,9 @@
 package clueGame;
 import java.io.*;
 import java.util.*;
+import javax.swing.*;
 
-public class Board {
+public class Board extends JPanel {
 	private int rows;
 	private int cols;
 	private String layoutConfigFile;
@@ -17,12 +18,13 @@ public class Board {
 	private ArrayList<Card> deck = new ArrayList<Card>();
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private Solution theAnswer = new Solution();
-	
 	private static Board theInstance = new Board();
+	
     // constructor is private to ensure only one can be created
     private Board() {
         super();
     }
+    
     // this method returns the only Board
     public static Board getInstance() {
            return theInstance;
@@ -41,6 +43,17 @@ public class Board {
     	}
 	}
     
+    /*
+     * draws the board and players
+     */
+    public void paintComponent() {
+    	super.paintComponent(getGraphics());
+    }
+    
+    /*
+     * checks to see if the accusation is true or false
+     * @param Solution
+     */
     public boolean checkAccusation(Solution accusation)  {
     	if (!theAnswer.getPerson().equals(accusation.getPerson())) {
     		return false;
@@ -54,6 +67,10 @@ public class Board {
     	return true;
     }
     
+    /*
+     * moves the computer player
+     * @param player
+     */
     public BoardCell ComputerPlayerMove(Player player) {
     	BoardCell newCell = player.selectTarget(targets, roomMap, deck);
     	player.setPlace(newCell.getRow(), newCell.getColumn());
@@ -61,6 +78,10 @@ public class Board {
     	return newCell;
     }
     
+    /*
+     * checks to see if a given suggestion can be disproven by a player's card
+     * @param Solution
+     */
     public Card handleSuggestion(Solution suggestion) {
     	for (Player player : players) {
     		Card card = player.disproveSuggestion(suggestion);
@@ -83,6 +104,9 @@ public class Board {
     	return theAnswer;
     }
     
+    /*
+     * hands out three cards to each player
+     */
     public void deal() {
     	Collections.shuffle(deck);
 		int playerIndex = 0;
