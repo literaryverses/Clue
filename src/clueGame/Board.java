@@ -20,6 +20,8 @@ public class Board extends JPanel {
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private Solution theAnswer = new Solution();
 	private static Board theInstance = new Board();
+	private int width;
+	private int height;
 	
     // constructor is private to ensure only one can be created
     private Board() {
@@ -49,6 +51,7 @@ public class Board extends JPanel {
      */
     public void paintComponent(Graphics g) {
     	super.paintComponent(g);
+    	
     }
     
     /*
