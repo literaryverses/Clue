@@ -41,7 +41,6 @@ private static ClueGame game = new ClueGame();
 	
 	public static void main(String[] args) {
 		game.setVisible(true);
-		//theGame.showSplashScreen();
 	}
 }
 
