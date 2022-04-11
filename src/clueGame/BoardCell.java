@@ -2,6 +2,8 @@
 // Matthew Brause
 
 package clueGame;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.*;
 
 public class BoardCell {
@@ -31,6 +33,12 @@ public class BoardCell {
 		this.isCenter = false;
 		this.isUsed = false;
 	} 
+	
+	public void draw(Graphics g) {
+		g.setColor(Color.WHITE);
+		g.drawRect(this.row, this.col, 20, 20);
+		
+	}
 	
 	/*
 	 * returns if a cell is marked as usable

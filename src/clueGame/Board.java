@@ -2,6 +2,7 @@
 // Matthew Brause
 
 package clueGame;
+import java.awt.*;
 import java.io.*;
 import java.util.*;
 import javax.swing.*;
@@ -46,8 +47,8 @@ public class Board extends JPanel {
     /*
      * draws the board and players
      */
-    public void paintComponent() {
-    	super.paintComponent(getGraphics());
+    public void paintComponent(Graphics g) {
+    	super.paintComponent(g);
     }
     
     /*
