@@ -5,31 +5,43 @@ import java.awt.BorderLayout;
 import javax.swing.*;
 
 public class ClueGame extends JFrame {
-	private static Board boardPanel = Board.getInstance();
-	private GameCardsPanel cardsPanel = new GameCardsPanel();
-	private GameControlPanel controlPanel = new GameControlPanel();
 	
-	public ClueGame() {
-		setTitle("Clue Game CSCI306");
-		setContentPane(createLayout()); // put the panel in the frame
-		setSize(700, 700);  // size the frame
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
-		setVisible(true); // make it visible
+private static ClueGame game = new ClueGame();
+	
+	private static Board board;
+	
+	private ClueGame() {
+		super("Clue Game - CSCI306");
+		JPanel panel = new JPanel(new BorderLayout());
+		setSize(1000, 1000);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		board = Board.getInstance();
+		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");	
+		board.initialize();
+		panel.add(board, BorderLayout.CENTER);
+
+		GameCardsPanel cards = new GameCardsPanel();
+		panel.add(cards, BorderLayout.EAST);
+		
+		GameControlPanel control = new GameControlPanel();
+		panel.add(control, BorderLayout.SOUTH);
+		
+		add(panel);
+		
 	}
 	
-	/*
-	 * Adds all the display panels to JFrame
-	 */
-	public JPanel createLayout() {
-		JPanel panel = new JPanel();
-		panel.add(boardPanel, BorderLayout.CENTER);
-		panel.add(cardsPanel, BorderLayout.EAST);
-		panel.add(controlPanel, BorderLayout.SOUTH);
-		return panel;
+	public static ClueGame getInstance() {
+		return game;
+	}
+	
+	public static void redraw() {
+		game.revalidate();
 	}
 	
 	public static void main(String[] args) {
-		
+		game.setVisible(true);
+		//theGame.showSplashScreen();
 	}
 }
 
