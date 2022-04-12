@@ -16,6 +16,14 @@ public abstract class Player {
 		this.name = name;
 	}
 	
+	public void draw(Graphics g, int panelWidth, int panelHeight, int cellSize) {
+    	int xOffset = ((panelWidth-column*cellSize)/2);
+    	int yOffset = ((panelHeight-row*cellSize)/2);
+
+		g.drawOval(cellSize, cellSize, xOffset, yOffset);
+		g.setColor(color);
+	}
+	
 	abstract public BoardCell selectTarget(Set<BoardCell> targets, Map<Character,Room> roomMap,
 			ArrayList<Card> deck);
 	

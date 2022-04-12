@@ -62,12 +62,10 @@ public class Board extends JPanel {
     	} else {
     		cellSize = cellHeight;
     	}
-    	int xOffset = ((panelWidth-cols*cellSize)/2);
-    	int yOffset = ((panelHeight-rows*cellSize)/2);
     	
     	for (int i=0;i<rows;i++) {
     		for (int j=0;j<cols;j++) {
-    			grid[i][j].draw(g, xOffset, yOffset);
+    			grid[i][j].draw(g, panelWidth, panelHeight, cellSize);
     		}
     	}
     	/*

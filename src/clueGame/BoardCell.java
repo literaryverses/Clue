@@ -37,8 +37,12 @@ public class BoardCell {
 	/*
 	 * draws boardCell
 	 */
-	public void draw(Graphics g, int xOffset, int yOffset) {
-		g.drawRect(this.row, this.col, xOffset, yOffset);
+	public void draw(Graphics g, int panelWidth, int panelHeight, int cellSize) {
+		
+    	int xOffset = ((panelWidth-col*cellSize)/2);
+    	int yOffset = ((panelHeight-row*cellSize)/2);
+    	
+		g.drawRect(cellSize, cellSize, xOffset, yOffset);
 		if (initial == 'W') {
 			g.setColor(Color.WHITE);
 		}
