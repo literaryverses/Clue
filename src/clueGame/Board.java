@@ -67,7 +67,7 @@ public class Board extends JPanel {
     	
     	for (int i=0;i<rows;i++) {
     		for (int j=0;j<cols;j++) {
-    			
+    			grid[i][j].draw(g, xOffset, yOffset);
     		}
     	}
     	/*
