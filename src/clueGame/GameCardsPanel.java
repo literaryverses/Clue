@@ -7,12 +7,12 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 public class GameCardsPanel extends JPanel{
-	private ArrayList<JTextField> weapons = new ArrayList<JTextField>();
-	private ArrayList<JTextField> players = new ArrayList<JTextField>();
-	private ArrayList<JTextField> rooms = new ArrayList<JTextField>();
-	private JPanel playersPanel;
-	private JPanel roomPanel;
-	private JPanel weaponPanel;
+	private static ArrayList<JTextField> weapons = new ArrayList<JTextField>();
+	private static ArrayList<JTextField> players = new ArrayList<JTextField>();
+	private static ArrayList<JTextField> rooms = new ArrayList<JTextField>();
+	private static JPanel playersPanel;
+	private static JPanel roomPanel;
+	private static JPanel weaponPanel;
 	/**
 	 * Constructor for the panel, it does 90% of the work
 	 */
@@ -57,7 +57,7 @@ public class GameCardsPanel extends JPanel{
 	/*
 	 * adds the seen cards from computer players
 	 */
-	public void setSeen(Player player, Card card) {
+	public static void setSeen(Player player, Card card) {
 		JTextField field = new JTextField(card.getName());
 		field.setName("Seen");
 		field.setBackground(player.getColor());
@@ -80,8 +80,10 @@ public class GameCardsPanel extends JPanel{
 	 * adds the deck from human player
 	 * @param HumanPlayer player
 	 */
-	public void setHand(HumanPlayer player) {
+	public static void setHand(Player player) {
+		System.out.println("Here2");
 		ArrayList<Card> hand = player.getHand();
+		System.out.println(hand.size());
 		for (Card card : hand) {
 			JTextField field = new JTextField(card.getName());
 			field.setName("Hand");
@@ -90,22 +92,26 @@ public class GameCardsPanel extends JPanel{
 			
 			switch (card.getType().name()) { // add card to array by type
 			case "PERSON":
+				System.out.println("per");
 				players.add(field);
 				break;
 			case "ROOM":
+				System.out.println("roo");
 				rooms.add(field);
 				break;
 			case "WEAPON":
+				System.out.println("wep");
 				weapons.add(field);
 				break;
 			}
 		}
+		updateAll();
 	}
 	
 	/*
 	 * creates an empty JTextField
 	 */
-	public JTextField empty() {
+	public static JTextField empty() {
 		JTextField empty = new JTextField(20);
 		empty.setEditable(false);
 		empty.setText("None");
@@ -115,7 +121,7 @@ public class GameCardsPanel extends JPanel{
 	/*
 	 * updates all the panels
 	 */
-	public void updateAll() {
+	public static void updateAll() {
 		updatePanel(playersPanel, players);
 		updatePanel(roomPanel, rooms);
 		updatePanel(weaponPanel, weapons);
@@ -125,7 +131,7 @@ public class GameCardsPanel extends JPanel{
 	 * updates a given panel
 	 * @param JPanel, ArrayList<JTextField>
 	 */
-	public void updatePanel(JPanel panel, ArrayList<JTextField> Typelist) {
+	public static void updatePanel(JPanel panel, ArrayList<JTextField> Typelist) {
 		panel.removeAll();
 		
 		ArrayList<JTextField> seenList = new ArrayList<JTextField>();

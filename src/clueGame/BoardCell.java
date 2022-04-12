@@ -42,15 +42,19 @@ public class BoardCell {
     	int xOffset = ((panelWidth-col*cellSize)/2);
     	int yOffset = ((panelHeight-row*cellSize)/2);
     	
-		g.drawRect(xOffset, yOffset, cellSize, cellSize);
+		g.drawRect(xOffset, yOffset, cellSize, cellSize); // draw cell
 		if (initial == 'W') {
-			g.setColor(Color.WHITE);
+			g.setColor(Color.WHITE); // white for walkways
 		}
-		else if (initial == 'X') {
+		else if (initial == 'X') { // black for unused
 			g.setColor(Color.BLACK);
 		}
 		else {
-			g.setColor(Color.GRAY);
+			g.setColor(Color.GRAY); // gray for rooms
+		}
+		
+		if (isLabel == true) {
+			
 		}
 	}
 	

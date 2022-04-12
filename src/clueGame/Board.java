@@ -68,6 +68,11 @@ public class Board extends JPanel {
     			grid[i][j].draw(g, panelWidth, panelHeight, cellSize);
     		}
     	}
+    	
+    	for (Player player: players) {
+    		player.draw(g, panelWidth, panelHeight, cellSize);
+    	}
+    	
     	/*
     	 * You get the width and height of the panel with the getWidth() and getHeight() methods.
 		 * You calculate the size of the individual cells such that the board will fit into the panel both in width and height.
