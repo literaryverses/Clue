@@ -52,10 +52,17 @@ public class BoardCell {
 		else {
 			g.setColor(Color.GRAY); // gray for rooms
 		}
-		
-		if (isLabel == true) {
-			
+		/* FIXME
+		if (isDoor) {
+			switch (doorDirection) {
+			case LEFT:
+			case RIGHT:
+			case UP:
+			case DOWN:
+			}
+			g.drawRect(xOffset, yOffset, panelWidth, panelHeight);
 		}
+		*/
 	}
 	
 	/*
