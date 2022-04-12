@@ -37,8 +37,8 @@ public class BoardCell {
 	/*
 	 * draws boardCell
 	 */
-	public void draw(Graphics g) {
-		g.drawRect(this.row, this.col, 20, 20);
+	public void draw(Graphics g, int xOffset, int yOffset) {
+		g.drawRect(this.row, this.col, xOffset, yOffset);
 		if (initial == 'W') {
 			g.setColor(Color.WHITE);
 		}

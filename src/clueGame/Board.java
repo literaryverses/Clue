@@ -65,6 +65,11 @@ public class Board extends JPanel {
     	int xOffset = ((panelWidth-cols*cellSize)/2);
     	int yOffset = ((panelHeight-rows*cellSize)/2);
     	
+    	for (int i=0;i<rows;i++) {
+    		for (int j=0;j<cols;j++) {
+    			
+    		}
+    	}
     	/*
     	 * You get the width and height of the panel with the getWidth() and getHeight() methods.
 		 * You calculate the size of the individual cells such that the board will fit into the panel both in width and height.
