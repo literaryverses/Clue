@@ -10,6 +10,8 @@ import javax.swing.*;
 public class Board extends JPanel {
 	private int rows;
 	private int cols;
+	private int panelWidth;
+	private int panelHeight;
 	private String layoutConfigFile;
 	private String setupConfigFileName;
 	private BoardCell[][] grid;
@@ -20,8 +22,6 @@ public class Board extends JPanel {
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private Solution theAnswer = new Solution();
 	private static Board theInstance = new Board();
-	private int width;
-	private int height;
 	
     // constructor is private to ensure only one can be created
     private Board() {
@@ -51,7 +51,30 @@ public class Board extends JPanel {
      */
     public void paintComponent(Graphics g) {
     	super.paintComponent(g);
+    	panelWidth = getWidth();
+    	panelHeight = getHeight();
     	
+    	int cellSize;
+    	int cellWidth = panelWidth / rows;
+    	int cellHeight = panelHeight / cols;
+    	if (cellWidth < cellHeight) {
+    		cellSize = cellWidth;
+    	} else {
+    		cellSize = cellHeight;
+    	}
+    	int xOffset = ((panelWidth-cols*cellSize)/2);
+    	int yOffset = ((panelHeight-rows*cellSize)/2);
+    	
+    	/*
+    	 * You get the width and height of the panel with the getWidth() and getHeight() methods.
+		 * You calculate the size of the individual cells such that the board will fit into the panel both in width and height.
+You calculate an x and y offset for the cells such that the board is
+ centered in the panel. (i.e. the x offset would be 
+ (panel_width-num_columns*cell_size)/2  )
+You then draw each cell based on the cell size you calculated, the offset your calculated and that specific cells row and column.
+You then draw the doors in a similar manner.
+You then draw the room labels in a similar manner.
+    	 */
     }
     
     /*
