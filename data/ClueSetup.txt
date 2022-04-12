@@ -4,7 +4,7 @@ Room, Library, L
 Room, Music Room, M
 Room, Dining Room, D
 Room, Kitchen, K
-Room, Bathroom, P
+Room, Toilet, P
 Room, Gaming Room, G
 Room, Study, S
 Room, Hall, H
