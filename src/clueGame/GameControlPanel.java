@@ -63,6 +63,8 @@ public class GameControlPanel extends JPanel{
 	public void setTurn(Player player, int roll) {
 		this.playerTurn.setText(player.getName());
 		this.rollNum.setText(Integer.toString(roll));
+		this.playerTurn.setEditable(false);
+		this.rollNum.setEditable(false);
 	}
 
 	/*
@@ -71,6 +73,7 @@ public class GameControlPanel extends JPanel{
 	 */
 	public void setGuess(String guessText) {
 		this.guessText.setText(guessText);
+		this.guessText.setEditable(false);
 	}
 
 	/*
@@ -79,6 +82,7 @@ public class GameControlPanel extends JPanel{
 	 */
 	public void setGuessResult(String guessResult) {
 		this.guessResult.setText(guessResult);
+		this.guessResult.setEditable(false);
 	}
 
 	/**
