@@ -42,7 +42,6 @@ public class BoardCell {
     	int xOffset = ((panelWidth-col*cellSize)/2);
     	int yOffset = ((panelHeight-row*cellSize)/2);
     	
-		g.drawRect(xOffset, yOffset, cellSize, cellSize); // draw cell
 		if (initial == 'W') {
 			g.setColor(Color.WHITE); // white for walkways
 		}
@@ -52,6 +51,7 @@ public class BoardCell {
 		else {
 			g.setColor(Color.GRAY); // gray for rooms
 		}
+		g.fillRect(xOffset, yOffset, cellSize, cellSize); // draw cell
 		/* FIXME
 		if (isDoor) {
 			switch (doorDirection) {

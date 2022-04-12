@@ -72,17 +72,6 @@ public class Board extends JPanel {
     	for (Player player: players) {
     		player.draw(g, panelWidth, panelHeight, cellSize);
     	}
-    	
-    	/*
-    	 * You get the width and height of the panel with the getWidth() and getHeight() methods.
-		 * You calculate the size of the individual cells such that the board will fit into the panel both in width and height.
-You calculate an x and y offset for the cells such that the board is
- centered in the panel. (i.e. the x offset would be 
- (panel_width-num_columns*cell_size)/2  )
-You then draw each cell based on the cell size you calculated, the offset your calculated and that specific cells row and column.
-You then draw the doors in a similar manner.
-You then draw the room labels in a similar manner.
-    	 */
     }
     
     /*
