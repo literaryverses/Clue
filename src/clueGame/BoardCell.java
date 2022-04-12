@@ -83,9 +83,11 @@ public void drawLabels(Graphics g, int cellWidth, int cellHeight) {
     	int yPos = row*cellHeight;
     	
 		if (isLabel) {
+			String name = Board.getInstance().getRoom(initial).getName();
 			g.setFont(new Font("", Font.BOLD, (cellHeight+cellWidth)/4));
 			g.setColor(Color.blue);
-			g.drawString(Board.getInstance().getRoom(initial).getName(), xPos, yPos);
+			g.drawString(name, xPos, yPos);
+			System.out.println(name);
 		}
 		
 		/* FIXME
