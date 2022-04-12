@@ -43,15 +43,14 @@ public class BoardCell {
     	int xPos = col*cellWidth;
     	int yPos = row*cellHeight;
     	
-		if (initial == 'W') {
-			g.setColor(Color.BLACK);
-			g.drawRect(xPos, yPos, cellWidth, cellHeight); // black outline for walkways
+		switch (initial) {
+		case 'W':
 			g.setColor(Color.YELLOW); // yellow fill for walkways
-		}
-		else if (initial == 'X') { // black fill for unused
-			g.setColor(Color.BLACK);
-		}
-		else {
+			break;
+		case 'X':
+			g.setColor(Color.BLACK); // black fill for unused
+			break;
+		default:
 			g.setColor(Color.LIGHT_GRAY); // gray fill for rooms
 		}
 		g.fillRect(xPos, yPos, cellWidth, cellHeight); // draw cell
@@ -65,11 +64,16 @@ public class BoardCell {
     	int xPos = col*cellWidth;
     	int yPos = row*cellHeight;
     	
-		if (isLabel) { // if label exists
+		if (isLabel) { // if label exists draw room name
 			String name = Board.getInstance().getRoom(initial).getName();
 			g.setFont(new Font("", Font.BOLD, (cellWidth+cellHeight)/4));
 			g.setColor(Color.blue);
 			g.drawString(name, xPos, yPos);
+		}
+		
+		if (initial == 'W') {
+			g.setColor(Color.BLACK);
+			g.drawRect(xPos, yPos, cellWidth, cellHeight); // black outline for walkways
 		}
 		
 		g.setColor(Color.blue); // draw doors
