@@ -6,12 +6,13 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 public class ClueGame extends JFrame {
-    
-private static ClueGame game = new ClueGame();
+
+	private static ClueGame game = new ClueGame();
     private static Board board;
-    
-    //private static ArrayList<Player> players;
-    
+        
+    /*
+     * constructor that sets up game
+     */
     private ClueGame() {
         super("Clue Game - CSCI306");
         JPanel panel = new JPanel(new BorderLayout());
@@ -24,7 +25,7 @@ private static ClueGame game = new ClueGame();
         panel.add(board, BorderLayout.CENTER);
 
         GameCardsPanel cards = new GameCardsPanel();
-        createHand();
+        addHand();
         panel.add(cards, BorderLayout.EAST);
         
         
@@ -35,26 +36,36 @@ private static ClueGame game = new ClueGame();
         
     }
     
+    /*
+     * returns instance of ClueGame
+     */
     public static ClueGame getInstance() {
         return game;
     }
     
-    public void createHand() {
+    /*
+     * adds hand to panel
+     */
+    public void addHand() {
         for (Player player : board.getPlayers()) {
             if (player instanceof HumanPlayer) {
-                System.out.println("Here");
                 GameCardsPanel.setHand(player);
             }
             
         }
     }
     
+    /*
+     * redraws game
+     */
     public static void redraw() {
         game.revalidate();
     }
     
+    /*
+     * main
+     */
     public static void main(String[] args) {
         game.setVisible(true);
-        game.redraw();
     }
 }

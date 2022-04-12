@@ -80,10 +80,10 @@ public abstract class Player {
 			this.color = Color.RED;
 			break;
 		case 1:
-			this.color = Color.ORANGE;
+			this.color = Color.CYAN;
 			break;
 		case 2:
-			this.color = Color.YELLOW;
+			this.color = Color.ORANGE;
 			break;
 		case 3:
 			this.color = Color.GREEN;

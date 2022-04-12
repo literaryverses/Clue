@@ -42,7 +42,6 @@ public class Board extends JPanel {
     		loadLayoutConfig();
     		deal();
     	} catch (Exception e) {
-    		//System.out.println("Error");
     		System.out.println(e.getMessage());
     	}
 	}
@@ -55,8 +54,8 @@ public class Board extends JPanel {
     	panelWidth = getWidth();
     	panelHeight = getHeight();
     	
-    	int cellWidth = panelWidth / rows;
-    	int cellHeight = panelHeight / cols;
+    	int cellWidth = panelWidth / cols;
+    	int cellHeight = panelHeight / rows;
     	
     	for (int i=0;i<rows;i++) {
     		for (int j=0;j<cols;j++) {
@@ -244,7 +243,6 @@ public class Board extends JPanel {
         // create grid from dimensions
     	createGrid(raws);
     	placePlayers();
-    	//System.out.println("here7");
 		makeAdjList();
 	}
     
@@ -255,8 +253,6 @@ public class Board extends JPanel {
     	int[] rowLocs = {7, 19, 23, 17, 6, 0};
     	int[] colLocs = {19, 17, 7, 0, 1, 12};
     	int index = 0;
-    	//System.out.println("right here");
-    	//System.out.println(players.size());
     	for (Player player : players) {
     		player.setPlace(rowLocs[index], colLocs[index]); // set players in Room
     		index++;
@@ -498,15 +494,13 @@ public class Board extends JPanel {
 	 * @param BoardCell startCell, int numSteps
 	 */
 	public void findAllTargets(BoardCell startCell, int numSteps) {
-		System.out.println("InFind");
         for (BoardCell adjCell : startCell.getAdjList()) {
-        	System.out.println("InFindFor");
         	if ( !visited.contains(adjCell) && (!adjCell.getOccupied() || adjCell.isRoomCenter()) ) {
         		visited.add(adjCell);
         		if (numSteps==1 || adjCell.isRoomCenter()) {
         			targets.add(adjCell);
         		}
-        		else { //TODO probably need to make sure that this doenst allow travel through rooms
+        		else {
             		findAllTargets(adjCell, numSteps-1);
             	}
         		visited.remove(adjCell);
@@ -518,7 +512,6 @@ public class Board extends JPanel {
 	 * returns the target list
 	 */
 	public Set<BoardCell> getTargets() {
-		System.out.println(targets.size());
 		return targets;
 	}
 

@@ -44,41 +44,35 @@ public class BoardCell {
     	int yPos = row*cellHeight;
     	
 		if (initial == 'W') {
-			g.setColor(Color.WHITE); // white for walkways
+			g.setColor(Color.BLACK);
+			g.drawRect(xPos, yPos, cellWidth, cellHeight); // black outline for walkways
+			g.setColor(Color.YELLOW); // yellow fill for walkways
 		}
-		else if (initial == 'X') { // black for unused
+		else if (initial == 'X') { // black fill for unused
 			g.setColor(Color.BLACK);
 		}
 		else {
-			g.setColor(Color.GRAY); // gray for rooms
+			g.setColor(Color.LIGHT_GRAY); // gray fill for rooms
 		}
 		g.fillRect(xPos, yPos, cellWidth, cellHeight); // draw cell
-		
-		if (initial == 'W') {
-			g.setColor(Color.black);
-			g.drawRect(xPos, yPos, cellWidth, cellHeight);
-		} else if (isLabel) {
-			g.setFont(new Font("", Font.BOLD, (cellHeight+cellWidth)/4));
-			g.setColor(Color.blue);
-			g.drawString(Board.getInstance().getRoom(initial).getName(), yPos, xPos+cellWidth);
-		}
 	}
 	
-	
-public void drawLabels(Graphics g, int cellWidth, int cellHeight) {
+	/*
+	 * draws doors and room labels
+	 */
+	public void drawLabels(Graphics g, int cellWidth, int cellHeight) {
 		
     	int xPos = col*cellWidth;
     	int yPos = row*cellHeight;
     	
-		if (isLabel) {
+		if (isLabel) { // if label exists
 			String name = Board.getInstance().getRoom(initial).getName();
-			g.setFont(new Font("", Font.BOLD, (cellHeight+cellWidth)/4));
+			g.setFont(new Font("", Font.BOLD, (cellWidth+cellHeight)/4));
 			g.setColor(Color.blue);
 			g.drawString(name, xPos, yPos);
-			System.out.println(name);
 		}
 		
-		g.setColor(Color.blue);
+		g.setColor(Color.blue); // draw doors
 		if (isDoor) {
 			switch (doorDirection) {
 			case LEFT:
@@ -86,7 +80,7 @@ public void drawLabels(Graphics g, int cellWidth, int cellHeight) {
 				xPos -= cellWidth;
 				break;
 			case RIGHT:
-				xPos +=cellWidth;
+				xPos += cellWidth;
 				cellWidth = cellWidth/4;
 				break;
 			case UP:

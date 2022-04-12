@@ -81,9 +81,7 @@ public class GameCardsPanel extends JPanel{
 	 * @param HumanPlayer player
 	 */
 	public static void setHand(Player player) {
-		System.out.println("Here2");
 		ArrayList<Card> hand = player.getHand();
-		System.out.println(hand.size());
 		for (Card card : hand) {
 			JTextField field = new JTextField(card.getName());
 			field.setName("Hand");
@@ -92,15 +90,12 @@ public class GameCardsPanel extends JPanel{
 			
 			switch (card.getType().name()) { // add card to array by type
 			case "PERSON":
-				System.out.println("per");
 				players.add(field);
 				break;
 			case "ROOM":
-				System.out.println("roo");
 				rooms.add(field);
 				break;
 			case "WEAPON":
-				System.out.println("wep");
 				weapons.add(field);
 				break;
 			}
