@@ -42,7 +42,7 @@ public class BoardCell {
     	int xOffset = ((panelWidth-col*cellSize)/2);
     	int yOffset = ((panelHeight-row*cellSize)/2);
     	
-		g.drawRect(cellSize, cellSize, xOffset, yOffset);
+		g.drawRect(xOffset, yOffset, cellSize, cellSize);
 		if (initial == 'W') {
 			g.setColor(Color.WHITE);
 		}

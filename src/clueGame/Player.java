@@ -20,7 +20,7 @@ public abstract class Player {
     	int xOffset = ((panelWidth-column*cellSize)/2);
     	int yOffset = ((panelHeight-row*cellSize)/2);
 
-		g.drawOval(cellSize, cellSize, xOffset, yOffset);
+		g.drawOval(xOffset, yOffset, cellSize, cellSize);
 		g.setColor(color);
 	}
 	
