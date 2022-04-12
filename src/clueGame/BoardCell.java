@@ -63,17 +63,28 @@ public class BoardCell {
 			g.drawString(Board.getInstance().getRoom(initial).getName(), yPos, xPos+cellWidth);
 		}
 		
-		/* FIXME
+		g.setColor(Color.blue);
 		if (isDoor) {
 			switch (doorDirection) {
 			case LEFT:
+				cellWidth = cellWidth/4;
+				xPos -= cellWidth;
+				break;
 			case RIGHT:
+				cellWidth = cellWidth/4;
+				xPos = 11*cellWidth;			
+				break;
 			case UP:
+				cellHeight = cellHeight/4;
+				yPos -= cellHeight;
+				break;
 			case DOWN:
+				cellHeight = cellHeight/4;
+				yPos += 11*cellHeight;
+				break;
 			}
-			g.drawRect(xOffset, yOffset, panelWidth, panelHeight);
+			g.fillRect(xPos, yPos, cellWidth, cellHeight);
 		}
-		*/
 	}
 	
 	
