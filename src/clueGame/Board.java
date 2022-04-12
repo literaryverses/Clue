@@ -10,6 +10,7 @@ import javax.swing.*;
 public class Board extends JPanel {
 	private int rows;
 	private int cols;
+	private int cellSize;
 	private int panelWidth;
 	private int panelHeight;
 	private String layoutConfigFile;
@@ -54,7 +55,6 @@ public class Board extends JPanel {
     	panelWidth = getWidth();
     	panelHeight = getHeight();
     	
-    	int cellSize;
     	int cellWidth = panelWidth / rows;
     	int cellHeight = panelHeight / cols;
     	if (cellWidth < cellHeight) {
