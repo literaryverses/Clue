@@ -12,6 +12,7 @@ private static ClueGame game = new ClueGame();
 	private ClueGame() {
 		super("Clue Game - CSCI306");
 		JPanel panel = new JPanel(new BorderLayout());
+		setSize(1000, 700);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		board = Board.getInstance();
