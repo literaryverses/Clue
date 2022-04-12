@@ -37,12 +37,10 @@ public class BoardCell {
 	/*
 	 * draws boardCell
 	 */
-	public void draw(Graphics g, int panelWidth, int panelHeight, int cellSize) {
+	public void draw(Graphics g, int cellWidth, int cellHeight) {
 		
-    	int xOffset = ((panelWidth-col*cellSize)/2);
-    	int yOffset = ((panelHeight-row*cellSize)/2);
-    	int xPos = col*cellSize;
-    	int yPos = row*cellSize;
+    	int xPos = col*cellWidth;
+    	int yPos = row*cellHeight;
     	
 		if (initial == 'W') {
 			g.setColor(Color.WHITE); // white for walkways
@@ -53,11 +51,11 @@ public class BoardCell {
 		else {
 			g.setColor(Color.GRAY); // gray for rooms
 		}
-		g.fillRect(xPos, yPos, cellSize, cellSize); // draw cell
+		g.fillRect(xPos, yPos, cellWidth, cellHeight); // draw cell
 		
 		if (initial == 'W') {
 			g.setColor(Color.black);
-			g.drawRect(xPos, yPos, cellSize, cellSize);
+			g.drawRect(xPos, yPos, cellWidth, cellHeight);
 		}
 		
 		/* FIXME

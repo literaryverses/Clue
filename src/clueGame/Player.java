@@ -16,12 +16,14 @@ public abstract class Player {
 		this.name = name;
 	}
 	
-	public void draw(Graphics g, int panelWidth, int panelHeight, int cellSize) {
-    	int xOffset = ((panelWidth-column*cellSize)/2);
-    	int yOffset = ((panelHeight-row*cellSize)/2);
-
-		g.drawOval(xOffset, yOffset, cellSize/2, cellSize/2);
-		g.setColor(color);
+	public void draw(Graphics g, int cellWidth, int cellHeight) {
+		int xPos = column*cellWidth;
+    	int yPos = row*cellHeight;
+    	
+    	g.setColor(color);
+		g.fillOval(xPos, yPos, cellWidth, cellHeight);
+		g.setColor(Color.BLACK);
+		g.drawOval(xPos, yPos, cellWidth, cellHeight);
 	}
 	
 	abstract public BoardCell selectTarget(Set<BoardCell> targets, Map<Character,Room> roomMap,

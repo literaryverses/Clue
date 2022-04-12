@@ -57,20 +57,15 @@ public class Board extends JPanel {
     	
     	int cellWidth = panelWidth / rows;
     	int cellHeight = panelHeight / cols;
-    	if (cellWidth < cellHeight) {
-    		cellSize = cellWidth;
-    	} else {
-    		cellSize = cellHeight;
-    	}
     	
     	for (int i=0;i<rows;i++) {
     		for (int j=0;j<cols;j++) {
-    			grid[i][j].draw(g, panelWidth, panelHeight, cellSize);
+    			grid[i][j].draw(g, cellWidth, cellHeight);
     		}
     	}
     	
     	for (Player player: players) {
-    		player.draw(g, panelWidth, panelHeight, cellSize);
+    		player.draw(g, cellWidth, cellHeight);
     	}
     }
     
