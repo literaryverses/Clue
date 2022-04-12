@@ -3,6 +3,7 @@
 
 package clueGame;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.util.*;
 
@@ -56,6 +57,35 @@ public class BoardCell {
 		if (initial == 'W') {
 			g.setColor(Color.black);
 			g.drawRect(xPos, yPos, cellWidth, cellHeight);
+		} else if (isLabel) {
+			g.setFont(new Font("", Font.BOLD, (cellHeight+cellWidth)/4));
+			g.setColor(Color.blue);
+			g.drawString(Board.getInstance().getRoom(initial).getName(), yPos, xPos+cellWidth);
+		}
+		
+		/* FIXME
+		if (isDoor) {
+			switch (doorDirection) {
+			case LEFT:
+			case RIGHT:
+			case UP:
+			case DOWN:
+			}
+			g.drawRect(xOffset, yOffset, panelWidth, panelHeight);
+		}
+		*/
+	}
+	
+	
+public void drawLabels(Graphics g, int cellWidth, int cellHeight) {
+		
+    	int xPos = col*cellWidth;
+    	int yPos = row*cellHeight;
+    	
+		if (isLabel) {
+			g.setFont(new Font("", Font.BOLD, (cellHeight+cellWidth)/4));
+			g.setColor(Color.blue);
+			g.drawString(Board.getInstance().getRoom(initial).getName(), xPos, yPos);
 		}
 		
 		/* FIXME

@@ -64,6 +64,12 @@ public class Board extends JPanel {
     		}
     	}
     	
+    	for (int x = 0; x < rows; x++) {
+			for (int y = 0; y < cols; y++) {
+				grid[x][y].drawLabels(g, cellWidth, cellHeight);
+			}
+		}
+    	
     	for (Player player: players) {
     		player.draw(g, cellWidth, cellHeight);
     	}
