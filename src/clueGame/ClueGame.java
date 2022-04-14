@@ -32,8 +32,9 @@ public class ClueGame extends JFrame {
         GameControlPanel control = new GameControlPanel();
         panel.add(control, BorderLayout.SOUTH);
         
-        add(panel);    
-        
+        add(panel);
+
+        splashScreen();        
     }
     
     /*
@@ -41,6 +42,22 @@ public class ClueGame extends JFrame {
      */
     public static ClueGame getInstance() {
         return game;
+    }
+    
+    /*
+     * creates splashScreen
+     */
+    public void splashScreen() {
+    	String name = new String();
+    	for (Player player: board.getPlayers()) { // obtain HumanPlayer name
+    		if (player instanceof HumanPlayer) {
+    			name = player.getName();
+    		}
+    	}
+    	
+    	JOptionPane pane = new JOptionPane();
+    	JOptionPane.showMessageDialog(pane, "You are "+name+"\nCan you find the solution"
+    			+ "\nbefore the computer players?");
     }
     
     /*
