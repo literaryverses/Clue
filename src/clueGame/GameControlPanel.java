@@ -23,37 +23,95 @@ public class GameControlPanel extends JPanel{
 		JPanel turnOptionsPanel = new JPanel(); // add upper turn options panel
 		turnOptionsPanel.setLayout(new GridLayout(1,4));
 		
-		JPanel whoseTurnPanel = new JPanel();
-		JLabel whoseTurn = new JLabel("Whose Turn?");
-		whoseTurnPanel.add(whoseTurn);
-		whoseTurnPanel.add(playerTurn);
+		JPanel whoseTurnPanel = createWhoseTurnPanel();
 		turnOptionsPanel.add(whoseTurnPanel);
 		
-		JPanel rollPanel = new JPanel();
-		JLabel rollLabel = new JLabel("Roll:");
-		rollPanel.add(rollLabel);
-		rollPanel.add(rollNum);
+		JPanel rollPanel = createRollPanel();
 		turnOptionsPanel.add(rollPanel);
 		
-		JButton accuseButton = new JButton("Make Accusation");
-		turnOptionsPanel.add(accuseButton);
-		JButton nextButton = new JButton("NEXT!");
-		turnOptionsPanel.add(nextButton);
+		createButtons(turnOptionsPanel);
 		add(turnOptionsPanel);
+
 		
-		JPanel guessPanel = new JPanel(); // add lower guess panel
+		JPanel guessPanel = createGuessPanel(); // add lower guess panel
+		add(guessPanel);
+	}
+
+	/*
+	 * create guess panel
+	 */
+	public JPanel createGuessPanel() {
+		JPanel guessPanel = new JPanel();
 		guessPanel.setLayout(new GridLayout(0,2));
 		
 		JPanel playerGuessPanel = new JPanel();
 		playerGuessPanel.setBorder(new TitledBorder (new EtchedBorder(), "Guess"));
 		playerGuessPanel.add(guessText);
+		
 		JPanel guessResultPanel = new JPanel();
 		guessResultPanel.setBorder(new TitledBorder (new EtchedBorder(), "Guess Result"));
 		guessResultPanel.add(guessResult);
 		guessPanel.add(playerGuessPanel);
 		guessPanel.add(guessResultPanel);
-		add(guessPanel);
+		return guessPanel;
+	}
+	
+	/*
+	 * create buttons for turn options panel
+	 */
+	public void createButtons(JPanel turnOptionsPanel) {
+		JButton accuseButton = new JButton("Make Accusation");
+		turnOptionsPanel.add(accuseButton);
+		JButton nextButton = new JButton("NEXT!");
+		turnOptionsPanel.add(nextButton);
+		nextButton.addActionListener(new NextListener());
+	}
 
+	/*
+	 * create panel that shows rolls
+	 */
+	public JPanel createRollPanel() {
+		JPanel rollPanel = new JPanel();
+		JLabel rollLabel = new JLabel("Roll:");
+		rollPanel.add(rollLabel);
+		rollPanel.add(rollNum);
+		return rollPanel;
+	}
+
+	/*
+	 * create panel saying whose turn it is
+	 */
+	public JPanel createWhoseTurnPanel() {
+		JPanel whoseTurnPanel = new JPanel();
+		JLabel whoseTurn = new JLabel("Whose Turn?");
+		whoseTurnPanel.add(whoseTurn);
+		whoseTurnPanel.add(playerTurn);
+		return whoseTurnPanel;
+	}
+	
+	/*
+	 * Implements events for pressing next button
+	 */
+	private class NextListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			/* is current human player finished? FIXME
+			 * 	no: error message
+			 *	yes: update current player
+			 *		-update current player
+			 *		-roll the dice
+			 *		-calc targets
+			 *		-update control panel
+			 *		-is new player human?
+			 *			no: 
+			 *				-Do accusation (fixme)
+			 *				-Do move
+			 *				-Make suggestion (fixme)
+			 *			yes:
+			 *				-display targets
+			 *				-flag unfinished (fixme)
+			 *				-END
+			 */
+		}
 	}
 
 	/*

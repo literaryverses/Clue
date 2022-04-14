@@ -42,7 +42,7 @@ public class Board extends JPanel {
     		loadLayoutConfig();
     		deal();
     	} catch (Exception e) {
-    		System.out.println(e.getMessage());
+    		System.err.println();
     	}
 	}
     
@@ -98,12 +98,12 @@ public class Board extends JPanel {
     public BoardCell ComputerPlayerMove(Player player) {
     	BoardCell newCell = player.selectTarget(targets, roomMap, deck);
     	player.setPlace(newCell.getRow(), newCell.getColumn());
-    	player.setRoomName(roomMap, grid); // set new room name for player
+    	player.setRoomPlayerIn(roomMap, grid); // set new room name for player
     	return newCell;
     }
     
     /*
-     * checks to see if a given suggestion can be disproven by a player's card
+     * checks to see if a given suggestion can be disproved by a player's card
      * @param Solution
      */
     public Card handleSuggestion(Solution suggestion) {
@@ -132,6 +132,8 @@ public class Board extends JPanel {
      * hands out three cards to each player
      */
     public void deal() {
+    	int cardsPerPlayer = (deck.size()-3)/players.size(); // determine how many cards allocated per player
+    	
     	Collections.shuffle(deck);
 		int playerIndex = 0;
 		int cardCount = 0;
@@ -144,7 +146,7 @@ public class Board extends JPanel {
     			Player player = players.get(playerIndex);
     			player.updateHand(card);
     			cardCount++;
-    			if (cardCount == 3) {
+    			if (cardCount == cardsPerPlayer) {
     				playerIndex++;
     				cardCount = 0;
     			}
@@ -257,7 +259,7 @@ public class Board extends JPanel {
     		player.setPlace(rowLocs[index], colLocs[index]); // set players in Room
     		index++;
     		if (player instanceof ComputerPlayer) {
-    			player.setRoomName(roomMap, grid);
+    			player.setRoomPlayerIn(roomMap, grid);
     		}
     	}
     }

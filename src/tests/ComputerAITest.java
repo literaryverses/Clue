@@ -61,7 +61,7 @@ class ComputerAITest {
 		
 		// Room matches current location
 		cp.setPlace(11, 14); // in gaming room
-		cp.setRoomName(roomMap, grid);
+		cp.setRoomPlayerIn(roomMap, grid);
 		Solution suggest2 = cp.createSuggestion(deck);
 		assertTrue(suggest2.getRoom().getName().equals("Gaming Room"));
 				

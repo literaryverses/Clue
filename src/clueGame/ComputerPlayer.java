@@ -35,8 +35,7 @@ public class ComputerPlayer extends Player {
 		return suggestion;
 	}
 	
-	@Override
-	public void setRoomName(Map<Character, Room> roomMap, BoardCell[][] grid) {
+	public void setRoomPlayerIn(Map<Character, Room> roomMap, BoardCell[][] grid) {
 		BoardCell newCell = grid[this.row][this.column];
     	Room room = roomMap.get(newCell.getInitial());
     	if (room==null) {

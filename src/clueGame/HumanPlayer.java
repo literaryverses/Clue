@@ -11,8 +11,18 @@ public class HumanPlayer extends Player{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public BoardCell selectTarget(Set<BoardCell> t, Map<Character,Room> roomMap, ArrayList<Card> deck) {
-		return new BoardCell(0,0); // FIXME
+	public Solution createSuggestion(ArrayList<Card> deck) {
+		return null; //TODO
 	}
+	
+	public BoardCell selectTarget(Set<BoardCell> t, Map<Character,Room> roomMap, ArrayList<Card> deck) {
+		return new BoardCell(0,0); // TODO
+	}
+	
+	public void setRoomPlayerIn(Map<Character, Room> roomMap, BoardCell[][] grid) {
+	} //TODO
+
+	public void seeCard(Card card) {
+	} //TODO
 
 }

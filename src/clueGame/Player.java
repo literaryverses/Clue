@@ -29,12 +29,6 @@ public abstract class Player {
 	abstract public BoardCell selectTarget(Set<BoardCell> targets, Map<Character,Room> roomMap,
 			ArrayList<Card> deck);
 	
-	public void setRoomName(Map<Character,Room> roomMap, BoardCell[][] grid) {
-	}
-	
-	public void seeCard(Card card) {
-	}
-	
 	/*
 	 * Disproves suggestion based on player cards
 	 */
@@ -109,4 +103,10 @@ public abstract class Player {
 	public ArrayList<Card> getHand() {
 		return this.hand;
 	}
+
+	protected abstract void setRoomPlayerIn(Map<Character, Room> roomMap, BoardCell[][] grid);
+
+	protected abstract void seeCard(Card card);
+
+	protected abstract Solution createSuggestion(ArrayList<Card> deck);
 }
