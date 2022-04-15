@@ -54,10 +54,10 @@ public class ClueGame extends JFrame {
     	
     	BoardCell movedCell = board.ComputerPlayerMove(player);
     	
-    	if (movedCell.isRoomCenter()) { // make suggestion
-    		Solution suggestion = player.createSuggestion(board.getDeck());
+    	//if (movedCell.isRoomCenter()) { // make suggestion
+    	//	Solution suggestion = player.createSuggestion(board.getDeck());
     		//TODO update suggestion on game
-    	}
+    	//}
     }
     
     /*
