@@ -8,9 +8,8 @@ public class ClueGame extends JFrame {
 
 	private static ClueGame game = new ClueGame();
     private static Board board;
-    private GameControlPanel controlPanel;
-    private GameCardsPanel cardsPanel;
-    private boolean gameOver = false;
+    private static GameControlPanel controlPanel;
+    private static GameCardsPanel cardsPanel;
     private int turn;
     private ArrayList<Player> players = new ArrayList<Player>();
         
