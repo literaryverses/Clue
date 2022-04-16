@@ -12,7 +12,6 @@ import javax.swing.*;
 public class Board extends JPanel implements MouseListener {
 	private int rows;
 	private int cols;
-	private int cellSize;
 	private int panelWidth;
 	private int panelHeight;
 	private int cellWidth;
@@ -60,8 +59,8 @@ public class Board extends JPanel implements MouseListener {
         turnOver = false;
     	for (Player player: players) {
     		if (player instanceof HumanPlayer) {
-    			turn = players.indexOf(player) - 1; // get index 
-    			int roll = new Random().nextInt(6) + 1;
+    			turn = players.indexOf(player);
+    			int roll = new Random().nextInt(7);
     	    	calcTargets(getCell(player.getRow(), player.getCol()), roll);
     	    	GameControlPanel.setTurnDisplay(player, roll);
     		}
@@ -89,7 +88,7 @@ public class Board extends JPanel implements MouseListener {
     		computerMove(player);
     		targets.clear();
     	}
-    	repaint();
+		repaint();
     }
     
     /*
@@ -97,27 +96,8 @@ public class Board extends JPanel implements MouseListener {
      */
     public void setTurn() {
     	turn++;
-    	if (turn > players.size()) {
+    	if (turn == players.size()) {
     		turn = 0;
-    	}
-    }
-    
-    /*
-     * human player choices movement
-     */
-    public void humanMove(Point point) {
-    	Player player = players.get(turn);
-    	if (player instanceof HumanPlayer && !turnOver) {	
-    		boolean clickedTarget = false;
-    		for (BoardCell cell : targets) {
-    			if (point.x < cell.getColumn()*cellWidth+cellWidth && point.x  > cell.getColumn()*cellWidth && point.y < cell.getRow()*cellHeight+cellHeight && point.y  > cell.getRow()*cellHeight) {
-    				grid[player.getRow()][player.getCol()].setOccupied(false);
-    				player.setPlace(cell.getRow(), cell.getColumn());
-    				cell.setOccupied(true); 
-					turnOver = true; 
-					targets.clear();
-    			}
-    		}
     	}
     }
     
@@ -195,6 +175,7 @@ public class Board extends JPanel implements MouseListener {
     public BoardCell ComputerPlayerMove(Player player) {
     	BoardCell newCell = player.selectTarget(targets, roomMap, deck);
     	player.setPlace(newCell.getRow(), newCell.getColumn());
+    	newCell.setOccupied(true);
     	player.setRoomPlayerIn(roomMap, grid); // set new room name for player
     	return newCell;
     }
@@ -623,9 +604,22 @@ public class Board extends JPanel implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		this.humanMove(e.getPoint());
+		if (players.get(turn) instanceof HumanPlayer && !turnOver) {
+			BoardCell cell = null;
+			for (BoardCell target: targets) {
+				if (target.containsClick(e.getX(), e.getY(), cellWidth, cellHeight)) {
+					cell = target;
+					break;
+				}
+			}
+			if ( cell != null) {
+				players.get(turn).setPlace(cell.getRow(), cell.getColumn());
+				cell.setOccupied(true); 
+				turnOver = true; 
+				targets.clear();
+			}
+		}
 		repaint();
-		
 	}
 
 	@Override

@@ -35,6 +35,9 @@ public class ComputerPlayer extends Player {
 		return suggestion;
 	}
 	
+	/*
+	 * sets room that the player is in
+	 */
 	public void setRoomPlayerIn(Map<Character, Room> roomMap, BoardCell[][] grid) {
 		BoardCell newCell = grid[this.row][this.column];
     	Room room = roomMap.get(newCell.getInitial());

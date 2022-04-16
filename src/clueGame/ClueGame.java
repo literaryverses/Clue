@@ -39,7 +39,7 @@ public class ClueGame extends JFrame {
     		}
     	}
     	controlPanel.optionsScreen( "You are "+playerName+"\nCan you find the solution\nbefore the computer players?");
-    	
+        
     }
     
     /*

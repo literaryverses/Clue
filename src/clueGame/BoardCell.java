@@ -5,10 +5,12 @@ package clueGame;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.*;
 
 public class BoardCell {
-	private int row, col;
+	private int row, col, xPos, yPos;
 	private boolean isDoor;
 	private boolean isOccupied;
 	private boolean isLabel;
@@ -36,12 +38,24 @@ public class BoardCell {
 	} 
 	
 	/*
+	 * checks if mouse clicked within board cell
+	 */
+	public boolean containsClick (int mouseX, int mouseY, int cellWidth, int cellHeight) {
+		Rectangle rect = new Rectangle(xPos, yPos, cellWidth, cellHeight);
+		if (rect.contains(new Point(mouseX, mouseY))) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	/*
 	 * draws boardCell
 	 */
 	public void draw(Graphics g, int cellWidth, int cellHeight) {
 		
-    	int xPos = col*cellWidth;
-    	int yPos = row*cellHeight;
+    	xPos = col*cellWidth;
+    	yPos = row*cellHeight;
     	
 		switch (initial) {
 		case 'W':
@@ -61,8 +75,8 @@ public class BoardCell {
 		int yPos = row*cellHeight;
 		g.setColor(Color.cyan);
 		g.fillRect(xPos, yPos, cellWidth, cellHeight);
-		g.setColor(Color.black);
-		g.drawRect(xPos-1, yPos-1, cellWidth+1, cellHeight+1);
+		g.setColor(Color.blue);
+		g.drawRect(xPos, yPos, cellWidth, cellHeight);
 		
 	}
 	
