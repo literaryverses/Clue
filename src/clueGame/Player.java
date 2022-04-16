@@ -16,10 +16,9 @@ public abstract class Player {
 		this.name = name;
 	}
 	
-	public void draw(Graphics g, int cellWidth, int cellHeight) {
-		int xPos = column*cellWidth;
+	public void draw(Graphics g, int cellWidth, int cellHeight, int dupe) {
+		int xPos = column*cellWidth + 5*dupe;
     	int yPos = row*cellHeight;
-    	
     	g.setColor(color);
 		g.fillOval(xPos, yPos, cellWidth, cellHeight);
 		g.setColor(Color.BLACK);

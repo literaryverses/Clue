@@ -126,6 +126,8 @@ public class Board extends JPanel implements MouseListener {
     	
     	cellWidth = panelWidth / cols;
     	cellHeight = panelHeight / rows;
+    	ArrayList<Integer> playerPos = new ArrayList<Integer>();
+    	ArrayList<ArrayList<Integer>> playersPoses = new ArrayList<ArrayList<Integer>>();
     	
     	for (int i=0;i<rows;i++) {
     		for (int j=0;j<cols;j++) {
@@ -140,7 +142,16 @@ public class Board extends JPanel implements MouseListener {
 		}
     	
     	for (Player player: players) {
-    		player.draw(g, cellWidth, cellHeight);
+    		int dupe = 0;
+    		playerPos.add(player.getRow());
+    		playerPos.add(player.getCol());
+    		if (playersPoses.contains(playerPos)) {
+    			dupe = dupeCount(playerPos, playersPoses);
+    		}
+    		
+    		player.draw(g, cellWidth, cellHeight, dupe);
+    		playersPoses.add(playerPos);
+    		playerPos.clear();
     	}
     	
     	if (!targets.isEmpty()) {
@@ -151,6 +162,17 @@ public class Board extends JPanel implements MouseListener {
     	
     }
     
+    public int dupeCount(ArrayList<Integer> playerPos, ArrayList<ArrayList<Integer>> playersPoses) {
+    	int count = 0;
+    	
+    	for (ArrayList<Integer> pos : playersPoses) {
+    		if (pos.equals(playerPos)) {
+    			count++;
+    		}
+    	}
+    	
+    	return count;
+    }
     /*
      * checks to see if the accusation is true or false
      * @param Solution
