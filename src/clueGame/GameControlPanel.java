@@ -103,6 +103,7 @@ public class GameControlPanel extends JPanel{
 	 */
 	public static void setTurnDisplay(Player player, int roll) {
 		playerTurn.setText(player.getName());
+		playerTurn.setBackground(player.getColor());
 		rollNum.setText(Integer.toString(roll));
 		playerTurn.setEditable(false);
 		rollNum.setEditable(false);
