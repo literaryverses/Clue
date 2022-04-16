@@ -60,9 +60,9 @@ public class BoardCell {
 		int xPos = col*cellWidth;
 		int yPos = row*cellHeight;
 		g.setColor(Color.cyan);
-		g.fillRect(xPos, yPos, cellHeight, cellWidth);
+		g.fillRect(xPos, yPos, cellWidth, cellHeight);
 		g.setColor(Color.black);
-		g.drawRect(xPos+1, yPos+1, cellHeight-1, cellWidth-1);
+		g.drawRect(xPos-1, yPos-1, cellWidth+1, cellHeight+1);
 		
 	}
 	
