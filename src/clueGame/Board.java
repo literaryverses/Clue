@@ -102,30 +102,6 @@ public class Board extends JPanel implements MouseListener {
     }
     
     /*
-<<<<<<< HEAD
-=======
-     * human player choices movement
-     */
-    public void humanMove(Point point) {
-    	Player player = players.get(turn);
-    	if (player instanceof HumanPlayer && !turnOver) {	
-    		boolean clickedTarget = false;
-    		for (BoardCell cell : targets) {
-    			if (point.x < cell.getColumn()*cellWidth+cellWidth && point.x  > cell.getColumn()*cellWidth && point.y < cell.getRow()*cellHeight+cellHeight && point.y  > cell.getRow()*cellHeight) {
-    				clickedTarget = true;
-    				grid[player.getRow()][player.getCol()].setOccupied(false);
-    				player.setPlace(cell.getRow(), cell.getColumn());
-    				cell.setOccupied(true); 
-					turnOver = true; 
-					targets.clear();
-    			}
-    		}
-    		JOptionPane.showMessageDialog(this, "Not a valid target");
-    	}
-    }
-    
-    /*
->>>>>>> f3b2db43a61263ac9b79919f13a96a69799485d5
      * AI on how computer player moves
      * @param Player player
      */
@@ -641,6 +617,8 @@ public class Board extends JPanel implements MouseListener {
 				cell.setOccupied(true); 
 				turnOver = true; 
 				targets.clear();
+			} else {
+	    		JOptionPane.showMessageDialog(this, "Not a valid target");
 			}
 		}
 		repaint();
