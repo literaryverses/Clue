@@ -13,6 +13,7 @@ public class Board extends JPanel {
 	private int cellSize;
 	private int panelWidth;
 	private int panelHeight;
+	private int turn;
 	private String layoutConfigFile;
 	private String setupConfigFileName;
 	private BoardCell[][] grid;
@@ -45,6 +46,68 @@ public class Board extends JPanel {
     		System.err.println();
     	}
 	}
+    
+    /*
+     * sets up the game by getting the players and player turn
+     */
+    public void setupGame() {
+        String playerName = new String();
+    	for (Player player: players) {
+    		if (player instanceof HumanPlayer) {
+    			turn = players.indexOf(player) - 1; // get index 
+    		}
+    	}
+    	updateTurn();
+    }
+    
+    /*
+     * updates the turn of next player
+     */
+    public void updateTurn() {
+    	setTurn();
+    	Player player = players.get(turn);
+    	int roll = new Random().nextInt(7);
+    	calcTargets(getCell(player.getRow(), player.getCol()), roll);
+    	controlPanel.setTurn(player, roll);
+    	if (player instanceof HumanPlayer) { // human player moves
+    		humanMove(player);
+    	}
+    	else { // computer moves
+    		computerMove(player);
+    	}
+    }
+    
+    /*
+     * determine player turn
+     */
+    public void setTurn() {
+    	turn++;
+    	if (turn > players.size()) {
+    		turn = 0;
+    	}
+    }
+    
+    /*
+     * human player choices movement
+     */
+    public void humanMove(Player player) {
+    	
+    }
+    
+    /*
+     * AI on how computer player moves
+     * @param Player player
+     */
+    public void computerMove(Player player) {
+    	// TODO accusation here
+    	
+    	BoardCell movedCell = ComputerPlayerMove(player);
+    	
+    	if (movedCell.isRoomCenter()) { // make suggestion
+    		Solution suggestion = player.createSuggestion(getDeck());
+    		//TODO update suggestion on game
+    	}
+    }
     
     /*
      * draws the board and players
