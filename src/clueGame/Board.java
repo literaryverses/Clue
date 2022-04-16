@@ -74,7 +74,7 @@ public class Board extends JPanel implements MouseListener {
      */
     public void updateTurn() {
     	if (!turnOver) {
-    		JOptionPane.showMessageDialog(this, "You have not finished your turn yet!");
+    		JOptionPane.showMessageDialog(this, "You haven't finished your turn");
     		return;
     	}
     	setTurn();
@@ -111,13 +111,16 @@ public class Board extends JPanel implements MouseListener {
     		boolean clickedTarget = false;
     		for (BoardCell cell : targets) {
     			if (point.x < cell.getColumn()*cellWidth+cellWidth && point.x  > cell.getColumn()*cellWidth && point.y < cell.getRow()*cellHeight+cellHeight && point.y  > cell.getRow()*cellHeight) {
+    				clickedTarget = true;
     				grid[player.getRow()][player.getCol()].setOccupied(false);
     				player.setPlace(cell.getRow(), cell.getColumn());
     				cell.setOccupied(true); 
 					turnOver = true; 
 					targets.clear();
+					System.out.println("Clicked a target");
     			}
     		}
+    		JOptionPane.showMessageDialog(this, "Not a valid target");
     	}
     }
     
