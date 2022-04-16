@@ -179,6 +179,16 @@ public class Board extends JPanel {
     	return null;
     }
     
+    /*
+     * checks if player turn
+     */
+    public boolean isHumanPlayerTurn() {
+    	if (players.get(turn) instanceof HumanPlayer) {
+    		return true;
+    	}
+    	else return false;
+    }
+    
     public ArrayList<Player> getPlayers() {
     	return this.players;
     }
