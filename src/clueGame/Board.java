@@ -68,7 +68,6 @@ public class Board extends JPanel {
     	Player player = players.get(turn);
     	int roll = new Random().nextInt(7);
     	calcTargets(getCell(player.getRow(), player.getCol()), roll);
-    	controlPanel.setTurn(player, roll);
     	if (player instanceof HumanPlayer) { // human player moves
     		humanMove(player);
     	}

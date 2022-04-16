@@ -10,8 +10,6 @@ public class ClueGame extends JFrame {
     private static Board board;
     private static GameControlPanel controlPanel;
     private static GameCardsPanel cardsPanel;
-    private int turn;
-    private ArrayList<Player> players = new ArrayList<Player>();
         
     /*
      * constructor that sets up game
@@ -40,7 +38,7 @@ public class ClueGame extends JFrame {
     			playerName = player.getName(); // get HumanPlayer name
     		}
     	}
-    	splashScreen( "You are "+playerName+"\nCan you find the solution\nbefore the computer players?");
+    	controlPanel.optionsScreen( "You are "+playerName+"\nCan you find the solution\nbefore the computer players?");
     	
     }
     
@@ -49,14 +47,6 @@ public class ClueGame extends JFrame {
      */
     public static ClueGame getInstance() {
         return game;
-    }
-    
-    /*
-     * creates splashScreen
-     */
-    public void splashScreen(String message) { 
-    	JOptionPane pane = new JOptionPane();
-    	JOptionPane.showMessageDialog(pane,message);
     }
     
     /*

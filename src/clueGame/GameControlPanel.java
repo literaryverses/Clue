@@ -11,7 +11,6 @@ public class GameControlPanel extends JPanel{
 	private JTextField rollNum = new JTextField(3);
 	private JTextField guessText = new JTextField(20);
 	private JTextField guessResult = new JTextField(20);
-
 	
 	
 	/**
@@ -94,23 +93,12 @@ public class GameControlPanel extends JPanel{
 	 */
 	private class NextListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			/* is current human player finished? FIXME
-			 * 	no: error message
-			 *	yes: update current player
-			 *		-update current player
-			 *		-roll the dice
-			 *		-calc targets
-			 *		-update control panel
-			 *		-is new player human?
-			 *			no: 
-			 *				-Do accusation (fixme)
-			 *				-Do move
-			 *				-Make suggestion (fixme)
-			 *			yes:
-			 *				-display targets
-			 *				-flag unfinished (fixme)
-			 *				-END
-			 */
+			if (humanPlayerFinishTurn) {
+				optionsScreen("You must make a move!");
+				
+			} else {
+				Board.getInstance().updateTurn();
+			}
 		}
 	}
 
@@ -118,12 +106,20 @@ public class GameControlPanel extends JPanel{
 	 * Sets the turn display
 	 * @param Player, int
 	 */
-	public void setTurn(Player player, int roll) {
+	public void setTurnDisplay(Player player, int roll) {
 		this.playerTurn.setText(player.getName());
 		this.rollNum.setText(Integer.toString(roll));
 		this.playerTurn.setEditable(false);
 		this.rollNum.setEditable(false);
 	}
+	
+	/*
+     * creates splashScreen
+     */
+    public void optionsScreen(String message) { 
+    	JOptionPane pane = new JOptionPane();
+    	JOptionPane.showMessageDialog(pane,message);
+    }
 
 	/*
 	 * Sets the guess display
@@ -158,7 +154,7 @@ public class GameControlPanel extends JPanel{
 		frame.setVisible(true); // make it visible
 		
 		// test filling in the data
-		panel.setTurn(new ComputerPlayer("Col. Mustard"), 5);
+		panel.setTurnDisplay(new ComputerPlayer("Col. Mustard"), 5);
 		panel.setGuess("I have no guess!");
 		panel.setGuessResult("So you have nothing?");
 	}
