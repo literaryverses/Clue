@@ -17,7 +17,7 @@ public abstract class Player {
 	}
 	
 	public void draw(Graphics g, int cellWidth, int cellHeight, int dupe) {
-		int xPos = column*cellWidth + 5*dupe;
+		int xPos = column*cellWidth + 5*(dupe);
     	int yPos = row*cellHeight;
     	g.setColor(color);
 		g.fillOval(xPos, yPos, cellWidth, cellHeight);
@@ -62,6 +62,11 @@ public abstract class Player {
 	
 	public int getCol() {
 		return column;
+	}
+	
+	public int[] getPos() {
+		int[] pos = {row, column};
+		return pos;
 	}
 	
 	/*

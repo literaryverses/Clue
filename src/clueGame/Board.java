@@ -126,8 +126,7 @@ public class Board extends JPanel implements MouseListener {
     	
     	cellWidth = panelWidth / cols;
     	cellHeight = panelHeight / rows;
-    	ArrayList<Integer> playerPos = new ArrayList<Integer>();
-    	ArrayList<ArrayList<Integer>> playersPoses = new ArrayList<ArrayList<Integer>>();
+    	
     	
     	for (int i=0;i<rows;i++) {
     		for (int j=0;j<cols;j++) {
@@ -141,18 +140,6 @@ public class Board extends JPanel implements MouseListener {
 			}
 		}
     	
-    	for (Player player: players) {
-    		int dupe = 0;
-    		playerPos.add(player.getRow());
-    		playerPos.add(player.getCol());
-    		if (playersPoses.contains(playerPos)) {
-    			dupe = dupeCount(playerPos, playersPoses);
-    		}
-    		
-    		player.draw(g, cellWidth, cellHeight, dupe);
-    		playersPoses.add(playerPos);
-    		playerPos.clear();
-    	}
     	
     	if (!targets.isEmpty()) {
 			for (BoardCell cell : targets) {
@@ -160,13 +147,32 @@ public class Board extends JPanel implements MouseListener {
 			}
 		}
     	
+    	ArrayList<int[]> playersPoses = new ArrayList<int[]>();
+    	
+    	for (Player player: players) {
+    		int dupe = 0;
+    		dupe = dupeCount(player.getPos(), playersPoses);
+    		//System.out.println(dupe);
+    		playersPoses.add(player.getPos());
+    		player.draw(g, cellWidth, cellHeight, dupe);
+    	}
+    	//printPoses(playersPoses);
+    	playersPoses.clear();
+    	
     }
     
-    public int dupeCount(ArrayList<Integer> playerPos, ArrayList<ArrayList<Integer>> playersPoses) {
+    public void printPoses(ArrayList<int[]> playersPoses) {
+    	for (int[] pos : playersPoses) {
+    		System.out.print("(" + pos[0] + " , " + pos[1] + "),   ");
+    	}
+    	System.out.println(" ");
+    }
+    
+    public int dupeCount(int[] playerPos, ArrayList<int[]> playersPoses) {
     	int count = 0;
     	
-    	for (ArrayList<Integer> pos : playersPoses) {
-    		if (pos.equals(playerPos)) {
+    	for (int[] pos : playersPoses) {
+    		if (pos[0] == playerPos[0] && pos[1] == playerPos[1]) {
     			count++;
     		}
     	}
