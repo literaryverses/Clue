@@ -56,6 +56,16 @@ public class BoardCell {
 		g.fillRect(xPos, yPos, cellWidth, cellHeight); // draw cell
 	}
 	
+	public void drawTarget (Graphics g, int cellWidth, int cellHeight) {
+		int xPos = col*cellWidth;
+		int yPos = row*cellHeight;
+		g.setColor(Color.cyan);
+		g.fillRect(xPos, yPos, cellHeight, cellWidth);
+		g.setColor(Color.black);
+		g.drawRect(xPos+1, yPos+1, cellHeight-1, cellWidth-1);
+		
+	}
+	
 	/*
 	 * draws doors and room labels
 	 */

@@ -3,16 +3,20 @@
 
 package clueGame;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.*;
 import java.util.*;
 import javax.swing.*;
 
-public class Board extends JPanel {
+public class Board extends JPanel implements MouseListener {
 	private int rows;
 	private int cols;
 	private int cellSize;
 	private int panelWidth;
 	private int panelHeight;
+	private int cellWidth;
+	private int cellHeight;
 	private int turn;
 	private String layoutConfigFile;
 	private String setupConfigFileName;
@@ -24,6 +28,7 @@ public class Board extends JPanel {
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private Solution theAnswer = new Solution();
 	private static Board theInstance = new Board();
+	private boolean turnOver;
 	
     // constructor is private to ensure only one can be created
     private Board() {
@@ -51,29 +56,36 @@ public class Board extends JPanel {
      * sets up the game by getting the players and player turn
      */
     public void setupGame() {
-        String playerName = new String();
+        turnOver = false;
     	for (Player player: players) {
     		if (player instanceof HumanPlayer) {
     			turn = players.indexOf(player) - 1; // get index 
     		}
     	}
-    	updateTurn();
+    	addMouseListener(this);
     }
     
     /*
      * updates the turn of next player
      */
     public void updateTurn() {
+    	if (!turnOver) {
+    		JOptionPane.showMessageDialog(this, "You have not finished your turn yet!");
+    		return;
+    	}
     	setTurn();
     	Player player = players.get(turn);
-    	int roll = new Random().nextInt(7);
+    	int roll = new Random().nextInt(6) + 1;
     	calcTargets(getCell(player.getRow(), player.getCol()), roll);
+    	GameControlPanel.setTurn(player, roll);
     	if (player instanceof HumanPlayer) { // human player moves
-    		humanMove(player);
+    		turnOver = false;
     	}
     	else { // computer moves
     		computerMove(player);
+    		targets.clear();
     	}
+    	repaint();
     }
     
     /*
@@ -89,8 +101,20 @@ public class Board extends JPanel {
     /*
      * human player choices movement
      */
-    public void humanMove(Player player) {
-    	
+    public void humanMove(Point point) {
+    	Player player = players.get(turn);
+    	if (player instanceof HumanPlayer && !turnOver) {	
+    		boolean clickedTarget = false;
+    		for (BoardCell cell : targets) {
+    			if (point.x < cell.getColumn()*cellWidth+cellWidth && point.x  > cell.getColumn()*cellWidth && point.y < cell.getRow()*cellHeight+cellHeight && point.y  > cell.getRow()*cellHeight) {
+    				grid[player.getRow()][player.getCol()].setOccupied(false);
+    				player.setPlace(cell.getRow(), cell.getColumn());
+    				cell.setOccupied(true); 
+					turnOver = true; 
+					targets.clear();
+    			}
+    		}
+    	}
     }
     
     /*
@@ -116,8 +140,8 @@ public class Board extends JPanel {
     	panelWidth = getWidth();
     	panelHeight = getHeight();
     	
-    	int cellWidth = panelWidth / cols;
-    	int cellHeight = panelHeight / rows;
+    	cellWidth = panelWidth / cols;
+    	cellHeight = panelHeight / rows;
     	
     	for (int i=0;i<rows;i++) {
     		for (int j=0;j<cols;j++) {
@@ -134,6 +158,13 @@ public class Board extends JPanel {
     	for (Player player: players) {
     		player.draw(g, cellWidth, cellHeight);
     	}
+    	
+    	if (!targets.isEmpty()) {
+			for (BoardCell cell : targets) {
+				cell.drawTarget(g, cellWidth, cellHeight);
+			}
+		}
+    	
     }
     
     /*
@@ -176,16 +207,6 @@ public class Board extends JPanel {
     		}
     	}
     	return null;
-    }
-    
-    /*
-     * checks if player turn
-     */
-    public boolean isHumanPlayerTurn() {
-    	if (players.get(turn) instanceof HumanPlayer) {
-    		return true;
-    	}
-    	else return false;
     }
     
     public ArrayList<Player> getPlayers() {
@@ -594,6 +615,37 @@ public class Board extends JPanel {
 	 */
 	public Set<BoardCell> getAdjList(int row, int col) {
 		return grid[row][col].getAdjList();
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		this.humanMove(e.getPoint());
+		repaint();
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
