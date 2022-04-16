@@ -60,7 +60,7 @@ public class Board extends JPanel implements MouseListener {
         turnOver = false;
     	for (Player player: players) {
     		if (player instanceof HumanPlayer) {
-    			turn = players.indexOf(player) - 1; // get index 
+    			turn = players.indexOf(player); // get index 
     			int roll = new Random().nextInt(6) + 1;
     	    	calcTargets(getCell(player.getRow(), player.getCol()), roll);
     	    	GameControlPanel.setTurnDisplay(player, roll);
@@ -117,7 +117,6 @@ public class Board extends JPanel implements MouseListener {
     				cell.setOccupied(true); 
 					turnOver = true; 
 					targets.clear();
-					System.out.println("Clicked a target");
     			}
     		}
     		JOptionPane.showMessageDialog(this, "Not a valid target");
