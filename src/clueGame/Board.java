@@ -108,7 +108,7 @@ public class Board extends JPanel implements MouseListener {
     public void computerMove(Player player) {
     	// TODO accusation here
     	
-    	BoardCell movedCell = ComputerPlayerMove(player);
+    	BoardCell movedCell = computerPlayerMove(player);
     	
     	if (movedCell.isRoomCenter()) { // make suggestion
     		Solution suggestion = player.createSuggestion(getDeck());
@@ -202,7 +202,7 @@ public class Board extends JPanel implements MouseListener {
      * moves the computer player
      * @param player
      */
-    public BoardCell ComputerPlayerMove(Player player) {
+    public BoardCell computerPlayerMove(Player player) {
     	BoardCell newCell = player.selectTarget(targets, roomMap, deck);
     	grid[player.getRow()][player.getCol()].setOccupied(false);
     	player.setPlace(newCell.getRow(), newCell.getColumn());
