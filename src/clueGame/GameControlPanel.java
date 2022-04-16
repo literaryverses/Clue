@@ -7,10 +7,10 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 public class GameControlPanel extends JPanel{
-	private JTextField playerTurn = new JTextField(10);
-	private JTextField rollNum = new JTextField(3);
-	private JTextField guessText = new JTextField(20);
-	private JTextField guessResult = new JTextField(20);
+	private static JTextField playerTurn = new JTextField(10);
+	private static JTextField rollNum = new JTextField(3);
+	private static JTextField guessText = new JTextField(20);
+	private static JTextField guessResult = new JTextField(20);
 	
 	
 	/**
@@ -93,12 +93,8 @@ public class GameControlPanel extends JPanel{
 	 */
 	private class NextListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			if (humanPlayerFinishTurn) {
-				optionsScreen("You must make a move!");
-				
-			} else {
-				Board.getInstance().updateTurn();
-			}
+			Board.getInstance().updateTurn();
+		
 		}
 	}
 
@@ -106,11 +102,11 @@ public class GameControlPanel extends JPanel{
 	 * Sets the turn display
 	 * @param Player, int
 	 */
-	public void setTurnDisplay(Player player, int roll) {
-		this.playerTurn.setText(player.getName());
-		this.rollNum.setText(Integer.toString(roll));
-		this.playerTurn.setEditable(false);
-		this.rollNum.setEditable(false);
+	public static void setTurnDisplay(Player player, int roll) {
+		playerTurn.setText(player.getName());
+		rollNum.setText(Integer.toString(roll));
+		playerTurn.setEditable(false);
+		rollNum.setEditable(false);
 	}
 	
 	/*

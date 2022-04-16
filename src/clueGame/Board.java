@@ -77,7 +77,7 @@ public class Board extends JPanel implements MouseListener {
     	Player player = players.get(turn);
     	int roll = new Random().nextInt(6) + 1;
     	calcTargets(getCell(player.getRow(), player.getCol()), roll);
-    	GameControlPanel.setTurn(player, roll);
+    	GameControlPanel.setTurnDisplay(player, roll);
     	if (player instanceof HumanPlayer) { // human player moves
     		turnOver = false;
     	}
