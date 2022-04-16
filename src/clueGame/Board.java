@@ -140,7 +140,7 @@ public class Board extends JPanel implements MouseListener {
 			}
 		}
     	
-    	
+    	//when there are targets to choose from, it draws them
     	if (!targets.isEmpty()) {
 			for (BoardCell cell : targets) {
 				cell.drawTarget(g, cellWidth, cellHeight);
@@ -202,6 +202,7 @@ public class Board extends JPanel implements MouseListener {
      */
     public BoardCell ComputerPlayerMove(Player player) {
     	BoardCell newCell = player.selectTarget(targets, roomMap, deck);
+    	grid[player.getRow()][player.getCol()].setOccupied(false);
     	player.setPlace(newCell.getRow(), newCell.getColumn());
     	newCell.setOccupied(true);
     	player.setRoomPlayerIn(roomMap, grid); // set new room name for player
@@ -632,7 +633,8 @@ public class Board extends JPanel implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if (players.get(turn) instanceof HumanPlayer && !turnOver) {
+		Player player = players.get(turn);
+		if (player instanceof HumanPlayer && !turnOver) {
 			BoardCell cell = null;
 			for (BoardCell target: targets) {
 				if (target.containsClick(e.getX(), e.getY(), cellWidth, cellHeight)) {
@@ -641,7 +643,8 @@ public class Board extends JPanel implements MouseListener {
 				}
 			}
 			if ( cell != null) {
-				players.get(turn).setPlace(cell.getRow(), cell.getColumn());
+				grid[player.getRow()][player.getCol()].setOccupied(false);
+				player.setPlace(cell.getRow(), cell.getColumn());
 				cell.setOccupied(true); 
 				turnOver = true; 
 				targets.clear();
