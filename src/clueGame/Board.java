@@ -47,6 +47,7 @@ public class Board extends JPanel implements MouseListener {
     		loadSetupConfig();
     		loadLayoutConfig();
     		deal();
+    		setupGame();
     	} catch (Exception e) {
     		System.err.println();
     	}
@@ -60,6 +61,9 @@ public class Board extends JPanel implements MouseListener {
     	for (Player player: players) {
     		if (player instanceof HumanPlayer) {
     			turn = players.indexOf(player) - 1; // get index 
+    			int roll = new Random().nextInt(6) + 1;
+    	    	calcTargets(getCell(player.getRow(), player.getCol()), roll);
+    	    	GameControlPanel.setTurnDisplay(player, roll);
     		}
     	}
     	addMouseListener(this);
