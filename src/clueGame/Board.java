@@ -127,13 +127,14 @@ public class Board extends JPanel implements MouseListener {
     	cellWidth = panelWidth / cols;
     	cellHeight = panelHeight / rows;
     	
-    	
+    	//paints all the cells
     	for (int i=0;i<rows;i++) {
     		for (int j=0;j<cols;j++) {
     			grid[i][j].draw(g, cellWidth, cellHeight);
     		}
     	}
     	
+    	//paints the room labels
     	for (int x = 0; x < rows; x++) {
 			for (int y = 0; y < cols; y++) {
 				grid[x][y].drawLabels(g, cellWidth, cellHeight);
@@ -147,27 +148,28 @@ public class Board extends JPanel implements MouseListener {
 			}
 		}
     	
+    	//draws the players and shifts over for multiple people on a tile
     	ArrayList<int[]> playersPoses = new ArrayList<int[]>();
-    	
     	for (Player player: players) {
     		int dupe = 0;
     		dupe = dupeCount(player.getPos(), playersPoses);
-    		//System.out.println(dupe);
     		playersPoses.add(player.getPos());
     		player.draw(g, cellWidth, cellHeight, dupe);
     	}
-    	//printPoses(playersPoses);
     	playersPoses.clear();
     	
     }
     
-    public void printPoses(ArrayList<int[]> playersPoses) {
+/*    public void printPoses(ArrayList<int[]> playersPoses) {
     	for (int[] pos : playersPoses) {
     		System.out.print("(" + pos[0] + " , " + pos[1] + "),   ");
     	}
     	System.out.println(" ");
-    }
+    } */
     
+    
+    //Checks how many times the players position is in the list of all players positions
+    //This works because only once it checks to see if playerPosition is in there, it adds it to the list of players
     public int dupeCount(int[] playerPos, ArrayList<int[]> playersPoses) {
     	int count = 0;
     	
@@ -634,14 +636,17 @@ public class Board extends JPanel implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		Player player = players.get(turn);
+		//clicking on the board should only do things if the player is human and in the middle of the turn
 		if (player instanceof HumanPlayer && !turnOver) {
 			BoardCell cell = null;
 			for (BoardCell target: targets) {
+				//checks to see if the clicked place is a target cell
 				if (target.containsClick(e.getX(), e.getY(), cellWidth, cellHeight)) {
 					cell = target;
 					break;
 				}
 			}
+			//If there was a clicked target, the player gets moved there
 			if ( cell != null) {
 				grid[player.getRow()][player.getCol()].setOccupied(false);
 				player.setPlace(cell.getRow(), cell.getColumn());
