@@ -55,7 +55,7 @@ public class ClueGame extends JFrame {
     public void addHand() {
         for (Player player : board.getPlayers()) {
             if (player instanceof HumanPlayer) {
-                GameCardsPanel.setHand(player);
+                cardsPanel.setHand(player);
             }
         }
     }

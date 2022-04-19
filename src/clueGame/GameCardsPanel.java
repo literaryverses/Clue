@@ -57,7 +57,7 @@ public class GameCardsPanel extends JPanel{
 	/*
 	 * adds the seen cards from computer players
 	 */
-	public static void setSeen(Player player, Card card) {
+	public void setSeen(Player player, Card card) {
 		JTextField field = new JTextField(card.getName());
 		field.setName("Seen");
 		field.setBackground(player.getColor());
@@ -80,7 +80,7 @@ public class GameCardsPanel extends JPanel{
 	 * adds the deck from human player
 	 * @param HumanPlayer player
 	 */
-	public static void setHand(Player player) {
+	public void setHand(Player player) {
 		ArrayList<Card> hand = player.getHand();
 		for (Card card : hand) {
 			JTextField field = new JTextField(card.getName());
@@ -106,7 +106,7 @@ public class GameCardsPanel extends JPanel{
 	/*
 	 * creates an empty JTextField
 	 */
-	public static JTextField empty() {
+	public JTextField empty() {
 		JTextField empty = new JTextField(20);
 		empty.setEditable(false);
 		empty.setText("None");
@@ -116,7 +116,7 @@ public class GameCardsPanel extends JPanel{
 	/*
 	 * updates all the panels
 	 */
-	public static void updateAll() {
+	public void updateAll() {
 		updatePanel(playersPanel, players);
 		updatePanel(roomPanel, rooms);
 		updatePanel(weaponPanel, weapons);
@@ -126,7 +126,7 @@ public class GameCardsPanel extends JPanel{
 	 * updates a given panel
 	 * @param JPanel, ArrayList<JTextField>
 	 */
-	public static void updatePanel(JPanel panel, ArrayList<JTextField> Typelist) {
+	public void updatePanel(JPanel panel, ArrayList<JTextField> Typelist) {
 		panel.removeAll();
 		
 		ArrayList<JTextField> seenList = new ArrayList<JTextField>();
