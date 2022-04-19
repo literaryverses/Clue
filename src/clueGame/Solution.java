@@ -49,9 +49,7 @@ public class Solution {
 		}
 	}
 	
-	/*
-	 * Checks to see if solution has three cards
-	 */
+	//Checks to see if solution has three cards
 	public boolean isFull() {
 		if (this.room == null || this.person == null || this.weapon == null) {
 			return false;
