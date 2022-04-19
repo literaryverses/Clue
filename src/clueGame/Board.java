@@ -145,28 +145,46 @@ public class Board extends JPanel implements MouseListener {
     	cellWidth = panelWidth / cols;
     	cellHeight = panelHeight / rows;
     	
-    	//paints all the cells
+    	paintCells(g);
+    	
+    	paintRoomLabels(g);
+    	
+    	paintTargets(g);
+    	
+    	ArrayList<int[]> playersPoses = paintPlayerShifts(g);
+    	playersPoses.clear();
+    	
+    }
+
+	public void paintCells(Graphics g) {
+		//paints all the cells
     	for (int i=0;i<rows;i++) {
     		for (int j=0;j<cols;j++) {
     			grid[i][j].draw(g, cellWidth, cellHeight);
     		}
     	}
-    	
-    	//paints the room labels
+	}
+
+	public void paintRoomLabels(Graphics g) {
+		//paints the room labels
     	for (int x = 0; x < rows; x++) {
 			for (int y = 0; y < cols; y++) {
 				grid[x][y].drawLabels(g, cellWidth, cellHeight);
 			}
 		}
-    	
-    	//when there are targets to choose from, it draws them
+	}
+
+	public void paintTargets(Graphics g) {
+		//when there are targets to choose from, it draws them
     	if (!targets.isEmpty()) {
 			for (BoardCell cell : targets) {
 				cell.drawTarget(g, cellWidth, cellHeight);
 			}
 		}
-    	
-    	//draws the players and shifts over for multiple people on a tile
+	}
+
+	public ArrayList<int[]> paintPlayerShifts(Graphics g) {
+		//draws the players and shifts over for multiple people on a tile
     	ArrayList<int[]> playersPoses = new ArrayList<int[]>();
     	for (Player player: players) {
     		int dupe = 0;
@@ -174,9 +192,8 @@ public class Board extends JPanel implements MouseListener {
     		playersPoses.add(player.getPos());
     		player.draw(g, cellWidth, cellHeight, dupe);
     	}
-    	playersPoses.clear();
-    	
-    }
+		return playersPoses;
+	}
     
 	@Override
 	public void mouseClicked(MouseEvent e) {
