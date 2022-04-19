@@ -3,11 +3,14 @@
 
 package clueGame;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.*;
 import java.util.*;
 import javax.swing.*;
+import javax.swing.Timer;
 
 public class Board extends JPanel implements MouseListener {
 	private int rows;
@@ -51,6 +54,21 @@ public class Board extends JPanel implements MouseListener {
     		System.err.println();
     	}
 	}
+    
+    public void updateDrawing(int x, int y) {
+    	
+    	Timer t = new Timer(1000, new TimerListener());
+    	t.start();
+    }
+    
+    /*
+     * timer to update players moving
+     */
+    private class TimerListener implements ActionListener {
+    	public void actionPerformed(ActionEvent e) {
+    		//players.get(turn).translate(xPos, yPos);
+    	}
+    }
     
     /*
      * sets up the game by getting the players and player turn
@@ -187,16 +205,11 @@ public class Board extends JPanel implements MouseListener {
 		repaint();
 	}
     
-/*    public void printPoses(ArrayList<int[]> playersPoses) {
-    	for (int[] pos : playersPoses) {
-    		System.out.print("(" + pos[0] + " , " + pos[1] + "),   ");
-    	}
-    	System.out.println(" ");
-    } */
     
-    
-    //Checks how many times the players position is in the list of all players positions
-    //This works because only once it checks to see if playerPosition is in there, it adds it to the list of players
+    /*
+     * Checks how many times the players position is in the list of all players positions
+     * This works because only once it checks to see if playerPosition is in there, it adds it to the list of players
+     */
     public int dupeCount(int[] playerPos, ArrayList<int[]> playersPoses) {
     	int count = 0;
     	
@@ -208,6 +221,7 @@ public class Board extends JPanel implements MouseListener {
     	
     	return count;
     }
+    
     /*
      * checks to see if the accusation is true or false
      * @param Solution

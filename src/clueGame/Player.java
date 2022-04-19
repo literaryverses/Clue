@@ -6,7 +6,7 @@ import java.util.*;
 public abstract class Player {
 	protected String name;
 	private Color color;
-	protected int row, column;
+	protected int row, column, xPos, yPos;
 	private static int nextColor;
 	protected ArrayList<Card> hand = new ArrayList<Card>();
 	
@@ -20,12 +20,22 @@ public abstract class Player {
 		this.name = name;
 	}
 	
+	public void translate(int dx, int dy) {
+		xPos += dx;
+		yPos += dy;
+	}
+	
+	public void draw(Graphics g, int cellWidth, int cellHeight) {
+		xPos = column*cellWidth;
+    	yPos = row*cellHeight;
+	}
+    	
 	/*
 	 * draw method to draw player
 	 */
 	public void draw(Graphics g, int cellWidth, int cellHeight, int dupe) {
-		int xPos = column*cellWidth + 5*(dupe);
-    	int yPos = row*cellHeight;
+		xPos = column*cellWidth + 5*(dupe);
+    	yPos = row*cellHeight;
     	g.setColor(color);
 		g.fillOval(xPos, yPos, cellWidth, cellHeight);
 		g.setColor(Color.BLACK);
