@@ -45,7 +45,7 @@ public class ClueGame extends JFrame {
     /*
      * returns instance of ClueGame
      */
-    public static ClueGame getInstance() {
+    public ClueGame getInstance() {
         return game;
     }
     
@@ -63,7 +63,7 @@ public class ClueGame extends JFrame {
     /*
      * redraws game
      */
-    public static void redraw() {
+    public void redraw() {
         game.revalidate();
     }
     
