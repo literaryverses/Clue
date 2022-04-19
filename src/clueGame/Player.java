@@ -10,12 +10,19 @@ public abstract class Player {
 	private static int nextColor;
 	protected ArrayList<Card> hand = new ArrayList<Card>();
 	
+	/*
+	 * Constructor for player
+	 * @param String name
+	 */
 	public Player(String name) {
 		super();
 		interpretColor();
 		this.name = name;
 	}
 	
+	/*
+	 * draw method to draw player
+	 */
 	public void draw(Graphics g, int cellWidth, int cellHeight, int dupe) {
 		int xPos = column*cellWidth + 5*(dupe);
     	int yPos = row*cellHeight;
@@ -24,10 +31,7 @@ public abstract class Player {
 		g.setColor(Color.BLACK);
 		g.drawOval(xPos, yPos, cellWidth, cellHeight);
 	}
-	
-	abstract public BoardCell selectTarget(Set<BoardCell> targets, Map<Character,Room> roomMap,
-			ArrayList<Card> deck);
-	
+		
 	/*
 	 * Disproves suggestion based on player cards
 	 */
@@ -96,10 +100,14 @@ public abstract class Player {
 		nextColor++;
 	}
 	
+	
 	public Color getColor() {
 		return this.color;
 	}
 
+	/*
+	 * adds hand to card
+	 */
 	public void updateHand(Card card) {
 		hand.add(card);
 	}
@@ -107,6 +115,9 @@ public abstract class Player {
 	public ArrayList<Card> getHand() {
 		return this.hand;
 	}
+	
+	abstract public BoardCell selectTarget(Set<BoardCell> targets, Map<Character,Room> roomMap,
+			ArrayList<Card> deck);
 
 	protected abstract void setRoomPlayerIn(Map<Character, Room> roomMap, BoardCell[][] grid);
 
