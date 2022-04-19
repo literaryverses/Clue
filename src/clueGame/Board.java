@@ -160,6 +160,33 @@ public class Board extends JPanel implements MouseListener {
     	
     }
     
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		Player player = players.get(turn);
+		//clicking on the board should only do things if the player is human and in the middle of the turn
+		if (player instanceof HumanPlayer && !turnOver) {
+			BoardCell cell = null;
+			for (BoardCell target: targets) {
+				//checks to see if the clicked place is a target cell
+				if (target.containsClick(e.getX(), e.getY(), cellWidth, cellHeight)) {
+					cell = target;
+					break;
+				}
+			}
+			//If there was a clicked target, the player gets moved there
+			if ( cell != null) {
+				grid[player.getRow()][player.getCol()].setOccupied(false);
+				player.setPlace(cell.getRow(), cell.getColumn());
+				cell.setOccupied(true); 
+				turnOver = true; 
+				targets.clear();
+			} else {
+	    		JOptionPane.showMessageDialog(this, "Not a valid target");
+			}
+		}
+		repaint();
+	}
+    
 /*    public void printPoses(ArrayList<int[]> playersPoses) {
     	for (int[] pos : playersPoses) {
     		System.out.print("(" + pos[0] + " , " + pos[1] + "),   ");
@@ -224,19 +251,7 @@ public class Board extends JPanel implements MouseListener {
     	}
     	return null;
     }
-    
-    public ArrayList<Player> getPlayers() {
-    	return this.players;
-    }
-    
-    public ArrayList<Card> getDeck() {
-    	return this.deck;
-    }
-    
-    public Solution getAnswer() {
-    	return theAnswer;
-    }
-    
+
     /*
      * hands out three cards to each player
      */
@@ -262,27 +277,6 @@ public class Board extends JPanel implements MouseListener {
     		}
     	}
     }
-    
-    /*
-     * set theAnswer with cards
-     */
-	public void setAnswer(Card c) {
-		theAnswer.add(c);
-	}
-    
-    /*
-     * get columns of grid
-     */
-	public int getNumColumns() {
-		return cols;
-	}
-	
-	/*
-	 * get rows of grid
-	 */
-	public int getNumRows() {
-		return rows;
-	}
     
 	/*
 	 * Sets up files to read 
@@ -478,45 +472,6 @@ public class Board extends JPanel implements MouseListener {
 	}
 	
 	/*
-	 * gets room of given cell
-	 * @param BoardCell cell
-	 */
-	public Room getRoom(BoardCell cell) {
-		return roomMap.get(cell.getInitial());
-	}
-	
-	/*
-	 * gets room based on legend key
-	 * @param char x
-	 */
-	public Room getRoom(char x) {
-		return roomMap.get(x);
-	}
-	
-	/*
-	 * gets room Map
-	 */
-	public Map<Character,Room> getRoomMap() {
-		return roomMap;
-	}
-	
-	/*
-	 * gets board grid
-	 */
-	public BoardCell[][] getGrid() {
-		return grid;
-	}
-	
-	/*
-	 * gets cell from grid based on coordinates
-	 * @param int row, int col
-	 */
-	public BoardCell getCell( int row, int col ) {
-		BoardCell cell = grid[row][col];
-		return cell;
-	}
-	
-	/*
 	 * checks for valid cells to add to adjacency list of a given cell
 	 *  based on cell's coordinates
 	 * @param int row, int col
@@ -592,6 +547,7 @@ public class Board extends JPanel implements MouseListener {
 	 *  are needed from the starting cell
 	 * @param BoardCell startCell, int pathLength
 	 */
+	
 	public void calcTargets(BoardCell startCell, int pathLength) {
 		visited.clear();
 		targets.clear();
@@ -619,6 +575,78 @@ public class Board extends JPanel implements MouseListener {
         }
 	}
 	
+    /*
+     * set theAnswer with cards
+     */
+	public void setAnswer(Card c) {
+		theAnswer.add(c);
+	}
+    
+    /*
+     * get columns of grid
+     */
+	public int getNumColumns() {
+		return cols;
+	}
+	
+	/*
+	 * get rows of grid
+	 */
+	public int getNumRows() {
+		return rows;
+	}
+	
+    public ArrayList<Player> getPlayers() {
+    	return this.players;
+    }
+    
+    public ArrayList<Card> getDeck() {
+    	return this.deck;
+    }
+    
+    public Solution getAnswer() {
+    	return theAnswer;
+    }
+	
+	/*
+	 * gets room of given cell
+	 * @param BoardCell cell
+	 */
+	public Room getRoom(BoardCell cell) {
+		return roomMap.get(cell.getInitial());
+	}
+	
+	/*
+	 * gets room based on legend key
+	 * @param char x
+	 */
+	public Room getRoom(char x) {
+		return roomMap.get(x);
+	}
+	
+	/*
+	 * gets room Map
+	 */
+	public Map<Character,Room> getRoomMap() {
+		return roomMap;
+	}
+	
+	/*
+	 * gets board grid
+	 */
+	public BoardCell[][] getGrid() {
+		return grid;
+	}
+	
+	/*
+	 * gets cell from grid based on coordinates
+	 * @param int row, int col
+	 */
+	public BoardCell getCell( int row, int col ) {
+		BoardCell cell = grid[row][col];
+		return cell;
+	}
+	
 	/*
 	 * returns the target list
 	 */
@@ -631,33 +659,6 @@ public class Board extends JPanel implements MouseListener {
 	 */
 	public Set<BoardCell> getAdjList(int row, int col) {
 		return grid[row][col].getAdjList();
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		Player player = players.get(turn);
-		//clicking on the board should only do things if the player is human and in the middle of the turn
-		if (player instanceof HumanPlayer && !turnOver) {
-			BoardCell cell = null;
-			for (BoardCell target: targets) {
-				//checks to see if the clicked place is a target cell
-				if (target.containsClick(e.getX(), e.getY(), cellWidth, cellHeight)) {
-					cell = target;
-					break;
-				}
-			}
-			//If there was a clicked target, the player gets moved there
-			if ( cell != null) {
-				grid[player.getRow()][player.getCol()].setOccupied(false);
-				player.setPlace(cell.getRow(), cell.getColumn());
-				cell.setOccupied(true); 
-				turnOver = true; 
-				targets.clear();
-			} else {
-	    		JOptionPane.showMessageDialog(this, "Not a valid target");
-			}
-		}
-		repaint();
 	}
 
 	@Override
