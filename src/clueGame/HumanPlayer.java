@@ -19,6 +19,8 @@ public class HumanPlayer extends Player{
 		return new BoardCell(0,0); // TODO
 	}
 	
+	
+	//Keeps track of the current room of the player
 	public void setRoomPlayerIn(Map<Character, Room> roomMap, BoardCell[][] grid) {
 	} //TODO
 

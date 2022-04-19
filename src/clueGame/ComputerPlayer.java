@@ -15,6 +15,7 @@ public class ComputerPlayer extends Player {
 	/*
 	 * Player creates a solution from cards it hasn't seen
 	 */
+	//This needs to get fixed, the computer will not select one of each type as it needs to
 	public Solution createSuggestion(ArrayList<Card> deck) {
 		Solution suggestion = new Solution();
 		Collections.shuffle(deck); // randomize the order of cards
@@ -36,7 +37,7 @@ public class ComputerPlayer extends Player {
 	}
 	
 	/*
-	 * sets room that the player is in
+	 * keeps track of the current room of the player
 	 */
 	public void setRoomPlayerIn(Map<Character, Room> roomMap, BoardCell[][] grid) {
 		BoardCell newCell = grid[this.row][this.column];
