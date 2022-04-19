@@ -121,18 +121,19 @@ public class GameControlPanel extends JPanel{
 	 * Sets the guess display
 	 * @param String
 	 */
-	public void setGuess(String guessText) {
-		this.guessText.setText(guessText);
-		this.guessText.setEditable(false);
+	public static void setGuess(String guess) {
+		guessText.setText(guess);
+		guessText.setEditable(false);
 	}
 
 	/*
 	 * Sets the guess result display
-	 * @param String
+	 * @param boolean
 	 */
-	public void setGuessResult(String guessResult) {
-		this.guessResult.setText(guessResult);
-		this.guessResult.setEditable(false);
+	public static void setGuessResult(String result, Color color) {
+		guessResult.setText(result);
+		guessResult.setEditable(false);
+		guessResult.setBackground(color);
 	}
 
 	/**
@@ -152,6 +153,6 @@ public class GameControlPanel extends JPanel{
 		// test filling in the data
 		panel.setTurnDisplay(new ComputerPlayer("Col. Mustard"), 5);
 		panel.setGuess("I have no guess!");
-		panel.setGuessResult("So you have nothing?");
+		panel.setGuessResult("So you have nothing?", Color.WHITE);
 	}
 }

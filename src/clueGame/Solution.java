@@ -59,6 +59,11 @@ public class Solution {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return person + ", " + weapon + ", " + room;
+	}
+
 	public Card getRoom() {
 		return room;
 	}

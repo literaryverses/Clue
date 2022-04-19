@@ -130,7 +130,26 @@ public class Board extends JPanel implements MouseListener {
     	
     	if (movedCell.isRoomCenter()) { // make suggestion
     		Solution suggestion = player.createSuggestion(getDeck());
-    		//TODO update suggestion on game
+    		
+    		for (Player accused: players) { // move player into room
+    			if (accused.getName().equals(suggestion.getPerson().getName())) {
+    				for (var entry: roomMap.entrySet()) {
+    					Room room = entry.getValue();
+    					if (room.getName().equals(suggestion.getRoom().getName())) {
+    						BoardCell roomCell = room.getCenterCell();
+    						accused.setPlace(roomCell.getRow(), roomCell.getColumn());
+    						break;
+    					}
+    				}
+    				break;
+       			}
+    		}
+    		
+    		GameControlPanel.setGuess(suggestion.toString()); // set suggestion to display
+    		Card card = handleSuggestion(suggestion);
+    		if (card==null) { // if a suggestion is not disproven
+    			GameControlPanel.setGuessResult("Suggestion not disproven", Color.WHITE);
+    		}
     	}
     }
     
@@ -277,6 +296,11 @@ public class Board extends JPanel implements MouseListener {
     	for (Player player : players) {
     		Card card = player.disproveSuggestion(suggestion);
     		if (card!=null) {
+    			if (turnOver) {
+        			GameControlPanel.setGuessResult("Suggestion disproved", player.getColor());
+    			} else {
+        			GameControlPanel.setGuessResult(card.getName(), player.getColor());    				
+    			}
     			return card;
     		}
     	}
