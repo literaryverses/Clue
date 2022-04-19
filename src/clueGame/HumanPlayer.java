@@ -15,8 +15,8 @@ public class HumanPlayer extends Player{
 		return null; //TODO
 	}
 	
-	public BoardCell selectTarget(Set<BoardCell> t, Map<Character,Room> roomMap, ArrayList<Card> deck) {
-		return new BoardCell(0,0); // TODO
+	public BoardCell selectTarget(Set<BoardCell> targets, Map<Character,Room> roomMap, ArrayList<Card> deck) {
+		return null; // TODO
 	}
 	
 	
