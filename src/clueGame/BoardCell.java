@@ -123,6 +123,36 @@ public class BoardCell {
 			g.fillRect(xPos, yPos, cellWidth, cellHeight);
 		}
 	}
+	/*
+	 * sets door direction based on given symbol read on file
+	 * @param char w
+	 */
+	public void setDoorDirection(char direction) {
+		switch (direction) {
+		case '>':
+			this.doorDirection = doorDirection.RIGHT;
+			break;
+		case '<':
+			this.doorDirection = doorDirection.LEFT;
+			break;	
+		case 'v':
+			this.doorDirection = doorDirection.DOWN;
+			break;	
+		case '^':
+			this.doorDirection = doorDirection.UP;
+			break;	
+		}
+	}
+	
+	/*
+	 * adds cell to adjacency list
+	 * @param BoardCell cell
+	 */
+	public void addAdjList(BoardCell cell) {
+		if (cell.isUsed && this.isUsed) {
+			this.adjList.add(cell);
+		}
+	}
 	
 	/*
 	 * returns if a cell is marked as usable
@@ -143,27 +173,6 @@ public class BoardCell {
 	 */
 	public DoorDirection getDoorDirection() {
 		return doorDirection;
-	}
-	
-	/*
-	 * sets door direction based on given symbol read on file
-	 * @param char w
-	 */
-	public void setDoorDirection(char direction) {
-		switch (direction) {
-		case '>':
-			this.doorDirection = doorDirection.RIGHT;
-			break;
-		case '<':
-			this.doorDirection = doorDirection.LEFT;
-			break;	
-		case 'v':
-			this.doorDirection = doorDirection.DOWN;
-			break;	
-		case '^':
-			this.doorDirection = doorDirection.UP;
-			break;	
-		}
 	}
 
 	/*
@@ -254,16 +263,6 @@ public class BoardCell {
 	 */
 	public void setSecretPassage(char secretPassage) {
 		this.secretPassage = secretPassage;
-	}
-	
-	/*
-	 * adds cell to adjacency list
-	 * @param BoardCell cell
-	 */
-	public void addAdjList(BoardCell cell) {
-		if (cell.isUsed && this.isUsed) {
-			this.adjList.add(cell);
-		}
 	}
 	
 	/*
