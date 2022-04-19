@@ -57,7 +57,6 @@ public class ClueGame extends JFrame {
             if (player instanceof HumanPlayer) {
                 GameCardsPanel.setHand(player);
             }
-            
         }
     }
     
@@ -73,6 +72,5 @@ public class ClueGame extends JFrame {
      */
     public static void main(String[] args) {
         game.setVisible(true);
-        
     }
 }
