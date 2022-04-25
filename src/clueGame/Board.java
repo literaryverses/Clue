@@ -29,6 +29,7 @@ public class Board extends JPanel implements MouseListener {
 	private ArrayList<Card> deck = new ArrayList<Card>();
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private Solution theAnswer = new Solution();
+	private Solution theAccusation;
 	private static Board theInstance = new Board();
 	private boolean turnOver;
 	
@@ -124,7 +125,9 @@ public class Board extends JPanel implements MouseListener {
      * @param Player player
      */
     public void computerMove(Player player) {
-    	// TODO accusation here
+    	if (theAccusation!=null) {
+    		// Make accusation FIXME
+    	}
     	
     	BoardCell movedCell = computerPlayerMove(player);
     	
@@ -149,6 +152,7 @@ public class Board extends JPanel implements MouseListener {
     		Card card = handleSuggestion(suggestion);
     		if (card==null) { // if a suggestion is not disproven
     			GameControlPanel.setGuessResult("Suggestion not disproven", Color.WHITE);
+    			this.theAccusation = suggestion;
     		}
     	}
     }
@@ -237,6 +241,8 @@ public class Board extends JPanel implements MouseListener {
 			} else {
 	    		JOptionPane.showMessageDialog(this, "Not a valid target");
 			}
+			
+			//FIXME make suggestion if player in room
 		}
 		repaint();
 	}
@@ -297,7 +303,7 @@ public class Board extends JPanel implements MouseListener {
     		Card card = player.disproveSuggestion(suggestion);
     		if (card!=null) {
     			if (turnOver) {
-        			GameControlPanel.setGuessResult("Suggestion disproved", player.getColor());
+        			GameControlPanel.setGuessResult("Suggestion is disproved", player.getColor());
     			} else {
         			GameControlPanel.setGuessResult(card.getName(), player.getColor());    				
     			}

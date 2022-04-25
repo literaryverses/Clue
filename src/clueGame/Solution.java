@@ -61,7 +61,7 @@ public class Solution {
 
 	@Override
 	public String toString() {
-		return person + ", " + weapon + ", " + room;
+		return person.getName() + ", " + weapon.getName() + ", " + room.getName();
 	}
 
 	public Card getRoom() {
