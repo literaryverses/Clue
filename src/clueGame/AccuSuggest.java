@@ -87,7 +87,7 @@ public class AccuSuggest extends JDialog implements ActionListener {
 				} else if (card.getName().equals(player.getSelectedItem().toString())) {
 					personCard = card;
 				} else if (card.getName().equals(weapon.getSelectedItem().toString())) {
-					weaponCard= card;
+					weaponCard = card;
 				}
 			}	
 			cards.add(roomCard);
@@ -99,7 +99,7 @@ public class AccuSuggest extends JDialog implements ActionListener {
 		
 	}
 	
-	public ArrayList<Card> run() {
+	public ArrayList<Card> getCards() {
 		this.setVisible(true);
 		return cards;
 	}
