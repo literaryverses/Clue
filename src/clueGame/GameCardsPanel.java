@@ -30,6 +30,7 @@ public class GameCardsPanel extends JPanel{
 		add(roomPanel);
 		add(weaponPanel);
 	}
+
 	
 	/*
 	 * Creates a panel with standardized settings

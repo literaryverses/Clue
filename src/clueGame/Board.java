@@ -61,6 +61,49 @@ public class Board extends JPanel implements MouseListener {
     	Timer t = new Timer(1000, new TimerListener());
     	t.start();
     }
+	
+	public JDialog suggestOrAccuse(String inRoom, boolean isAccusation) {
+		JDialog suggestOptions = new JDialog();
+		suggestOptions.setLayout(new GridLayout(0,2));
+		
+		JLabel roomLabel = new JLabel("Current room");
+		JLabel personLabel = new JLabel("Person");
+		JLabel weaponLabel = new JLabel("Weapon");
+		JComboBox<String> roomsCombo = new JComboBox<String>();
+		JComboBox<String> playersCombo = new JComboBox<String>();
+		JComboBox<String> weaponsCombo = new JComboBox<String>();
+		for (Card card : deck) {
+			switch (card.getType()) {
+			case ROOM:
+				roomsCombo.addItem(card.getName());
+				break;
+			case PERSON:
+				playersCombo.addItem(card.getName());
+				break;
+			case WEAPON:
+				weaponsCombo.addItem(card.getName());
+				break;
+			}
+		}
+		JButton submitButton = new JButton("Submit");
+		JButton cancelButton = new JButton("Cancel");
+		
+		suggestOptions.add(roomLabel);
+		if (isAccusation) {
+			suggestOptions.setTitle("Make Accusation");
+			suggestOptions.add(roomsCombo);
+
+		} else {
+			suggestOptions.setTitle("Make Suggestion");
+			suggestOptions.add(new JTextField(inRoom));
+		}
+		suggestOptions.add(personLabel);
+		suggestOptions.add(playersCombo);		
+		suggestOptions.add(weaponLabel);
+		suggestOptions.add(weaponsCombo);
+		
+		return suggestOptions;
+	}
     
     /*
      * timer to update players moving

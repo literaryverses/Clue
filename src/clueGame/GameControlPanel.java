@@ -35,7 +35,7 @@ public class GameControlPanel extends JPanel{
 		JPanel guessPanel = createGuessPanel(); // add lower guess panel
 		add(guessPanel);
 	}
-
+	
 	/*
 	 * create guess panel
 	 */
