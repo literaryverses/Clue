@@ -114,7 +114,7 @@ public class Board extends JPanel implements MouseListener {
     	AccuSuggest accuse = new AccuSuggest(ClueGame.getInstance(), "Make an Accussation", null);
     	ArrayList<Card> accusationCards = accuse.getCards();
     	
-    	if (accusationCards.size() == 0) {
+    	if (accusationCards == null) {
     		return;
     	}
     	
