@@ -63,18 +63,14 @@ public class GameCardsPanel extends JPanel{
 		field.setName("Seen");
 		field.setBackground(player.getColor());
 		field.setEditable(false);
-		System.out.println("I have seen a card");
 		switch (card.getType().name()) { // add card to array by type
 		case "PERSON":
-			System.out.println("added");
 			players.add(field);
 			break;
 		case "ROOM":
-			System.out.println("added");
 			rooms.add(field);
 			break;
 		case "WEAPON":
-			System.out.println("added");
 			weapons.add(field);
 			break;
 		}
@@ -85,7 +81,7 @@ public class GameCardsPanel extends JPanel{
 	 * adds the deck from human player
 	 * @param HumanPlayer player
 	 */
-	public void setHand(Player player) {
+	public static void setHand(Player player) {
 		ArrayList<Card> hand = player.getHand();
 		for (Card card : hand) {
 			JTextField field = new JTextField(card.getName());
