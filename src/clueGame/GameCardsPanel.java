@@ -60,7 +60,7 @@ public class GameCardsPanel extends JPanel{
 	 */
 	public static void setSeen(Player player, Card card) {
 		JTextField field = new JTextField(card.getName());
-		field.setName("Seen");
+		field.setName("Seen");	
 		field.setBackground(player.getColor());
 		field.setEditable(false);
 		switch (card.getType().name()) { // add card to array by type

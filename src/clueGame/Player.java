@@ -131,6 +131,7 @@ public abstract class Player {
 	 */
 	public void updateHand(Card card) {
 		hand.add(card);
+		seeCard(card);
 	}
 	
 	public ArrayList<Card> getHand() {

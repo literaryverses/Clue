@@ -24,7 +24,4 @@ public class HumanPlayer extends Player{
 	public void setRoomPlayerIn(Map<Character, Room> roomMap, BoardCell[][] grid) {
 	} //TODO
 
-	public void seeCard(Card card) {
-	} //TODO
-
 }

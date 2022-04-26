@@ -82,10 +82,4 @@ public class ComputerPlayer extends Player {
 			return moveTo.get(index);
 		}
 	}
-	
-	@Override
-	public void updateHand(Card card) {
-		hand.add(card);
-		seeCard(card);
-	}
 }

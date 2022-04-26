@@ -288,7 +288,7 @@ public class Board extends JPanel implements MouseListener {
 				player.setPlace(cell.getRow(), cell.getColumn());
 				if (cell.isRoomCenter()) {
 					Room room = roomMap.get(cell.getInitial());
-					doSuggestion(room);
+					doSuggestion(room, player);
 				} else {
 					cell.setOccupied(true); 
 				}
@@ -328,7 +328,7 @@ public class Board extends JPanel implements MouseListener {
     }
     
 	
-	public void doSuggestion(Room room) {
+	public void doSuggestion(Room room, Player player) {
 		AccuSuggest suggest = new AccuSuggest(ClueGame.getInstance(), "Make an Suggestion", room);
     	ArrayList<Card> suggestionCards = suggest.getCards();
     	
@@ -340,7 +340,7 @@ public class Board extends JPanel implements MouseListener {
     	for (Card card : suggestionCards) {
     		guess.add(card);
     	}
-    	
+    	/*
     	Card disprovedCard = handleSuggestion(guess);
     	ArrayList<Card> seenCards = players.get(5).getSeen();
     	if (!(seenCards.contains(disprovedCard) || players.get(5).getHand().contains(disprovedCard))) {
@@ -351,6 +351,26 @@ public class Board extends JPanel implements MouseListener {
     			}
     		}
     	}
+    	*/ //FIXME
+    	
+    	for (Player accused: players) { // move player into room
+			if (accused.getName().equals(guess.getPerson().getName())) {
+				if (room.getName().equals(guess.getRoom().getName())) {
+					BoardCell roomCell = room.getCenterCell();
+					grid[player.getRow()][accused.getCol()].setOccupied(false);
+					accused.setPlace(roomCell.getRow(), roomCell.getColumn());
+				}				
+				break;
+   			}
+		}
+		
+		GameControlPanel.setGuess(guess.toString()); // set suggestion to display
+		Card card = handleSuggestion(guess);
+		if (card==null) { // if a suggestion is not disproven
+			GameControlPanel.setGuessResult("Suggestion not disproven", Color.WHITE);
+			this.theAccusation = guess;
+		}
+		
     	ClueGame.redraw();
     	return;
 	}
@@ -413,7 +433,9 @@ public class Board extends JPanel implements MouseListener {
     			if (turnOver) {
         			GameControlPanel.setGuessResult("Suggestion is disproved", player.getColor());
     			} else {
-        			GameControlPanel.setGuessResult(card.getName(), player.getColor());    				
+        			GameControlPanel.setGuessResult(card.getName(), player.getColor());
+        			GameCardsPanel.setSeen(player, card); // update player hands
+
     			}
     			return card;
     		}
