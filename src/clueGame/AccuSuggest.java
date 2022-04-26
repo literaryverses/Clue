@@ -23,7 +23,7 @@ public class AccuSuggest extends JDialog implements ActionListener {
 	private static Board board;
 	private ArrayList<Card> cards = new ArrayList<Card>();
 
-	public AccuSuggest(JFrame parent, String title, Room currRoom) {
+	public AccuSuggest(JFrame parent, String title, Room inRoom) {
 		super(parent, title, true);
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(4, 2));
@@ -44,9 +44,9 @@ public class AccuSuggest extends JDialog implements ActionListener {
 			}
 		}
 		
-		if (currRoom != null) {
+		if (inRoom != null) {
 			room.removeAllItems();
-			room.addItem(currRoom.getName());
+			room.addItem(inRoom.getName());
 		}
 		
 		cancelButton = new JButton("Cancel");
