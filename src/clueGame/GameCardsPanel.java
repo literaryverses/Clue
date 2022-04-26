@@ -7,9 +7,14 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 public class GameCardsPanel extends JPanel{
-	private static ArrayList<JTextField> weapons = new ArrayList<JTextField>();
-	private static ArrayList<JTextField> players = new ArrayList<JTextField>();
-	private static ArrayList<JTextField> rooms = new ArrayList<JTextField>();
+	private static ArrayList<JTextField> weaponsHand = new ArrayList<JTextField>();
+	private static ArrayList<JTextField> playersHand = new ArrayList<JTextField>();
+	private static ArrayList<JTextField> roomsHand = new ArrayList<JTextField>();
+	
+	private static ArrayList<JTextField> weaponsSeen = new ArrayList<JTextField>();
+	private static ArrayList<JTextField> playersSeen = new ArrayList<JTextField>();
+	private static ArrayList<JTextField> roomsSeen = new ArrayList<JTextField>();
+	
 	private static JPanel playersPanel;
 	private static JPanel roomPanel;
 	private static JPanel weaponPanel;
@@ -65,13 +70,13 @@ public class GameCardsPanel extends JPanel{
 		field.setEditable(false);
 		switch (card.getType().name()) { // add card to array by type
 		case "PERSON":
-			players.add(field);
+			playersSeen.add(field);
 			break;
 		case "ROOM":
-			rooms.add(field);
+			roomsSeen.add(field);
 			break;
 		case "WEAPON":
-			weapons.add(field);
+			weaponsSeen.add(field);
 			break;
 		}
 		updateAll();
@@ -91,13 +96,13 @@ public class GameCardsPanel extends JPanel{
 			
 			switch (card.getType().name()) { // add card to array by type
 			case "PERSON":
-				players.add(field);
+				playersHand.add(field);
 				break;
 			case "ROOM":
-				rooms.add(field);
+				roomsHand.add(field);
 				break;
 			case "WEAPON":
-				weapons.add(field);
+				weaponsHand.add(field);
 				break;
 			}
 		}
@@ -118,30 +123,34 @@ public class GameCardsPanel extends JPanel{
 	 * updates all the panels
 	 */
 	public static void updateAll() {
-		updatePanel(playersPanel, players);
-		updatePanel(roomPanel, rooms);
-		updatePanel(weaponPanel, weapons);
+		updatePanel(playersPanel, "p");
+		updatePanel(roomPanel, "r");
+		updatePanel(weaponPanel, "w");
 	}
 	
 	/*
 	 * updates a given panel
 	 * @param JPanel, ArrayList<JTextField>
 	 */
-	public static void updatePanel(JPanel panel, ArrayList<JTextField> Typelist) {
+	public static void updatePanel(JPanel panel, String key) {
 		panel.removeAll();
 		
 		ArrayList<JTextField> seenList = new ArrayList<JTextField>();
 		ArrayList<JTextField> handList = new ArrayList<JTextField>();
 		
-		// iterate through list to separate out hand and seen cards
-		for(int i = Typelist.size() - 1; i >= 0; --i) {// running a for loop backwards to remove hand cards
-			if (Typelist.get(i).getName().equals("Seen")) {
-				seenList.add(Typelist.get(i));
-			}
-			else if (Typelist.get(i).getName().equals("Hand")) {
-				handList.add(Typelist.get(i));
-				Typelist.remove(i); // remove hand cards for next round
-			}
+		switch (key) {
+		case "p":
+			handList = playersHand;
+			seenList = playersSeen;
+			break;
+		case "r":
+			handList = roomsHand;
+			seenList = roomsSeen;
+			break;
+		case "w":
+			handList = weaponsHand;
+			seenList = weaponsSeen;
+			break;
 		}
 		
 		JLabel hand = new JLabel("In Hand:");
