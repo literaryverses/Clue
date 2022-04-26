@@ -11,8 +11,8 @@ public class GameControlPanel extends JPanel{
 	private static JTextField rollNum = new JTextField(3);
 	private static JTextField guessText = new JTextField(20);
 	private static JTextField guessResult = new JTextField(20);
-	
-	
+	JButton accuseButton;
+	JButton nextButton;
 	/**
 	 * Constructor for the panel, it does 90% of the work
 	 */
@@ -59,9 +59,9 @@ public class GameControlPanel extends JPanel{
 	 * create buttons for turn options panel
 	 */
 	public void createButtons(JPanel turnOptionsPanel) {
-		JButton accuseButton = new JButton("Make Accusation");
+		accuseButton = new JButton("Make Accusation");
 		turnOptionsPanel.add(accuseButton);
-		JButton nextButton = new JButton("NEXT!");
+		nextButton = new JButton("NEXT!");
 		turnOptionsPanel.add(nextButton);
 		nextButton.addActionListener(new NextListener());
 	}
@@ -93,7 +93,11 @@ public class GameControlPanel extends JPanel{
 	 */
 	private class NextListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			Board.getInstance().updateTurn();
+			if (e.getSource() == nextButton) {
+				Board.getInstance().updateTurn();
+			} else if (e.getSource() == accuseButton) {
+				Board.getInstance().doAccusation();
+			}
 		}
 	}
 

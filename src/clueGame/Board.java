@@ -62,7 +62,7 @@ public class Board extends JPanel implements MouseListener {
     	t.start();
     }
 	
-	public JDialog suggestOrAccuse(String inRoom, boolean isAccusation) {
+	/*public JDialog suggestOrAccuse(String inRoom, boolean isAccusation) {
 		JDialog suggestOptions = new JDialog();
 		suggestOptions.setLayout(new GridLayout(0,2));
 		
@@ -104,6 +104,31 @@ public class Board extends JPanel implements MouseListener {
 		
 		return suggestOptions;
 	}
+	*/
+    
+    public void doAccusation() {
+    	if (turn != 5) {
+    		JOptionPane.showMessageDialog(this, "It's not your turn");
+    	} 
+    	AccuSuggest accuse = new AccuSuggest(ClueGame.getInstance(), "Make an Accussation", null);
+    	ArrayList<Card> accusationCards = accuse.getCards();
+    	
+    	if (accusationCards.size() == 0) {
+    		return;
+    	}
+    	
+    	Solution guess = new Solution();
+    	for (Card card : accusationCards) {
+    		guess.add(card);
+    	}
+    	
+    	if (checkAccusation(guess)) {
+    		ClueGame.getInstance().handleEndgame(1);
+    	} else {
+    		ClueGame.getInstance().handleEndgame(2);
+    	}
+    	return;
+    }
     
     /*
      * timer to update players moving
@@ -713,6 +738,11 @@ public class Board extends JPanel implements MouseListener {
     	return theAnswer;
     }
 	
+    public String getAnswerText() {
+    	String text = theAnswer.getPerson() + " killed with a " + theAnswer.getWeapon() + " in the " + theAnswer.getRoom();
+    	return text;
+    }
+    
 	/*
 	 * gets room of given cell
 	 * @param BoardCell cell

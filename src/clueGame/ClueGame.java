@@ -45,7 +45,7 @@ public class ClueGame extends JFrame {
     /*
      * returns instance of ClueGame
      */
-    public ClueGame getInstance() {
+    public static ClueGame getInstance() {
         return game;
     }
     
@@ -70,6 +70,23 @@ public class ClueGame extends JFrame {
     /*
      * main
      */
+    
+    public void handleEndgame(int endgame) {
+    	String answerInfo = board.getAnswerText();
+    	switch (endgame) {
+    	case 1:
+    		JOptionPane.showMessageDialog(board, "You were right! " + answerInfo);
+    		break;
+    	case 2: 
+    		JOptionPane.showMessageDialog(board, "You were wrong! " + answerInfo);
+    		break;
+    	case 3:
+    		JOptionPane.showMessageDialog(board, "The Computers found the solution! " + answerInfo);
+    		break;
+    	}
+    	System.exit(0);
+    }
+    
     public static void main(String[] args) {
         game.setVisible(true);
     }
