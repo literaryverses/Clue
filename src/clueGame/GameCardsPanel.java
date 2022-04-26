@@ -78,6 +78,7 @@ public class GameCardsPanel extends JPanel{
 			weapons.add(field);
 			break;
 		}
+		updateAll();
 	}
 	
 	/*
@@ -110,7 +111,7 @@ public class GameCardsPanel extends JPanel{
 	/*
 	 * creates an empty JTextField
 	 */
-	public JTextField empty() {
+	public static JTextField empty() {
 		JTextField empty = new JTextField(20);
 		empty.setEditable(false);
 		empty.setText("None");
@@ -120,7 +121,7 @@ public class GameCardsPanel extends JPanel{
 	/*
 	 * updates all the panels
 	 */
-	public void updateAll() {
+	public static void updateAll() {
 		updatePanel(playersPanel, players);
 		updatePanel(roomPanel, rooms);
 		updatePanel(weaponPanel, weapons);
@@ -130,7 +131,7 @@ public class GameCardsPanel extends JPanel{
 	 * updates a given panel
 	 * @param JPanel, ArrayList<JTextField>
 	 */
-	public void updatePanel(JPanel panel, ArrayList<JTextField> Typelist) {
+	public static void updatePanel(JPanel panel, ArrayList<JTextField> Typelist) {
 		panel.removeAll();
 		
 		ArrayList<JTextField> seenList = new ArrayList<JTextField>();
