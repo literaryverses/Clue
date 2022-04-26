@@ -339,6 +339,7 @@ public class Board extends JPanel implements MouseListener {
     	Card disprovedCard = handleSuggestion(guess);
     	ArrayList<Card> seenCards = players.get(5).getSeen();
     	if (!(seenCards.contains(disprovedCard) || players.get(5).getHand().contains(disprovedCard))) {
+    		System.out.println("here");
     		players.get(5).seeCard(disprovedCard);
     		for (Player player : players) {
     			if (player.getHand().contains(disprovedCard)) {
@@ -346,7 +347,8 @@ public class Board extends JPanel implements MouseListener {
     			}
     		}
     	}
-    	
+    	System.out.println("I am here");
+    	ClueGame.redraw();
     	return;
 	}
     

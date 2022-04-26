@@ -63,15 +63,18 @@ public class GameCardsPanel extends JPanel{
 		field.setName("Seen");
 		field.setBackground(player.getColor());
 		field.setEditable(false);
-		
+		System.out.println("I have seen a card");
 		switch (card.getType().name()) { // add card to array by type
 		case "PERSON":
+			System.out.println("added");
 			players.add(field);
 			break;
 		case "ROOM":
+			System.out.println("added");
 			rooms.add(field);
 			break;
 		case "WEAPON":
+			System.out.println("added");
 			weapons.add(field);
 			break;
 		}

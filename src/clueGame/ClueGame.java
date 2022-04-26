@@ -63,7 +63,8 @@ public class ClueGame extends JFrame {
     /*
      * redraws game
      */
-    public void redraw() {
+    public static void redraw() {
+    	System.out.println("drawing!!");
         game.revalidate();
     }
     
