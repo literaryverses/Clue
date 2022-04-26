@@ -68,25 +68,27 @@ public class ClueGame extends JFrame {
     }
     
     /*
-     * main
+     * handles the end scenarios of game
      */
-    
     public void handleEndgame(int endgame) {
     	String answerInfo = board.getAnswerText();
     	switch (endgame) {
-    	case 1:
+    	case 1: // when player accusation correct
     		JOptionPane.showMessageDialog(board, "You were right! " + answerInfo);
     		break;
-    	case 2: 
+    	case 2: // when player accusation incorrect
     		JOptionPane.showMessageDialog(board, "You were wrong! " + answerInfo);
     		break;
-    	case 3:
+    	case 3: // when computer accusation correct
     		JOptionPane.showMessageDialog(board, "The Computers found the solution! " + answerInfo);
     		break;
     	}
     	System.exit(0);
     }
     
+    /*
+     * main
+     */
     public static void main(String[] args) {
         game.setVisible(true);
     }
