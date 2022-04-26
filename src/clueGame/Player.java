@@ -9,6 +9,7 @@ public abstract class Player {
 	protected int row, column, xPos, yPos;
 	private static int nextColor;
 	protected ArrayList<Card> hand = new ArrayList<Card>();
+	protected ArrayList<Card> seen = new ArrayList<Card>();
 	
 	/*
 	 * Constructor for player
@@ -78,6 +79,16 @@ public abstract class Player {
 		return column;
 	}
 	
+	public ArrayList<Card> getSeen() {
+		return seen;
+	}
+
+	public void seeCard(Card card) {
+		if (!this.seen.contains(card)) {
+			seen.add(card);
+		}
+	}
+	
 	public int[] getPos() {
 		int[] pos = {row, column};
 		return pos;
@@ -130,8 +141,6 @@ public abstract class Player {
 			ArrayList<Card> deck);
 
 	protected abstract void setRoomPlayerIn(Map<Character, Room> roomMap, BoardCell[][] grid);
-
-	protected abstract void seeCard(Card card);
 
 	protected abstract Solution createSuggestion(ArrayList<Card> deck);
 }

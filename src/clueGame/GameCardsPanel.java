@@ -58,7 +58,7 @@ public class GameCardsPanel extends JPanel{
 	/*
 	 * adds the seen cards from computer players
 	 */
-	public void setSeen(Player player, Card card) {
+	public static void setSeen(Player player, Card card) {
 		JTextField field = new JTextField(card.getName());
 		field.setName("Seen");
 		field.setBackground(player.getColor());

@@ -88,10 +88,4 @@ public class ComputerPlayer extends Player {
 		hand.add(card);
 		seeCard(card);
 	}
-	
-	public void seeCard(Card card) {
-		if (!this.seen.contains(card)) {
-			seen.add(card);
-		}
-	}
 }

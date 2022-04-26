@@ -106,31 +106,7 @@ public class Board extends JPanel implements MouseListener {
 	}
 	*/
     
-    public void doAccusation() {
-    	if (turn != 5) {
-    		JOptionPane.showMessageDialog(this, "It's not your turn");
-    	} 
-    	System.out.println("In do Accuse");
-    	AccuSuggest accuse = new AccuSuggest(ClueGame.getInstance(), "Make an Accussation", null);
-    	ArrayList<Card> accusationCards = accuse.getCards();
-    	
-    	if (accusationCards == null) {
-    		return;
-    	}
-    	
-    	Solution guess = new Solution();
-    	for (Card card : accusationCards) {
-    		guess.add(card);
-    	}
-    	
-    	if (checkAccusation(guess)) {
-    		ClueGame.getInstance().handleEndgame(1);
-    	} else {
-    		ClueGame.getInstance().handleEndgame(2);
-    	}
-    	return;
-    }
-    
+
     /*
      * timer to update players moving
      */
@@ -305,7 +281,12 @@ public class Board extends JPanel implements MouseListener {
 			if ( cell != null) {
 				grid[player.getRow()][player.getCol()].setOccupied(false);
 				player.setPlace(cell.getRow(), cell.getColumn());
-				cell.setOccupied(true); 
+				if (cell.isRoomCenter()) {
+					Room room = roomMap.get(cell.getInitial());
+					doSuggestion(room);
+				} else {
+					cell.setOccupied(true); 
+				}
 				turnOver = true; 
 				targets.clear();
 			} else {
@@ -315,6 +296,58 @@ public class Board extends JPanel implements MouseListener {
 			//FIXME make suggestion if player in room
 		}
 		repaint();
+	}
+	
+    public void doAccusation() {
+    	if (turn != 5) {
+    		JOptionPane.showMessageDialog(this, "It's not your turn");
+    	} 
+    	AccuSuggest accuse = new AccuSuggest(ClueGame.getInstance(), "Make an Accussation", null);
+    	ArrayList<Card> accusationCards = accuse.getCards();
+    	
+    	if (accusationCards == null) {
+    		return;
+    	}
+    	
+    	Solution guess = new Solution();
+    	for (Card card : accusationCards) {
+    		guess.add(card);
+    	}
+    	
+    	if (checkAccusation(guess)) {
+    		ClueGame.getInstance().handleEndgame(1);
+    	} else {
+    		ClueGame.getInstance().handleEndgame(2);
+    	}
+    	return;
+    }
+    
+	
+	public void doSuggestion(Room room) {
+		AccuSuggest suggest = new AccuSuggest(ClueGame.getInstance(), "Make an Suggestion", room);
+    	ArrayList<Card> suggestionCards = suggest.getCards();
+    	
+    	if (suggestionCards == null) {
+    		return;
+    	}
+    	
+    	Solution guess = new Solution();
+    	for (Card card : suggestionCards) {
+    		guess.add(card);
+    	}
+    	
+    	Card disprovedCard = handleSuggestion(guess);
+    	ArrayList<Card> seenCards = players.get(5).getSeen();
+    	if (!(seenCards.contains(disprovedCard) || players.get(5).getHand().contains(disprovedCard))) {
+    		players.get(5).seeCard(disprovedCard);
+    		for (Player player : players) {
+    			if (player.getHand().contains(disprovedCard)) {
+    				GameCardsPanel.setSeen(player,disprovedCard);
+    			}
+    		}
+    	}
+    	
+    	return;
 	}
     
     
