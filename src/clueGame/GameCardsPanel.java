@@ -68,14 +68,30 @@ public class GameCardsPanel extends JPanel{
 		field.setName("Seen");	
 		field.setBackground(player.getColor());
 		field.setEditable(false);
+				
 		switch (card.getType().name()) { // add card to array by type
 		case "PERSON":
+			for (JTextField alreadyIn : playersSeen) {
+				if (alreadyIn.getText().equals(field.getText())) {
+					return;
+				}
+			}
 			playersSeen.add(field);
 			break;
 		case "ROOM":
+			for (JTextField alreadyIn : roomsSeen) {
+				if (alreadyIn.getText().equals(field.getText())) {
+					return;
+				}
+			}
 			roomsSeen.add(field);
 			break;
 		case "WEAPON":
+			for (JTextField alreadyIn : weaponsSeen) {
+				if (alreadyIn.getText().equals(field.getText())) {
+					return;
+				}
+			}
 			weaponsSeen.add(field);
 			break;
 		}
