@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+//This creates the pop up window of the suggestion or accusation box
 public class AccuSuggest extends JDialog implements ActionListener {
 	
 	private JComboBox<String> room;
@@ -34,6 +35,7 @@ public class AccuSuggest extends JDialog implements ActionListener {
 		player = new JComboBox<String>();
 		weapon = new JComboBox<String>();
 		
+		//Creates the pull downs
 		for(Card card : board.getDeck()) {
 			if(card.getType() == CardType.ROOM)   { 
 				room.addItem(card.getName());   
@@ -44,6 +46,7 @@ public class AccuSuggest extends JDialog implements ActionListener {
 			}
 		}
 		
+		// This would be initialized with a suggestion coming from a room
 		if (inRoom != null) {
 			room.removeAllItems();
 			room.addItem(inRoom.getName());
@@ -99,6 +102,7 @@ public class AccuSuggest extends JDialog implements ActionListener {
 		
 	}
 	
+	// Returns the cards from the box
 	public ArrayList<Card> getCards() {
 		this.setVisible(true);
 		return cards;
