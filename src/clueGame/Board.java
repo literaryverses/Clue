@@ -170,6 +170,7 @@ public class Board extends JPanel implements MouseListener {
      * @param Player player
      */
     public void computerMove(Player player) {
+    	//Checks to see if an accussation has been made, and if so deals with it accordingly
     	if (theAccusation!=null) {
     		if (checkAccusation(theAccusation)) {
         		ClueGame.getInstance().handleEndgame(3);
@@ -304,24 +305,32 @@ public class Board extends JPanel implements MouseListener {
 	}
 	
     public void doAccusation() {
+    	//The player is in turn 5, so if it isn't players turn, it will not let the player accuse
     	if (turn != 5) {
     		JOptionPane.showMessageDialog(this, "It's not your turn");
+    		return;
     	} 
+    	// Creates the panel for the accusation and gets the cards the player selects
     	AccuSuggest accuse = new AccuSuggest(ClueGame.getInstance(), "Make an Accussation", null);
     	ArrayList<Card> accusationCards = accuse.getCards();
     	
+    	// It would be null if the player hits cancel and therefore does do the rest of the accusation code
     	if (accusationCards == null) {
     		return;
     	}
+    	
     	
     	Solution guess = new Solution();
     	for (Card card : accusationCards) {
     		guess.add(card);
     	}
     	
+    	
     	if (checkAccusation(guess)) {
+    		// If the player won, we go to endgame 1 win
     		ClueGame.getInstance().handleEndgame(1);
     	} else {
+    		// If player makes a bad accusation we go to endgame 2 loss
     		ClueGame.getInstance().handleEndgame(2);
     	}
     	return;
@@ -329,9 +338,11 @@ public class Board extends JPanel implements MouseListener {
     
 	
 	public void doSuggestion(Room room, Player player) {
+		// This whole thing works very similarly to doAccusation
 		AccuSuggest suggest = new AccuSuggest(ClueGame.getInstance(), "Make an Suggestion", room);
     	ArrayList<Card> suggestionCards = suggest.getCards();
     	
+    	// empty if hit cancel
     	if (suggestionCards == null) {
     		return;
     	}
@@ -340,6 +351,7 @@ public class Board extends JPanel implements MouseListener {
     	for (Card card : suggestionCards) {
     		guess.add(card);
     	}
+    	
     	/*
     	Card disprovedCard = handleSuggestion(guess);
     	ArrayList<Card> seenCards = players.get(5).getSeen();
@@ -467,6 +479,9 @@ public class Board extends JPanel implements MouseListener {
     			}
     		}
     	}
+    	
+    	//reshuffles the deck after, because the first options when making an accusation were always the solution
+    	Collections.shuffle(deck);
     }
     
 	/*
