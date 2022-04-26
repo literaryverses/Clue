@@ -64,6 +64,7 @@ public class GameControlPanel extends JPanel{
 		nextButton = new JButton("NEXT!");
 		turnOptionsPanel.add(nextButton);
 		nextButton.addActionListener(new NextListener());
+		accuseButton.addActionListener(new NextListener());
 	}
 
 	/*
@@ -93,9 +94,12 @@ public class GameControlPanel extends JPanel{
 	 */
 	private class NextListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			System.out.println("ActionPefromed");
 			if (e.getSource() == nextButton) {
+				System.out.println("Next");
 				Board.getInstance().updateTurn();
 			} else if (e.getSource() == accuseButton) {
+				System.out.println("Accuse");
 				Board.getInstance().doAccusation();
 			}
 		}

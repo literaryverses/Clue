@@ -110,6 +110,7 @@ public class Board extends JPanel implements MouseListener {
     	if (turn != 5) {
     		JOptionPane.showMessageDialog(this, "It's not your turn");
     	} 
+    	System.out.println("In do Accuse");
     	AccuSuggest accuse = new AccuSuggest(ClueGame.getInstance(), "Make an Accussation", null);
     	ArrayList<Card> accusationCards = accuse.getCards();
     	
@@ -739,7 +740,7 @@ public class Board extends JPanel implements MouseListener {
     }
 	
     public String getAnswerText() {
-    	String text = theAnswer.getPerson() + " killed with a " + theAnswer.getWeapon() + " in the " + theAnswer.getRoom();
+    	String text = theAnswer.getPerson().getName() + " killed with a " + theAnswer.getWeapon().getName() + " in the " + theAnswer.getRoom().getName();
     	return text;
     }
     
