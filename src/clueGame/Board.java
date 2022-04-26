@@ -171,7 +171,12 @@ public class Board extends JPanel implements MouseListener {
      */
     public void computerMove(Player player) {
     	if (theAccusation!=null) {
-    		// Make accusation FIXME
+    		if (checkAccusation(theAccusation)) {
+        		ClueGame.getInstance().handleEndgame(3);
+        	} else {
+        		optionsScreen(player.getName()+"is killed");
+        		players.remove(players.indexOf(player));
+        	}
     	}
     	
     	BoardCell movedCell = computerPlayerMove(player);
@@ -529,6 +534,14 @@ public class Board extends JPanel implements MouseListener {
     			player.setRoomPlayerIn(roomMap, grid);
     		}
     	}
+    }
+    
+    /*
+     * creates splashScreen
+     */
+    public void optionsScreen(String message) { 
+    	JOptionPane pane = new JOptionPane();
+    	JOptionPane.showMessageDialog(pane,message);
     }
     
     /*

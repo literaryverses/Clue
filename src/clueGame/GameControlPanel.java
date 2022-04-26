@@ -113,14 +113,6 @@ public class GameControlPanel extends JPanel{
 		playerTurn.setEditable(false);
 		rollNum.setEditable(false);
 	}
-	
-	/*
-     * creates splashScreen
-     */
-    public void optionsScreen(String message) { 
-    	JOptionPane pane = new JOptionPane();
-    	JOptionPane.showMessageDialog(pane,message);
-    }
 
 	/*
 	 * Sets the guess display

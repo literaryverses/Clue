@@ -38,7 +38,7 @@ public class ClueGame extends JFrame {
     			playerName = player.getName(); // get HumanPlayer name
     		}
     	}
-    	controlPanel.optionsScreen( "You are "+playerName+"\nCan you find the solution\nbefore the computer players?");
+    	board.optionsScreen( "You are "+playerName+"\nCan you find the solution\nbefore the computer players?");
         
     }
     
