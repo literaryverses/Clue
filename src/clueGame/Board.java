@@ -190,7 +190,7 @@ public class Board extends JPanel implements MouseListener {
     					Room room = entry.getValue();
     					if (room.getName().equals(suggestion.getRoom().getName())) {
     						BoardCell roomCell = room.getCenterCell();
-    						grid[player.getRow()][accused.getCol()].setOccupied(false);
+    						grid[accused.getRow()][accused.getCol()].setOccupied(false);
     						accused.setPlace(roomCell.getRow(), roomCell.getColumn());
     						break;
     					}
@@ -357,7 +357,7 @@ public class Board extends JPanel implements MouseListener {
 			if (accused.getName().equals(guess.getPerson().getName())) {
 				if (room.getName().equals(guess.getRoom().getName())) {
 					BoardCell roomCell = room.getCenterCell();
-					grid[player.getRow()][accused.getCol()].setOccupied(false);
+					grid[accused.getRow()][accused.getCol()].setOccupied(false);
 					accused.setPlace(roomCell.getRow(), roomCell.getColumn());
 				}				
 				break;
