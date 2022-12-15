@@ -1,3 +1,2 @@
-CSCI306, Section A
-Jun Lee
-Matthew Brause
+# Clue
+This was a game of Clue developed for a Software Engineering class
